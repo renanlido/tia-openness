@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 Getting started
+    url: https://github.com/renanlido/tia-openness/blob/main/docs/getting-started.md
+    about: Download → install → activate → start the API.
+  - name: 🔌 MCP / AI client setup
+    url: https://github.com/renanlido/tia-openness/blob/main/docs/INSTALL.md
+    about: Wire the tia MCP into Claude, Codex, Gemini, Cursor, VS Code, Windsurf.
+  - name: 🔒 Report a security vulnerability
+    url: https://github.com/renanlido/tia-openness/security/advisories/new
+    about: Please disclose security issues privately, not as a public issue.
+  - name: 🧩 tia-harness (plugin) issues
+    url: https://github.com/renanlido/tia-harness/issues
+    about: Issues about the Claude Code plugin / open client layer.

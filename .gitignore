@@ -1,0 +1,13 @@
+# This is a docs/releases hub — no source code lives here.
+# Release binaries are attached to GitHub Releases, not committed.
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*~
+.vscode/
+.idea/
+
+# Stray binaries (belong on Releases, never in git)
+*.exe
+*.zip

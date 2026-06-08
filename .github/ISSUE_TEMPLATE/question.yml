@@ -1,0 +1,36 @@
+name: 💬 Question / license request
+description: Ask a question, or request a trial or a license
+title: "[Question]: "
+labels: ["support"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for usage questions, **trial requests**, and **license / pricing** inquiries.
+        For setup, the [Getting started](../../docs/getting-started.md) and
+        [docs/INSTALL.md](../../docs/INSTALL.md) guides cover most cases.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What do you need?
+      options:
+        - Usage question
+        - Trial license request
+        - License / pricing inquiry
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Your question, or — for a license — your use case, team size, and CPU families.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment (if relevant)
+      placeholder: TIA Portal V21 · app-v1.3.1 · S7-1500
+    validations:
+      required: false
