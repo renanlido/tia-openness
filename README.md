@@ -51,6 +51,20 @@ See the **[Getting started guide](docs/getting-started.md)** for the full walkth
 
 ---
 
+## Languages
+
+The app ships **bilingual — English / Portuguese**:
+
+- The **desktop app** (GUI, CLI, setup and diagnostics) auto-detects your **Windows language**
+  (English everywhere outside Brazil). You can also pick explicitly: in the installer wizard, in the
+  app's **Language** selector, or with `--lang en|pt` on the command line.
+- The **docs** and the **`tia` MCP server** (tool descriptions, remediation hints, messages) are
+  **English**.
+- The **HTTP API** speaks English; a few human-readable status texts (environment checks, license
+  status) follow the app's configured language.
+
+---
+
 ## Try it — free download, license to use
 
 The app follows the **"download free, activate with a license"** model (like JetBrains / Sublime):
