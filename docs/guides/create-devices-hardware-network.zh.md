@@ -96,8 +96,9 @@ Post "/network/connect" @{ device = "Station_1"; subnet = "PN_Line2"; ip = "192.
 
 对应的 MCP 工具是 `tia_subnet_create`、`tia_device_create`、`tia_device_plug` 和 `tia_network_connect`。标识符中的版本部分用斜杠书写，即 `/V2.9`，
 绝不能写成 `:V2.9`；PLCWare 会拒绝后一种写法。CPU 及其 IO 设备必须在同一个子网上，并且每个 IO 系统只由一个 `createIoSystem` 创建。
-`tia_network_connect` 的响应带有 `postcheck`：serve 在写入后会重新读取该连接；若出现 `409 postcheck_failed`，说明写入没有达到预期效果，
-请先用 `tia_device_network`（需要 PLCWare 应用 1.7.0 或更高版本）重新读取接口，再重试。
+从 PLCWare 应用 1.7.0（目前处于 beta 阶段）起，`tia_network_connect` 的响应带有 `postcheck`：serve 在写入后会重新读取该连接；若出现
+`409 postcheck_failed`，说明写入没有达到预期效果，请先用 `tia_device_network` 重新读取接口，再重试。稳定版应用 1.6.3 不会校验写入结果：请事后自行检查配置，
+可以在 TIA Portal 的网络视图中查看，或用 `tia_devices` 和 `tia_subnets` 重新读取。
 
 这些工具都支持 `dryRun: true`，它会检查各项保护并返回计划，而不修改项目。Openness 没有回滚功能，所以创建之前请先确认该名称尚不存在：重复运行不会收敛到同一结果。
 

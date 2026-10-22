@@ -62,11 +62,22 @@ Codex、Gemini CLI、Cursor、VS Code 和 Windsurf 使用同样的命令 `npx -y
 ## 当你的 AI 客户端在另一台机器上
 
 一种常见的部署是：编辑器在 Mac 上，`serve` 在 Windows 虚拟机里。在 Windows 一侧，请在托盘应用中允许远程访问（**API** 选项卡，**Allow remote access...**，它会保留 URL 并打开防火墙端口），
-把主机设为 `0.0.0.0` 并启动 API；在命令行中则是 `TIAOpenness.exe serve 5000 --host 0.0.0.0`。该机器上的许可证必须已激活。在客户端一侧，让 MCP 指向这台虚拟机：
+把主机设为 `0.0.0.0` 并启动 API；在命令行中则是 `TIAOpenness.exe serve 5000 --host 0.0.0.0`。该机器上的许可证必须已激活。在客户端一侧，把虚拟机的地址直接写进 MCP 条目本身，替换
+`http://localhost:5000`。MCP 读取的是条目里的 `TIA_API_BASE`：在你的 shell 中导出的变量不会替换它。
+
+对于 Claude Code，用虚拟机的地址重新添加该服务器（如果 `tia` 已经注册，请先用 `claude mcp remove tia` 删除）：
 
 ```bash
-export TIA_API_BASE="http://<虚拟机IP>:5000"
+claude mcp add tia --scope user -e TIA_API_BASE=http://<虚拟机IP>:5000 -- npx -y @renanlido/tia-openness-mcp
 ```
+
+对于 Claude Desktop 以及其他使用 JSON 配置的客户端，请修改文件中的值：
+
+```json
+"env": { "TIA_API_BASE": "http://<虚拟机IP>:5000" }
+```
+
+然后开启新会话或重启应用，让 MCP 以新地址启动。
 
 许可证只负责激活服务器，并不识别调用者是谁。请用防火墙或 VPN 控制访问。
 

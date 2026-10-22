@@ -108,10 +108,11 @@ Post "/network/connect" @{ device = "Station_1"; subnet = "PN_Line2"; ip = "192.
 
 As ferramentas MCP são `tia_subnet_create`, `tia_device_create`, `tia_device_plug` e `tia_network_connect`. A parte da
 versão de um identificador se escreve com barra, `/V2.9`, nunca `:V2.9`; o PLCWare recusa a segunda forma. A CPU e seus
-dispositivos IO precisam estar na mesma sub-rede, e exatamente um `createIoSystem` cria cada sistema IO. A resposta de
-`tia_network_connect` traz um `postcheck`: o serve relê a conexão depois de gravá-la, e `409 postcheck_failed` significa
-que a gravação não teve o efeito pedido, então releia a interface com `tia_device_network` (app PLCWare 1.7.0 ou
-posterior) antes de tentar de novo.
+dispositivos IO precisam estar na mesma sub-rede, e exatamente um `createIoSystem` cria cada sistema IO. A partir do
+app PLCWare 1.7.0 (hoje em beta), a resposta de `tia_network_connect` traz um `postcheck`: o serve relê a conexão depois
+de gravá-la, e `409 postcheck_failed` significa que a gravação não teve o efeito pedido, então releia a interface com
+`tia_device_network` antes de tentar de novo. O app estável, 1.6.3, não verifica a gravação: confira a configuração
+você mesmo depois, na visão de rede do TIA Portal ou relendo-a com `tia_devices` e `tia_subnets`.
 
 Todas essas ferramentas aceitam `dryRun: true`, que confere as travas e devolve o plano sem alterar o projeto. O Openness
 não tem rollback, então confira que um nome ainda não existe antes de criá-lo: repetir a execução não converge.

@@ -11,7 +11,8 @@ trabalho pela API HTTP e pelas ferramentas MCP do PLCWare. Vale para o **TIA Por
 | Você tem | Openness | Ferramenta do PLCWare |
 |---|---|---|
 | Lógica LAD, FBD ou GRAPH, ou qualquer bloco em XML | Importação SimaticML | `tia_import_xml` (`POST /plcs/{plc}/import`) |
-| SCL ou STL em texto | Fonte externa e depois gerar os blocos | `tia_source_put` (`POST /plcs/{plc}/source`) |
+| SCL em texto | Fonte externa (`.scl`) e depois gerar os blocos | `tia_source_put` (`POST /plcs/{plc}/source`) |
+| STL em texto | Fonte externa (`.awl`) e depois gerar os blocos | Não a `tia_source_put`, que só escreve SCL: importe o bloco como SimaticML com `tia_import_xml` |
 | Um tipo de dados de usuário (UDT) | Importação XML do tipo | `tia_types_import` (`POST /plcs/{plc}/types/import`) |
 
 LAD, FBD e GRAPH não têm fonte em texto, então as ferramentas do PLCWare não desenham redes novas do zero. O fluxo

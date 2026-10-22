@@ -9,7 +9,8 @@ API and MCP tools. It applies to **TIA Portal V21**.
 | You have | Openness | PLCWare tool |
 |---|---|---|
 | LAD, FBD or GRAPH logic, or any block as XML | SimaticML import | `tia_import_xml` (`POST /plcs/{plc}/import`) |
-| SCL or STL as text | External source, then generate blocks | `tia_source_put` (`POST /plcs/{plc}/source`) |
+| SCL as text | External source (`.scl`), then generate blocks | `tia_source_put` (`POST /plcs/{plc}/source`) |
+| STL as text | External source (`.awl`), then generate blocks | Not `tia_source_put`, which writes SCL only: import the block as SimaticML with `tia_import_xml` |
 | A user data type (UDT) | XML import of the type | `tia_types_import` (`POST /plcs/{plc}/types/import`) |
 
 LAD, FBD and GRAPH have no text source, so PLCWare's tools do not draw new networks from nothing. The usual flow is

@@ -107,10 +107,12 @@ Post "/network/connect" @{ device = "Station_1"; subnet = "PN_Line2"; ip = "192.
 
 Las herramientas MCP son `tia_subnet_create`, `tia_device_create`, `tia_device_plug` y `tia_network_connect`. La parte de
 versión de un identificador se escribe con barra, `/V2.9`, nunca `:V2.9`; PLCWare rechaza la segunda forma. La CPU y sus
-dispositivos IO deben estar en la misma subred, y exactamente un `createIoSystem` crea cada sistema IO. La respuesta de
-`tia_network_connect` trae un `postcheck`: el serve vuelve a leer la conexión después de escribirla, y
-`409 postcheck_failed` significa que la escritura no surtió el efecto pedido, así que vuelve a leer la interfaz con
-`tia_device_network` (app PLCWare 1.7.0 o posterior) antes de reintentar.
+dispositivos IO deben estar en la misma subred, y exactamente un `createIoSystem` crea cada sistema IO. Desde la app
+PLCWare 1.7.0 (hoy en beta), la respuesta de `tia_network_connect` trae un `postcheck`: el serve vuelve a leer la
+conexión después de escribirla, y `409 postcheck_failed` significa que la escritura no surtió el efecto pedido, así que
+vuelve a leer la interfaz con `tia_device_network` antes de reintentar. La app estable, 1.6.3, no verifica la escritura:
+comprueba tú mismo la configuración después, en la vista de red de TIA Portal o volviendo a leerla con `tia_devices` y
+`tia_subnets`.
 
 Todas estas herramientas aceptan `dryRun: true`, que comprueba las protecciones y devuelve el plan sin cambiar el
 proyecto. Openness no tiene rollback, así que comprueba que un nombre todavía no existe antes de crearlo: repetir la

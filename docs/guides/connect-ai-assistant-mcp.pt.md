@@ -71,11 +71,24 @@ variável `TIA_API_BASE`; só muda o lugar onde cada cliente guarda a configura�
 Um arranjo comum é um editor num Mac e o `serve` numa VM Windows. No lado do Windows, permita o acesso remoto no app de
 bandeja (aba **API**, **Allow remote access...**, que reserva a URL e abre a porta no firewall), defina o host como
 `0.0.0.0` e inicie a API; pela linha de comando, `TIAOpenness.exe serve 5000 --host 0.0.0.0`. A licença precisa estar
-ativada nessa máquina. No lado do cliente, aponte o MCP para a VM:
+ativada nessa máquina. No lado do cliente, coloque o endereço da VM na própria
+entrada do MCP, no lugar de `http://localhost:5000`. O `TIA_API_BASE` da entrada é o que o MCP lê: uma variável exportada
+no seu shell não o substitui.
+
+No Claude Code, adicione o servidor de novo com o endereço da VM (se o `tia` já estiver registrado, remova-o antes com
+`claude mcp remove tia`):
 
 ```bash
-export TIA_API_BASE="http://<ip-da-vm>:5000"
+claude mcp add tia --scope user -e TIA_API_BASE=http://<ip-da-vm>:5000 -- npx -y @renanlido/tia-openness-mcp
 ```
+
+No Claude Desktop e nos outros clientes que guardam uma configuração em JSON, troque o valor no arquivo:
+
+```json
+"env": { "TIA_API_BASE": "http://<ip-da-vm>:5000" }
+```
+
+Depois, abra uma nova sessão, ou reinicie o app, para que o MCP inicie com o novo endereço.
 
 A licença ativa o servidor; ela não identifica quem o chama. Controle o acesso com um firewall ou uma VPN.
 

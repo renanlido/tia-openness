@@ -10,7 +10,8 @@ Openness 可以从文件在项目中创建块：任何语言（LAD、FBD、GRAPH
 | 你有 | Openness | PLCWare 工具 |
 |---|---|---|
 | LAD、FBD 或 GRAPH 逻辑，或任何以 XML 表示的块 | SimaticML 导入 | `tia_import_xml`（`POST /plcs/{plc}/import`） |
-| 文本形式的 SCL 或 STL | 外部源文件，然后生成块 | `tia_source_put`（`POST /plcs/{plc}/source`） |
+| 文本形式的 SCL | 外部源文件（`.scl`），然后生成块 | `tia_source_put`（`POST /plcs/{plc}/source`） |
+| 文本形式的 STL | 外部源文件（`.awl`），然后生成块 | 不要用 `tia_source_put`，它只写入 SCL：请用 `tia_import_xml` 以 SimaticML 导入该块 |
 | 用户数据类型（UDT） | 以 XML 导入该类型 | `tia_types_import`（`POST /plcs/{plc}/types/import`） |
 
 LAD、FBD 和 GRAPH 没有文本源，所以 PLCWare 的工具不会凭空绘制新的网络。常见做法是使用模板：有人在 TIA Portal 中画好一次块，

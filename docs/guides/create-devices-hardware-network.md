@@ -104,10 +104,12 @@ Post "/network/connect" @{ device = "Station_1"; subnet = "PN_Line2"; ip = "192.
 
 The MCP tools are `tia_subnet_create`, `tia_device_create`, `tia_device_plug` and `tia_network_connect`. The version part
 of an identifier is written with a slash, `/V2.9`, never `:V2.9`; PLCWare rejects the second form. The CPU and
-its IO devices must be on the same subnet, and exactly one `createIoSystem` creates each IO system. The answer of
-`tia_network_connect` carries a `postcheck`: the serve re-reads the connection after writing it, and
-`409 postcheck_failed` means the write did not take effect as asked, so read the interface again with
-`tia_device_network` (PLCWare app 1.7.0 or later) before you retry.
+its IO devices must be on the same subnet, and exactly one `createIoSystem` creates each IO system. From PLCWare
+app 1.7.0 (currently in beta), the answer of `tia_network_connect` carries a `postcheck`: the serve re-reads the
+connection after writing it, and `409 postcheck_failed` means the write did not take effect as asked, so read the
+interface again with `tia_device_network` before you retry. The stable app, 1.6.3, does not verify the write: check the
+configuration yourself afterwards, in TIA Portal's network view or by reading it back with `tia_devices` and
+`tia_subnets`.
 
 Every one of these tools takes `dryRun: true`, which checks the guards and returns the plan without changing the
 project. There is no rollback in Openness, so check that a name does not exist yet before creating it: a repeated run
