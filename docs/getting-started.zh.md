@@ -46,9 +46,8 @@ TIAOpenness.exe check
 `403 license_required`。
 
 在 GUI 中：**License** 选项卡 → 粘贴你的激活许可证（Activation License）密钥 → **Save**（密钥使用
-Windows DPAPI 加密存储）。还没有许可证？请通过
-[Question / license request](https://github.com/renanlido/tia-openness/issues/new/choose)
-issue 模板**申请试用（trial）或许可证**。
+Windows DPAPI 加密存储）。还没有许可证？请**[开始 30 天免费试用](https://plcware.io/zh/trial?utm_source=github&utm_medium=docs&utm_campaign=getting-started)**：
+自助申请，包含 Pro 权限范围，无需信用卡。
 
 ## 5. 启动 API
 

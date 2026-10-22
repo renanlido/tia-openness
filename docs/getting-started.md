@@ -48,9 +48,8 @@ The app is **free to download but requires a license to run** — without one, e
 `GET /health` returns `403 license_required`.
 
 In the GUI: **License** tab → paste your Activation License key → **Save** (it's stored encrypted
-with Windows DPAPI). Don't have one yet? **Request a trial or a license** via the
-[Question / license request](https://github.com/renanlido/tia-openness/issues/new/choose) issue
-template.
+with Windows DPAPI). Don't have one yet? **[Start the free 30-day trial](https://plcware.io/en/trial?utm_source=github&utm_medium=docs&utm_campaign=getting-started)**:
+it is self-serve, includes the Pro scopes and needs no card.
 
 ## 5. Start the API
 

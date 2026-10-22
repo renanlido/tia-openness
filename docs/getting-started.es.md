@@ -52,9 +52,8 @@ La aplicación es **gratuita de descargar, pero requiere una licencia para ejecu
 todos los endpoints excepto `GET /health` devuelven `403 license_required`.
 
 En la GUI: pestaña **License** → pega tu clave de la licencia de activación (Activation License) →
-**Save** (se almacena cifrada con Windows DPAPI). ¿Aún no tienes una? **Solicita un trial o una
-licencia** mediante la plantilla de issue
-[Question / license request](https://github.com/renanlido/tia-openness/issues/new/choose).
+**Save** (se almacena cifrada con Windows DPAPI). ¿Aún no tienes una? **[Empieza la prueba gratuita de 30 días](https://plcware.io/es/trial?utm_source=github&utm_medium=docs&utm_campaign=getting-started)**:
+es de autoservicio, incluye los permisos (scopes) de Pro y no pide tarjeta.
 
 ## 5. Iniciar la API
 
