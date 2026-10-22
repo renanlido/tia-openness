@@ -4,6 +4,10 @@
 [![MCP npm](https://img.shields.io/npm/v/%40renanlido%2Ftia-openness-mcp?label=tia%20MCP&color=blue)](https://www.npmjs.com/package/@renanlido/tia-openness-mcp)
 [![License](https://img.shields.io/badge/license-Proprietary-red)](EULA.md)
 
+> **Try it free for 30 days.** The trial is self-serve, includes the Pro scopes and needs no card:
+> **[Start the 30-day trial](https://plcware.io/en/trial?utm_source=github&utm_medium=readme&utm_campaign=hub)**
+> · [plcware.io](https://plcware.io/en?utm_source=github&utm_medium=readme&utm_campaign=hub) has the plans and prices.
+
 Automate **Siemens TIA Portal V21** through the **TIA Openness API**, exposed as a local
 **HTTP/JSON API** on the engineering machine. Create devices and networks, generate and import
 SCL/SimaticML, manage blocks/types/tags, and run **compile → download → online** — all behind a
@@ -75,20 +79,18 @@ The app follows the **"download free, activate with a license"** model (like Jet
 - The activation license is a cryptographically signed token, **validated offline** — no phone-home
   required to run.
 
-**Want to evaluate it?** Trial licenses are available on request — open an issue with the
-[💬 Question / license request](https://github.com/renanlido/tia-openness/issues/new/choose)
-template.
+**Want to evaluate it?** Start the self-serve 30-day trial at
+[plcware.io/en/trial](https://plcware.io/en/trial?utm_source=github&utm_medium=readme&utm_campaign=hub): it includes
+the Pro scopes and needs no card.
 
 ---
 
-## Buy / get a license
+## Plans and licensing
 
-Looking to license it for your team or integration business? **Open a
-[license request](https://github.com/renanlido/tia-openness/issues/new/choose)** and we'll get you
-a trial or a quote. Licensing covers per-seat use, with tiers from inspection/scaffolding up to full
-**create → compile → deploy** and hardware control.
-
-Pricing and self-serve checkout are rolling out — for now, requests are handled directly.
+Plans and prices are on [plcware.io](https://plcware.io/en?utm_source=github&utm_medium=readme&utm_campaign=hub).
+Licensing covers per-seat use, with tiers from inspection/scaffolding up to full **create → compile → deploy** and
+hardware control. Questions about licensing for your team or an integration business? Open a
+[question](https://github.com/renanlido/tia-openness/issues/new/choose).
 
 ---
 
@@ -117,6 +119,21 @@ Other clients (Claude Desktop, Codex, Gemini CLI, Cursor, VS Code, Windsurf) and
 
 For an end-to-end harness that turns a structured spec into a verified TIA project, install the
 [**tia-harness**](https://github.com/renanlido/tia-harness) Claude Code plugin.
+
+---
+
+## Guides
+
+Practical guides for TIA Portal Openness, in English, Portuguese, Spanish and Chinese on plcware.io:
+
+- [Export a PLC block to SimaticML XML](https://plcware.io/en/docs/export-plc-block-simaticml?utm_source=github&utm_medium=readme&utm_campaign=hub)
+- [Import LAD, FBD and SCL blocks from code](https://plcware.io/en/docs/import-lad-fbd-scl-blocks?utm_source=github&utm_medium=readme&utm_campaign=hub)
+- [Compile a PLC and read the messages](https://plcware.io/en/docs/compile-plc-read-messages?utm_source=github&utm_medium=readme&utm_campaign=hub)
+- [Create devices, hardware and network](https://plcware.io/en/docs/create-devices-hardware-network?utm_source=github&utm_medium=readme&utm_campaign=hub)
+- [Set up TIA Portal Openness on Windows](https://plcware.io/en/docs/openness-setup-windows?utm_source=github&utm_medium=readme&utm_campaign=hub)
+- [Connect an AI assistant through MCP](https://plcware.io/en/docs/connect-ai-assistant-mcp?utm_source=github&utm_medium=readme&utm_campaign=hub)
+
+The same guides live in this repository under [docs/guides](docs/guides/README.md).
 
 ---
 
