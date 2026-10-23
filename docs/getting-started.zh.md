@@ -82,10 +82,12 @@ TIAOpenness.exe setup-remote 5000 --allow 192.168.x.y   # allow only that source
 
 ## 6. 连接 AI 助手（可选）
 
-从 PLCWare 1.7.1 起，Windows 上 **连接你的 AI 智能体（Connect your AI agents）** 界面中的应用管理文件配置连接会
-使用随应用打包的 `tia` MCP；Claude Desktop 扩展路线使用随应用提供的 `.mcpb`。这些连接方式不需要在系统中安装
-Node.js、npm/`npx`，也不需要访问 npm registry。下方命令及通过命令行安装扩展仍使用 npm/`npx`；较早版本以及
-Mac/Linux/远程主机继续使用 **[docs/INSTALL.zh.md](INSTALL.zh.md)** 中的说明。
+从 PLCWare 1.7.1 起，Windows 上通过 **连接你的 AI 智能体（Connect your AI agents）** 界面新建连接时，Claude
+Code（插件或文件配置）和 Codex（文件配置）使用应用内置的 `tia` MCP；Claude Desktop 使用随应用提供的扩展
+（`.mcpb`）。这些界面连接无需在系统安装 Node.js、npm/`npx`，也无需访问 npm registry。Codex CLI 插件、Gemini
+CLI 扩展、手动配置、较早版本的应用以及 Mac/Linux/远程主机仍使用 `npx`，并需要 Node.js 和 registry 访问权限。
+PLCWare 1.7.1 之前创建的 Claude Code 连接会继续使用 `npx`，直到你在该界面断开并重新连接。详情见
+**[docs/INSTALL.zh.md](INSTALL.zh.md)**。
 
 将 **`tia` MCP** 指向正在运行的 `serve`。如需通过命令行配置 Claude Code：
 
