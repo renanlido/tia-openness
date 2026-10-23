@@ -6,8 +6,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for reporting a bug. Please run **API → Check environment** (or `tia_ping`) first —
-        it catches most setup issues. See [SUPPORT.md](../../SUPPORT.md).
+        Thanks for reporting a bug. Do not post license keys, logs containing secrets, or private project data in this public issue.
+        For trial, license, purchase, or account questions, contact PLCWare privately at
+        [PLCWare support](https://plcware.io/en/support) or support@plcware.io.
+        Please run **API → Check environment** (or `tia_ping`) first — it catches most setup issues. See
+        [SUPPORT.md](../../SUPPORT.md).
   - type: textarea
     id: what-happened
     attributes:

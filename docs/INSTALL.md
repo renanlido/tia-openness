@@ -14,7 +14,7 @@ at the `serve`.
 
 ## Prerequisite (once, on the host with TIA)
 
-Start the `serve` API on the Windows machine that has TIA Portal V21 — via the **tray GUI**
+Start the `serve` API on the Windows machine that has TIA Portal V21 — via the **PLCWare tray GUI**
 ("TIA Openness API" shortcut → "API" tab → "Start API") **or** from the command line:
 
 ```powershell

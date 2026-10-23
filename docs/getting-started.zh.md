@@ -2,7 +2,7 @@
 
 > 简体中文译文。英文原文：[getting-started.md](getting-started.md)。
 
-本指南带你在几分钟内完成从**下载**到**运行中且已授权的 API**的全部步骤。这里的所有操作都可以通过
+本指南带你在几分钟内完成下载，并运行已授权的 PLCWare 应用。这里的所有操作都可以通过
 **系统托盘 GUI** 完成，无需命令行。文中同时给出对应的 CLI 命令，便于自动化。
 
 ```
@@ -31,7 +31,7 @@
 
 ## 3. 检查环境
 
-打开托盘应用（快捷方式 **"TIA Openness API"**）→ **API** 选项卡 → **Check environment**。它会检查
+打开 PLCWare 托盘应用（快捷方式标签 **"TIA Openness API"**）→ **API** 选项卡 → **Check environment**。它会检查
 Windows 用户组、进程是否为 x64，以及 TIA Portal V21 + PublicAPI 是否存在。
 
 等效 CLI 命令：

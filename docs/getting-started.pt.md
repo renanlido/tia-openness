@@ -2,7 +2,7 @@
 
 > Tradução em português. Original em inglês: [getting-started.md](getting-started.md).
 
-Este guia leva você do **download** a uma **API em execução e licenciada** em poucos minutos. Tudo
+Este guia leva você do download a um app PLCWare em execução e com licença, em poucos minutos. Tudo
 o que está aqui pode ser feito pela **GUI de bandeja** — sem linha de comando. Os equivalentes em
 CLI são mostrados para automação.
 
@@ -35,7 +35,7 @@ Na página [**Releases**](https://github.com/renanlido/tia-openness/releases/lat
 
 ## 3. Verificar o ambiente
 
-Abra o app de bandeja (atalho **"TIA Openness API"**) → aba **API** → **Verificar ambiente**. Ele
+Abra o app de bandeja PLCWare (atalho **"TIA Openness API"**) → aba **API** → **Verificar ambiente**. Ele
 verifica o grupo do Windows, se o processo é x64 e se o TIA Portal V21 + PublicAPI estão presentes.
 
 Equivalente em CLI:

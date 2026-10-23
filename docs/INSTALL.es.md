@@ -16,8 +16,8 @@ apunta al `serve`.
 
 ## Requisito previo (una vez, en el host con TIA)
 
-Inicia la API `serve` en la máquina Windows que tiene TIA Portal V21, mediante la **GUI de la bandeja del
-sistema** (acceso directo "TIA Openness API" → pestaña "API" → "Start API") **o** desde la línea de comandos:
+Inicia la API `serve` en la máquina Windows que tiene TIA Portal V21, mediante la **GUI de la bandeja de PLCWare**
+(acceso directo "TIA Openness API" → pestaña "API" → "Start API") **o** desde la línea de comandos:
 
 ```powershell
 TIAOpenness.exe serve 5000              # local

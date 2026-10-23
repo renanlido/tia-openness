@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the **TIA Openness API** app are documented here. Releases are published on
+All notable changes to the **PLCWare** app are documented here. Releases are published on
 the [Releases](https://github.com/renanlido/tia-openness/releases) page under the `app-v*` tag. The
 app is **net48 / x64**, obfuscated for distribution. Installers update **in-place** over previous
 `app-v1.x` versions (same AppId).
