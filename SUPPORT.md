@@ -1,8 +1,8 @@
 # Support
 
-Thanks for using the **TIA Openness API**. Here's how to get help.
+Thanks for using **PLCWare**, the automation API for Siemens TIA Portal V21. Here's how to get help.
 
-## Before you open an issue
+## Before contacting support
 
 1. **Check the [Getting started guide](docs/getting-started.md)** and the
    **[MCP / client setup (docs/INSTALL.md)](docs/INSTALL.md)** — most setup problems are covered there.
@@ -18,10 +18,10 @@ Thanks for using the **TIA Openness API**. Here's how to get help.
 
 | Need | Where |
 |---|---|
-| 🐛 **Bug report** | [New issue → Bug report](https://github.com/renanlido/tia-openness/issues/new/choose) |
-| 💡 **Feature request** | [New issue → Feature request](https://github.com/renanlido/tia-openness/issues/new/choose) |
-| 💬 **Question / license request** | [New issue → Question](https://github.com/renanlido/tia-openness/issues/new/choose) |
-| 🔒 **Security disclosure** | **Do not** open a public issue — see below. |
+| 🐛 **Bug report** | [Open a public bug report](https://github.com/renanlido/tia-openness/issues/new/choose) |
+| 💡 **Feature request** | [Open a public feature request](https://github.com/renanlido/tia-openness/issues/new/choose) |
+| 💬 **Question / license request** | [Open a private support ticket](https://plcware.io/en/support) or email [support@plcware.io](mailto:support@plcware.io) |
+| 🔒 **Security disclosure** | **Do not** post publicly; email [support@plcware.io](mailto:support@plcware.io) privately. |
 
 **Priority support** (email, with response targets per tier) is included with a paid license and the
 contact is delivered with your Activation License.
@@ -38,13 +38,12 @@ It helps us a lot if you include:
 
 ## Security disclosures
 
-If you believe you've found a security vulnerability, please report it **privately** — open a
-[GitHub security advisory](https://github.com/renanlido/tia-openness/security/advisories/new) instead
-of a public issue, so it can be fixed before disclosure.
+If you believe you've found a security vulnerability, please do not disclose it publicly — report it
+**privately** by emailing [support@plcware.io](mailto:support@plcware.io).
 
 ## Scope
 
-This repository tracks the **app / API** (the licensed product). For the open client layers:
+This repository tracks the **PLCWare app / API** (the licensed product). For the open client layers:
 
 - **`tia` MCP** — issues at [the MCP repository](https://www.npmjs.com/package/@renanlido/tia-openness-mcp).
 - **`tia-harness` plugin** — issues at [renanlido/tia-harness](https://github.com/renanlido/tia-harness/issues).

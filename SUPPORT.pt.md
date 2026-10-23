@@ -2,9 +2,9 @@
 
 > Tradução em português. Original em inglês: [SUPPORT.md](SUPPORT.md).
 
-Obrigado por usar a **TIA Openness API**. Veja como obter ajuda.
+Obrigado por usar o **PLCWare**, a API de automação para Siemens TIA Portal V21. Veja como obter ajuda.
 
-## Antes de abrir uma issue
+## Antes de falar com o suporte
 
 1. **Consulte o [guia Primeiros passos](docs/getting-started.pt.md)** e a
    **[configuração do MCP / clientes (docs/INSTALL.pt.md)](docs/INSTALL.pt.md)** — a maioria dos
@@ -22,10 +22,10 @@ Obrigado por usar a **TIA Openness API**. Veja como obter ajuda.
 
 | Necessidade | Onde |
 |---|---|
-| 🐛 **Relato de bug** | [Nova issue → Bug report](https://github.com/renanlido/tia-openness/issues/new/choose) |
-| 💡 **Solicitação de funcionalidade** | [Nova issue → Feature request](https://github.com/renanlido/tia-openness/issues/new/choose) |
-| 💬 **Pergunta / solicitação de licença** | [Nova issue → Question](https://github.com/renanlido/tia-openness/issues/new/choose) |
-| 🔒 **Divulgação de vulnerabilidade** | **Não** abra uma issue pública — veja abaixo. |
+| 🐛 **Relato de bug** | [Enviar relato público de bug](https://github.com/renanlido/tia-openness/issues/new/choose) |
+| 💡 **Solicitação de funcionalidade** | [Enviar solicitação pública de funcionalidade](https://github.com/renanlido/tia-openness/issues/new/choose) |
+| 💬 **Pergunta / solicitação de licença** | [Abra um chamado privado de suporte](https://plcware.io/pt/support) ou escreva para [support@plcware.io](mailto:support@plcware.io) |
+| 🔒 **Divulgação de vulnerabilidade** | **Não** publique; envie o relato **em particular** para [support@plcware.io](mailto:support@plcware.io). |
 
 O **suporte prioritário** (por e-mail, com metas de tempo de resposta por nível) está incluído em uma
 licença paga, e o contato é entregue junto com a sua Activation License.
@@ -42,13 +42,12 @@ Ajuda muito se você incluir:
 
 ## Divulgação de vulnerabilidades
 
-Se você acredita ter encontrado uma vulnerabilidade de segurança, relate-a de forma **privada** — abra
-um [GitHub security advisory](https://github.com/renanlido/tia-openness/security/advisories/new) em vez
-de uma issue pública, para que ela possa ser corrigida antes da divulgação.
+Se você acredita ter encontrado uma vulnerabilidade de segurança, não a divulgue publicamente — relate-a
+**em particular** por e-mail para [support@plcware.io](mailto:support@plcware.io).
 
 ## Escopo
 
-Este repositório acompanha o **app / API** (o produto licenciado). Para as camadas de cliente abertas:
+Este repositório acompanha o **app / API PLCWare** (o produto licenciado). Para as camadas de cliente abertas:
 
 - **MCP `tia`** — issues em [o repositório do MCP](https://www.npmjs.com/package/@renanlido/tia-openness-mcp).
 - **Plugin `tia-harness`** — issues em [renanlido/tia-harness](https://github.com/renanlido/tia-harness/issues).

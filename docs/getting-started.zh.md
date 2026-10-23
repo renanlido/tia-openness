@@ -2,11 +2,11 @@
 
 > 简体中文译文。英文原文：[getting-started.md](getting-started.md)。
 
-本指南带你在几分钟内完成从**下载**到**运行中且已授权的 API**的全部步骤。这里的所有操作都可以通过
+本指南带你在几分钟内完成下载，并运行已授权的 PLCWare 应用。这里的所有操作都可以通过
 **系统托盘 GUI** 完成，无需命令行。文中同时给出对应的 CLI 命令，便于自动化。
 
 ```
-[ your AI editor / CLI ]  --(MCP)-->  [ tia MCP (npx) ]  --(HTTP)-->  [ serve (this app, Windows+TIA) ]
+[ your AI editor / CLI ]  --(MCP)-->  [ tia MCP（应用内置或 npx） ]  --(HTTP)-->  [ serve (this app, Windows+TIA) ]
 ```
 
 ## 1. 前提条件
@@ -31,7 +31,7 @@
 
 ## 3. 检查环境
 
-打开托盘应用（快捷方式 **"TIA Openness API"**）→ **API** 选项卡 → **Check environment**。它会检查
+打开 PLCWare 托盘应用（快捷方式标签 **"TIA Openness API"**）→ **API** 选项卡 → **Check environment**。它会检查
 Windows 用户组、进程是否为 x64，以及 TIA Portal V21 + PublicAPI 是否存在。
 
 等效 CLI 命令：
@@ -82,7 +82,14 @@ TIAOpenness.exe setup-remote 5000 --allow 192.168.x.y   # allow only that source
 
 ## 6. 连接 AI 助手（可选）
 
-将 **`tia` MCP** 指向正在运行的 `serve`。以 **Claude Code** 为例：
+从 PLCWare 1.7.1 起，Windows 上通过 **连接你的 AI 智能体（Connect your AI agents）** 界面新建连接时，Claude
+Code（插件或文件配置）和 Codex（文件配置）使用应用内置的 `tia` MCP；Claude Desktop 使用随应用提供的扩展
+（`.mcpb`）。这些界面连接无需在系统安装 Node.js、npm/`npx`，也无需访问 npm registry。Codex CLI 插件、Gemini
+CLI 扩展、手动配置、较早版本的应用以及 Mac/Linux/远程主机仍使用 `npx`，并需要 Node.js 和 registry 访问权限。
+PLCWare 1.7.1 之前创建的 Claude Code 连接会继续使用 `npx`，直到你在该界面断开并重新连接。详情见
+**[docs/INSTALL.zh.md](INSTALL.zh.md)**。
+
+将 **`tia` MCP** 指向正在运行的 `serve`。如需通过命令行配置 Claude Code：
 
 ```bash
 claude mcp add --transport stdio --env TIA_API_BASE=http://localhost:5000 --scope user tia -- npx -y @renanlido/tia-openness-mcp

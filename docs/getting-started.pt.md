@@ -2,12 +2,12 @@
 
 > Tradução em português. Original em inglês: [getting-started.md](getting-started.md).
 
-Este guia leva você do **download** a uma **API em execução e licenciada** em poucos minutos. Tudo
+Este guia leva você do download a um app PLCWare em execução e com licença, em poucos minutos. Tudo
 o que está aqui pode ser feito pela **GUI de bandeja** — sem linha de comando. Os equivalentes em
 CLI são mostrados para automação.
 
 ```
-[ your AI editor / CLI ]  --(MCP)-->  [ tia MCP (npx) ]  --(HTTP)-->  [ serve (this app, Windows+TIA) ]
+[ your AI editor / CLI ]  --(MCP)-->  [ tia MCP (incluído ou npx) ]  --(HTTP)-->  [ serve (this app, Windows+TIA) ]
 ```
 
 ## 1. Pré-requisitos
@@ -35,7 +35,7 @@ Na página [**Releases**](https://github.com/renanlido/tia-openness/releases/lat
 
 ## 3. Verificar o ambiente
 
-Abra o app de bandeja (atalho **"TIA Openness API"**) → aba **API** → **Verificar ambiente**. Ele
+Abra o app de bandeja PLCWare (atalho **"TIA Openness API"**) → aba **API** → **Verificar ambiente**. Ele
 verifica o grupo do Windows, se o processo é x64 e se o TIA Portal V21 + PublicAPI estão presentes.
 
 Equivalente em CLI:
@@ -87,7 +87,15 @@ TIAOpenness.exe setup-remote 5000 --allow 192.168.x.y   # allow only that source
 
 ## 6. Conectar um assistente de IA (opcional)
 
-Aponte o **MCP `tia`** para o seu `serve` em execução. Para o **Claude Code**:
+A partir do PLCWare 1.7.1 no Windows, uma conexão nova pela tela **Conectar seus agentes de IA** usa o MCP `tia`
+incluído no app para Claude Code (plugin ou configuração por arquivo) e Codex (configuração por arquivo); o Claude
+Desktop usa a extensão incluída (`.mcpb`). Essas conexões pela tela não exigem Node.js, npm/`npx` no sistema nem acesso
+ao registro npm. O plugin de CLI do Codex, a extensão do Gemini CLI, a configuração manual, versões anteriores do app
+e hosts Mac/Linux/remotos continuam usando `npx` e exigem Node.js e acesso ao registro. Uma conexão do Claude Code feita
+antes do PLCWare 1.7.1 continua usando `npx` até você desconectá-la e conectá-la de novo pela tela. Consulte
+**[docs/INSTALL.pt.md](INSTALL.pt.md)** para os detalhes.
+
+Aponte o **MCP `tia`** para o seu `serve` em execução. Para configurar o Claude Code pela linha de comando:
 
 ```bash
 claude mcp add --transport stdio --env TIA_API_BASE=http://localhost:5000 --scope user tia -- npx -y @renanlido/tia-openness-mcp

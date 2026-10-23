@@ -1,4 +1,4 @@
-# TIA Openness API — for Siemens TIA Portal V21
+# PLCWare — for Siemens TIA Portal V21
 
 [![Download](https://img.shields.io/github/v/release/renanlido/tia-openness?label=download&filter=app-v*&color=2ea44f)](https://github.com/renanlido/tia-openness/releases/latest)
 [![MCP npm](https://img.shields.io/npm/v/%40renanlido%2Ftia-openness-mcp?label=tia%20MCP&color=blue)](https://www.npmjs.com/package/@renanlido/tia-openness-mcp)
@@ -8,7 +8,7 @@
 > **[Start the 30-day trial](https://plcware.io/en/trial?utm_source=github&utm_medium=readme&utm_campaign=hub)**
 > · [plcware.io](https://plcware.io/en?utm_source=github&utm_medium=readme&utm_campaign=hub) has the plans and prices.
 
-Automate **Siemens TIA Portal V21** through the **TIA Openness API**, exposed as a local
+PLCWare automates **Siemens TIA Portal V21** through its native **Openness interface**, exposed as a local
 **HTTP/JSON API** on the engineering machine. Create devices and networks, generate and import
 SCL/SimaticML, manage blocks/types/tags, and run **compile → download → online** — all behind a
 clean HTTP surface that any application, script, or **AI assistant** can drive.
@@ -17,7 +17,7 @@ It carries every bit of complexity the Openness API forces (net48/AMD64 assembli
 assembly resolution, a single serial worker that owns the `TiaPortal`) and hides it behind HTTP,
 with a **system-tray GUI** (start/stop/monitor the API) and a **CLI** for headless use.
 
-> **This is the product hub** — downloads, documentation, and the public issue tracker. The
+> **This is the product hub** — downloads, documentation, and customer support. The
 > application is proprietary; its source lives in a separate private repository.
 
 ---
@@ -28,7 +28,7 @@ Three pieces, split by what runs where:
 
 | Piece | What it is | License | Where |
 |---|---|---|---|
-| **TIA Openness `serve` / app** | The **engine** — a Windows app that drives TIA Portal V21 and exposes the HTTP/JSON API. **This product.** | Proprietary (activation license) | [Releases](https://github.com/renanlido/tia-openness/releases) |
+| **PLCWare app / `serve`** | The **engine** — a Windows app that drives TIA Portal V21 and exposes the HTTP/JSON API. **This product.** | Proprietary (activation license) | [Releases](https://github.com/renanlido/tia-openness/releases) |
 | **`@renanlido/tia-openness-mcp`** | The **bridge** — a thin MCP→HTTP client so AI tools (Claude, Codex, Gemini, Cursor…) can drive the API. | MIT (open) | [npm](https://www.npmjs.com/package/@renanlido/tia-openness-mcp) |
 | **`tia-harness`** | The **client harness** — a Claude Code plugin (skills + subagents) that turns an engineering spec into a verified TIA project. | MIT (open) | [renanlido/tia-harness](https://github.com/renanlido/tia-harness) |
 
@@ -89,16 +89,20 @@ the Pro scopes and needs no card.
 
 Plans and prices are on [plcware.io](https://plcware.io/en?utm_source=github&utm_medium=readme&utm_campaign=hub).
 Licensing covers per-seat use, with tiers from inspection/scaffolding up to full **create → compile → deploy** and
-hardware control. Questions about licensing for your team or an integration business? Open a
-[question](https://github.com/renanlido/tia-openness/issues/new/choose).
+hardware control. For licensing questions, [contact PLCWare support](https://plcware.io/en/support) or email [support@plcware.io](mailto:support@plcware.io).
 
 ---
 
 ## Drive it from AI (MCP)
 
-The app is **non-opinionated** (endpoints pass parameters straight through to Openness), which makes
-it ideal to drive from an AI assistant. The **`tia` MCP server** is a thin HTTP client published on
-npm — point it at your running `serve` and you're done:
+The app is **non-opinionated** (endpoints pass parameters straight through to Openness), which makes it ideal to drive
+from an AI assistant. The **`tia` MCP server** is a thin HTTP client published on npm.
+From PLCWare 1.7.1 on Windows, a fresh connection through the **Connect your AI agents** screen uses the app-bundled
+`tia` MCP for Claude Code (plugin or file-config) and Codex (file-config); Claude Desktop uses the bundled extension
+(`.mcpb`). These screen connections need no system Node.js, npm/`npx`, or npm registry access. The Codex CLI plugin,
+Gemini CLI extension, manual setup, earlier app versions, and Mac/Linux/remote hosts still use `npx` and require Node.js
+and registry access. A Claude Code connection made before PLCWare 1.7.1 keeps using `npx` until it is disconnected and
+connected again from that screen. The npm/`npx` command below is for the routes that require it.
 
 ```bash
 npx -y @renanlido/tia-openness-mcp
@@ -149,9 +153,9 @@ The same guides live in this repository under [docs/guides](docs/guides/README.m
 
 ## Support & issues
 
-- 🐛 **Bug?** Open a [Bug report](https://github.com/renanlido/tia-openness/issues/new/choose).
-- 💡 **Idea?** Open a [Feature request](https://github.com/renanlido/tia-openness/issues/new/choose).
-- 💬 **Question or license request?** Use the [Question template](https://github.com/renanlido/tia-openness/issues/new/choose).
+- 🐛 **Bug?** Open a [public bug report](https://github.com/renanlido/tia-openness/issues/new/choose).
+- 💡 **Feature idea?** Open a [public feature request](https://github.com/renanlido/tia-openness/issues/new/choose).
+- 💬 **Questions, trials, licenses or purchases?** Contact PLCWare privately through [support](https://plcware.io/en/support) or email [support@plcware.io](mailto:support@plcware.io).
 
 See **[SUPPORT.md](SUPPORT.md)** for channels and response expectations.
 
@@ -159,7 +163,7 @@ See **[SUPPORT.md](SUPPORT.md)** for channels and response expectations.
 
 ## License
 
-The TIA Openness API app is **proprietary software** — all rights reserved. Use requires a valid
+The PLCWare app is **proprietary software** — all rights reserved. Use requires a valid
 activation license; see the **[EULA](EULA.md)**. The open **MCP** and **harness** client layers are
 MIT-licensed in their own repositories.
 
