@@ -4,8 +4,12 @@
 > the steps anywhere else (avoids drift). Update **only here**.
 
 The **`tia` MCP** is an **npm** package (`@renanlido/tia-openness-mcp`) — a thin HTTP client for the `serve` API
-(the Windows app that drives TIA Portal). Manual and command-line routes use `npx`; from PLCWare 1.7.1, Windows
-app-managed file-config connections and the Claude Desktop extension route use the bundled options described below.
+(the Windows app that drives TIA Portal). From PLCWare 1.7.1 on Windows, a fresh connection through the
+**Connect your AI agents** screen uses the app-bundled `tia` MCP for Claude Code (plugin or file-config) and Codex
+(file-config); Claude Desktop uses the bundled extension (`.mcpb`). These screen connections need no system Node.js,
+npm/`npx`, or npm registry access. The Codex CLI plugin, Gemini CLI extension, manual setup, earlier app versions, and
+Mac/Linux/remote hosts still use `npx` and require Node.js and registry access. A Claude Code connection made before
+PLCWare 1.7.1 keeps using `npx` until it is disconnected and connected again from the screen.
 There is only **one** thing to configure: the **`TIA_API_BASE`** variable, pointing at the `serve`.
 
 ```
@@ -33,10 +37,12 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # accepts connections from another m
 
 ## Windows app-managed route (from PLCWare 1.7.1)
 
-From PLCWare 1.7.1, the app-managed file-config routes in the **Connect your AI agents** screen use the `tia` MCP
-bundled with the app; the Claude Desktop extension route uses the bundled `.mcpb`. These routes need no system Node.js,
-npm/`npx`, or npm registry access. Command-line extension routes, earlier app versions, and Mac/Linux/remote hosts
-continue to use the npm/`npx` instructions below.
+From PLCWare 1.7.1 on Windows, a fresh connection through the **Connect your AI agents** screen uses the app-bundled
+`tia` MCP for Claude Code (plugin or file-config) and Codex (file-config); Claude Desktop uses the bundled extension
+(`.mcpb`). These screen connections need no system Node.js, npm/`npx`, or npm registry access. The Codex CLI plugin,
+Gemini CLI extension, manual setup, earlier app versions, and Mac/Linux/remote hosts still use `npx` and require Node.js
+and registry access. A Claude Code connection made before PLCWare 1.7.1 keeps using `npx` until it is disconnected and
+connected again from the screen.
 
 To update the bundled Claude Desktop extension after updating PLCWare, disconnect and reconnect it from the screen, then
 accept the update prompt in Claude Desktop. If no prompt appears or the extension is still stale, uninstall it in Claude

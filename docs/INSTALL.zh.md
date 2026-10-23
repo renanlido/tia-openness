@@ -6,9 +6,12 @@
 > （避免内容漂移，即 _drift_）。**只在这里**更新。
 
 **`tia` MCP** 是一个用于手动配置的 **npm** 包（`@renanlido/tia-openness-mcp`），是与 `serve` API
-（驱动 TIA Portal 的 Windows 应用）通信的轻量级 HTTP 客户端；手动和命令行配置使用 `npx`。从 PLCWare
-1.7.1 起，Windows 应用管理的文件配置和 Claude Desktop 扩展路线使用下文所述的内置组件。只需配置**一项**：
-变量 **`TIA_API_BASE`**，指向 `serve`。
+（驱动 TIA Portal 的 Windows 应用）通信的轻量级 HTTP 客户端。从 PLCWare 1.7.1 起，Windows 上通过
+**连接你的 AI 智能体（Connect your AI agents）** 界面新建连接时，Claude Code（插件或文件配置）和 Codex（文件配置）
+使用应用内置的 `tia` MCP；Claude Desktop 使用随应用提供的扩展（`.mcpb`）。这些界面连接无需在系统安装
+Node.js、npm/`npx`，也无需访问 npm registry。Codex CLI 插件、Gemini CLI 扩展、手动配置、较早版本的应用以及
+Mac/Linux/远程主机仍使用 `npx`，并需要 Node.js 和 registry 访问权限。PLCWare 1.7.1 之前创建的 Claude Code
+连接会继续使用 `npx`，直到你在该界面断开并重新连接。只需配置**一项**：变量 **`TIA_API_BASE`**，指向 `serve`。
 
 ```
 [ your AI editor/CLI ]  --(MCP/stdio)-->  [ tia MCP（应用内置或 npx） ]  --(HTTP)-->  [ serve (Windows+TIA) ]
@@ -35,10 +38,11 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # accepts connections from another m
 
 ## Windows 应用内连接（从 PLCWare 1.7.1 起）
 
-从 PLCWare 1.7.1 起，**连接你的 AI 智能体（Connect your AI agents）** 界面中由应用管理的文件配置连接会使用
-应用内置的 `tia` MCP；Claude Desktop 扩展路线使用随应用提供的 `.mcpb`。这些连接方式不需要在系统中安装
-Node.js、npm/`npx`，也不需要访问 npm registry。通过命令行安装扩展、使用较早版本，以及在 Mac/Linux 或远程主机
-上操作时，仍使用下方的 npm/`npx` 说明。
+从 PLCWare 1.7.1 起，Windows 上通过 **连接你的 AI 智能体（Connect your AI agents）** 界面新建连接时，Claude
+Code（插件或文件配置）和 Codex（文件配置）使用应用内置的 `tia` MCP；Claude Desktop 使用随应用提供的扩展
+（`.mcpb`）。这些界面连接无需在系统安装 Node.js、npm/`npx`，也无需访问 npm registry。Codex CLI 插件、Gemini
+CLI 扩展、手动配置、较早版本的应用以及 Mac/Linux/远程主机仍使用 `npx`，并需要 Node.js 和 registry 访问权限。
+PLCWare 1.7.1 之前创建的 Claude Code 连接会继续使用 `npx`，直到你在该界面断开并重新连接。
 
 升级 PLCWare 后更新随附的 Claude Desktop 扩展：先在此界面断开并重新连接，然后在 Claude Desktop 中接受扩展
 更新提示。如果没有提示，或扩展仍未更新，请先在 Claude Desktop 中卸载该扩展，再从此界面重新连接。

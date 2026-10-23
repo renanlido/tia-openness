@@ -6,10 +6,14 @@
 > los pasos en otro lugar (evita el _drift_). Actualiza **solo aquí**.
 
 El **MCP `tia`** es un paquete **npm** (`@renanlido/tia-openness-mcp`): un cliente HTTP ligero para la API `serve`
-(la aplicación de Windows que controla TIA Portal). Las rutas manuales y por línea de comandos usan `npx`; desde
-PLCWare 1.7.1, en Windows, las conexiones por archivos de configuración que administra la aplicación y la ruta de la
-extensión de Claude Desktop usan las opciones incluidas en la aplicación que se describen abajo. Solo hay **una** cosa
-que configurar: la variable **`TIA_API_BASE`**, que apunta al `serve`.
+(la aplicación de Windows que controla TIA Portal). Desde PLCWare 1.7.1 en Windows, una conexión nueva desde la pantalla
+**Conecta tus agentes de IA (Connect your AI agents)** usa el MCP `tia` incluido en la aplicación para Claude Code
+(plugin o configuración mediante archivo) y Codex (configuración mediante archivo); Claude Desktop usa la extensión
+incluida (`.mcpb`). Estas conexiones nuevas desde la pantalla no requieren Node.js, npm/`npx` ni acceso al registro npm
+del sistema. El plugin de CLI de Codex, la extensión de Gemini CLI, la configuración manual, las versiones anteriores
+de la aplicación y los hosts Mac/Linux/remotos siguen usando `npx` y requieren Node.js y acceso al registro. Una conexión
+de Claude Code creada antes de PLCWare 1.7.1 sigue usando `npx` hasta que la desconectes y vuelvas a conectarla desde
+la pantalla. Solo hay **una** cosa que configurar: la variable **`TIA_API_BASE`**, que apunta al `serve`.
 
 ```
 [ your AI editor/CLI ]  --(MCP/stdio)-->  [ tia MCP (incluido o con npx) ]  --(HTTP)-->  [ serve (Windows+TIA) ]
@@ -37,11 +41,13 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # accepts connections from another m
 
 ## Ruta de la aplicación en Windows (desde PLCWare 1.7.1)
 
-Desde PLCWare 1.7.1, las conexiones administradas por la aplicación mediante archivos de configuración en la pantalla
-**Conecta tus agentes de IA (Connect your AI agents)** usan el MCP `tia` incluido; la ruta de la extensión de Claude
-Desktop usa el `.mcpb` incluido. Estas rutas no requieren Node.js del sistema, npm/`npx` ni acceso al registro npm.
-Las instalaciones de extensiones por línea de comandos, las versiones anteriores y los hosts Mac/Linux/remotos siguen
-usando las instrucciones npm/`npx` de abajo.
+Desde PLCWare 1.7.1 en Windows, una conexión nueva desde la pantalla **Conecta tus agentes de IA (Connect your AI
+agents)** usa el MCP `tia` incluido en la aplicación para Claude Code (plugin o configuración mediante archivo) y Codex
+(configuración mediante archivo); Claude Desktop usa la extensión incluida (`.mcpb`). Estas conexiones nuevas desde la
+pantalla no requieren Node.js, npm/`npx` ni acceso al registro npm del sistema. El plugin de CLI de Codex, la extensión
+de Gemini CLI, la configuración manual, las versiones anteriores de la aplicación y los hosts Mac/Linux/remotos siguen
+usando `npx` y requieren Node.js y acceso al registro. Una conexión de Claude Code creada antes de PLCWare 1.7.1 sigue
+usando `npx` hasta que la desconectes y vuelvas a conectarla desde la pantalla.
 
 Para actualizar la extensión incluida de Claude Desktop después de actualizar PLCWare, desconéctala y vuelve a
 conectarla desde esa pantalla; luego acepta el aviso de actualización en Claude Desktop. Si no aparece ningún aviso o

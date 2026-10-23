@@ -89,11 +89,14 @@ TIAOpenness.exe setup-remote 5000 --allow 192.168.x.y   # allow only that source
 
 ## 6. Conectar un asistente de IA (opcional)
 
-Desde PLCWare 1.7.1 en Windows, las conexiones mediante archivos de configuración que administra la aplicación en la
-pantalla **Conecta tus agentes de IA (Connect your AI agents)** usan el MCP `tia` incluido; la ruta de la extensión de
-Claude Desktop usa el `.mcpb` incluido. Estas rutas no requieren Node.js del sistema, npm/`npx` ni acceso al registro
-npm. El comando de abajo y las instalaciones de extensiones por línea de comandos siguen usando npm/`npx`; las versiones
-anteriores y los hosts Mac/Linux/remotos continúan con las instrucciones de **[docs/INSTALL.es.md](INSTALL.es.md)**.
+Desde PLCWare 1.7.1 en Windows, una conexión nueva desde la pantalla **Conecta tus agentes de IA (Connect your AI
+agents)** usa el MCP `tia` incluido en la aplicación para Claude Code (plugin o configuración mediante archivo) y Codex
+(configuración mediante archivo); Claude Desktop usa la extensión incluida (`.mcpb`). Estas conexiones nuevas desde la
+pantalla no requieren Node.js, npm/`npx` ni acceso al registro npm del sistema. El plugin de CLI de Codex, la extensión
+de Gemini CLI, la configuración manual, las versiones anteriores de la aplicación y los hosts Mac/Linux/remotos siguen
+usando `npx` y requieren Node.js y acceso al registro. Una conexión de Claude Code creada antes de PLCWare 1.7.1 sigue
+usando `npx` hasta que la desconectes y vuelvas a conectarla desde la pantalla. Consulta
+**[docs/INSTALL.es.md](INSTALL.es.md)** para ver los detalles.
 
 Apunta el **MCP `tia`** a tu `serve` en ejecución. Para configurar Claude Code desde la línea de comandos:
 
