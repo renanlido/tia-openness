@@ -5,13 +5,14 @@
 > **Fonte única.** Este é o guia canônico de instalação. Os READMEs apontam para cá — não duplique
 > os passos em outro lugar (evita _drift_). Atualize **só aqui**.
 
-O **MCP `tia`** é um pacote **npm** (`@renanlido/tia-openness-mcp`) — um **cliente HTTP fino** que fala
-com a **API `serve`** (o app Windows que dirige o TIA Portal). Você **não instala nada**: o cliente roda
-o pacote via `npx`. Só existe **uma** coisa a configurar: a variável **`TIA_API_BASE`**, apontando para o
-`serve`.
+O **MCP `tia`** é um pacote **npm** (`@renanlido/tia-openness-mcp`) — um cliente HTTP fino para a API `serve`
+(o app Windows que dirige o TIA Portal). Configurações manuais e pela linha de comando usam `npx`; a partir do
+PLCWare 1.7.1, no Windows, as conexões gerenciadas pelo app por arquivos e a rota de extensão do Claude Desktop usam
+as opções incluídas no app, descritas abaixo. Só existe **uma** coisa a configurar: a variável **`TIA_API_BASE`**,
+apontando para o `serve`.
 
 ```
-[ seu editor/CLI com IA ]  --(MCP/stdio)-->  [ tia MCP (npx) ]  --(HTTP)-->  [ serve (Windows+TIA) ]
+[ seu editor/CLI com IA ]  --(MCP/stdio)-->  [ tia MCP (incluído ou via npx) ]  --(HTTP)-->  [ serve (Windows+TIA) ]
 ```
 
 ## Pré-requisito (uma vez, no host com TIA)
@@ -33,10 +34,22 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # aceita conexões de outra máquina
 
 ---
 
-## ⚠️ Windows: use `cmd /c npx`
+## Rota gerenciada pelo app no Windows (a partir do PLCWare 1.7.1)
 
-No **Windows**, vários clientes lançam o processo **sem shell**, e o `npx` (que é `npx.cmd`) falha com
-`spawn npx ENOENT`. Onde isso acontecer, troque:
+A partir do PLCWare 1.7.1, as conexões por arquivo gerenciadas pelo app na tela **Conectar seus agentes de IA** usam o
+MCP `tia` incluído no app; a rota de extensão do Claude Desktop usa o `.mcpb` incluído. Essas rotas não exigem Node.js,
+npm/`npx` instalados no sistema nem acesso ao registro npm. Instalações de extensões pela linha de comando, versões
+anteriores do app e hosts Mac/Linux/remotos continuam usando as instruções npm/`npx` abaixo.
+
+Para atualizar a extensão incluída do Claude Desktop depois de atualizar o PLCWare, desconecte-a e conecte-a de novo
+pela tela e aceite o aviso de atualização no Claude Desktop. Se o aviso não aparecer ou a extensão continuar
+desatualizada, desinstale-a no Claude Desktop e conecte-a de novo pela tela.
+
+## Configuração manual ou versões anteriores no Windows: use `cmd /c npx`
+
+Em configurações pela linha de comando/manual e em versões do PLCWare anteriores à 1.7.1, vários clientes no Windows
+iniciam processos **sem shell**, e o `npx` (que é `npx.cmd`) pode falhar com `spawn npx ENOENT`. Onde isso acontecer,
+troque:
 
 ```jsonc
 "command": "npx", "args": ["-y", "@renanlido/tia-openness-mcp"]
@@ -95,7 +108,8 @@ Edite o `claude_desktop_config.json` (Settings → Developer → **Edit Config**
 }
 ```
 
-No **Windows** use a forma `cmd /c` (acima) — é a causa nº 1 de "servidor não inicia". Reinicie o app.
+Em uma configuração manual por JSON no **Windows**, use a forma `cmd /c` acima — é a causa nº 1 de "servidor não inicia".
+Reinicie o app. A rota incluída no app a partir do PLCWare 1.7.1 está descrita acima.
 
 ## Codex (CLI + extensão de IDE)
 

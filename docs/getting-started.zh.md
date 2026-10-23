@@ -6,7 +6,7 @@
 **系统托盘 GUI** 完成，无需命令行。文中同时给出对应的 CLI 命令，便于自动化。
 
 ```
-[ your AI editor / CLI ]  --(MCP)-->  [ tia MCP (npx) ]  --(HTTP)-->  [ serve (this app, Windows+TIA) ]
+[ your AI editor / CLI ]  --(MCP)-->  [ tia MCP（应用内置或 npx） ]  --(HTTP)-->  [ serve (this app, Windows+TIA) ]
 ```
 
 ## 1. 前提条件
@@ -82,7 +82,12 @@ TIAOpenness.exe setup-remote 5000 --allow 192.168.x.y   # allow only that source
 
 ## 6. 连接 AI 助手（可选）
 
-将 **`tia` MCP** 指向正在运行的 `serve`。以 **Claude Code** 为例：
+从 PLCWare 1.7.1 起，Windows 上 **连接你的 AI 智能体（Connect your AI agents）** 界面中的应用管理文件配置连接会
+使用随应用打包的 `tia` MCP；Claude Desktop 扩展路线使用随应用提供的 `.mcpb`。这些连接方式不需要在系统中安装
+Node.js、npm/`npx`，也不需要访问 npm registry。下方命令及通过命令行安装扩展仍使用 npm/`npx`；较早版本以及
+Mac/Linux/远程主机继续使用 **[docs/INSTALL.zh.md](INSTALL.zh.md)** 中的说明。
+
+将 **`tia` MCP** 指向正在运行的 `serve`。如需通过命令行配置 Claude Code：
 
 ```bash
 claude mcp add --transport stdio --env TIA_API_BASE=http://localhost:5000 --scope user tia -- npx -y @renanlido/tia-openness-mcp
