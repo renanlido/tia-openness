@@ -7,7 +7,7 @@ ejecución y con licencia en pocos minutos. Todo lo que aparece aquí se puede h
 **GUI de la bandeja del sistema**, sin línea de comandos. Los equivalentes en CLI se muestran para automatización.
 
 ```
-[ your AI editor / CLI ]  --(MCP)-->  [ tia MCP (npx) ]  --(HTTP)-->  [ serve (this app, Windows+TIA) ]
+[ your AI editor / CLI ]  --(MCP)-->  [ tia MCP (incluido o npx) ]  --(HTTP)-->  [ serve (this app, Windows+TIA) ]
 ```
 
 ## 1. Requisitos previos
@@ -89,7 +89,13 @@ TIAOpenness.exe setup-remote 5000 --allow 192.168.x.y   # allow only that source
 
 ## 6. Conectar un asistente de IA (opcional)
 
-Apunta el **MCP `tia`** a tu `serve` en ejecución. Para **Claude Code**:
+Desde PLCWare 1.7.1 en Windows, las conexiones mediante archivos de configuración que administra la aplicación en la
+pantalla **Conecta tus agentes de IA (Connect your AI agents)** usan el MCP `tia` incluido; la ruta de la extensión de
+Claude Desktop usa el `.mcpb` incluido. Estas rutas no requieren Node.js del sistema, npm/`npx` ni acceso al registro
+npm. El comando de abajo y las instalaciones de extensiones por línea de comandos siguen usando npm/`npx`; las versiones
+anteriores y los hosts Mac/Linux/remotos continúan con las instrucciones de **[docs/INSTALL.es.md](INSTALL.es.md)**.
+
+Apunta el **MCP `tia`** a tu `serve` en ejecución. Para configurar Claude Code desde la línea de comandos:
 
 ```bash
 claude mcp add --transport stdio --env TIA_API_BASE=http://localhost:5000 --scope user tia -- npx -y @renanlido/tia-openness-mcp

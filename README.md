@@ -95,9 +95,12 @@ hardware control. For licensing questions, [contact PLCWare support](https://plc
 
 ## Drive it from AI (MCP)
 
-The app is **non-opinionated** (endpoints pass parameters straight through to Openness), which makes
-it ideal to drive from an AI assistant. The **`tia` MCP server** is a thin HTTP client published on
-npm — point it at your running `serve` and you're done:
+The app is **non-opinionated** (endpoints pass parameters straight through to Openness), which makes it ideal to drive
+from an AI assistant. The **`tia` MCP server** is a thin HTTP client published on npm. From PLCWare 1.7.1 on Windows,
+app-managed file-config connections in the **Connect your AI agents** screen use the bundled MCP; the Claude Desktop
+extension route uses the bundled `.mcpb`. These routes need no system Node.js, npm/`npx`, or npm registry access.
+Command-line extension routes, earlier app versions, and Mac/Linux/remote hosts keep using the npm/`npx` instructions
+below.
 
 ```bash
 npx -y @renanlido/tia-openness-mcp

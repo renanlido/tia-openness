@@ -5,12 +5,13 @@
 > **单一来源。** 这是权威的安装指南。各 README 都指向这里——不要在其他地方重复这些步骤
 > （避免内容漂移，即 _drift_）。**只在这里**更新。
 
-**`tia` MCP** 是一个 **npm** 包（`@renanlido/tia-openness-mcp`）——一个**轻量级 HTTP 客户端**，与
-**`serve` API**（驱动 TIA Portal 的 Windows 应用）通信。你**无需安装任何东西**：客户端通过 `npx` 运行该包。
-只需配置**一项**：变量 **`TIA_API_BASE`**，指向 `serve`。
+**`tia` MCP** 是一个用于手动配置的 **npm** 包（`@renanlido/tia-openness-mcp`），是与 `serve` API
+（驱动 TIA Portal 的 Windows 应用）通信的轻量级 HTTP 客户端；手动和命令行配置使用 `npx`。从 PLCWare
+1.7.1 起，Windows 应用管理的文件配置和 Claude Desktop 扩展路线使用下文所述的内置组件。只需配置**一项**：
+变量 **`TIA_API_BASE`**，指向 `serve`。
 
 ```
-[ your AI editor/CLI ]  --(MCP/stdio)-->  [ tia MCP (npx) ]  --(HTTP)-->  [ serve (Windows+TIA) ]
+[ your AI editor/CLI ]  --(MCP/stdio)-->  [ tia MCP（应用内置或 npx） ]  --(HTTP)-->  [ serve (Windows+TIA) ]
 ```
 
 ## 前提（一次性，在装有 TIA 的主机上）
@@ -32,10 +33,20 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # accepts connections from another m
 
 ---
 
-## ⚠️ Windows：使用 `cmd /c npx`
+## Windows 应用内连接（从 PLCWare 1.7.1 起）
 
-在 **Windows** 上，许多客户端**不经过 shell** 启动进程，而 `npx`（实际是 `npx.cmd`）会因此失败，报错
-`spawn npx ENOENT`。出现这种情况时，将：
+从 PLCWare 1.7.1 起，**连接你的 AI 智能体（Connect your AI agents）** 界面中由应用管理的文件配置连接会使用
+应用内置的 `tia` MCP；Claude Desktop 扩展路线使用随应用提供的 `.mcpb`。这些连接方式不需要在系统中安装
+Node.js、npm/`npx`，也不需要访问 npm registry。通过命令行安装扩展、使用较早版本，以及在 Mac/Linux 或远程主机
+上操作时，仍使用下方的 npm/`npx` 说明。
+
+升级 PLCWare 后更新随附的 Claude Desktop 扩展：先在此界面断开并重新连接，然后在 Claude Desktop 中接受扩展
+更新提示。如果没有提示，或扩展仍未更新，请先在 Claude Desktop 中卸载该扩展，再从此界面重新连接。
+
+## Windows 手动配置或旧版本：使用 `cmd /c npx`
+
+对于 Windows 命令行/手动配置以及 PLCWare 1.7.1 之前的版本，许多客户端会**不经过 shell** 启动进程，而
+`npx`（实际是 `npx.cmd`）可能会因此失败并报错 `spawn npx ENOENT`。出现这种情况时，将：
 
 ```jsonc
 "command": "npx", "args": ["-y", "@renanlido/tia-openness-mcp"]
@@ -94,7 +105,8 @@ claude mcp add --scope user --env TIA_API_BASE=http://localhost:5000 tia -- npx 
 }
 ```
 
-在 **Windows** 上使用 `cmd /c` 形式（见上文）——这是"服务器无法启动"的头号原因。重启应用。
+在 **Windows** 上进行手动 JSON 配置时，使用上面的 `cmd /c` 形式——这是"服务器无法启动"的头号原因。重启应用。
+PLCWare 1.7.1 起的应用内置连接方式见上文。
 
 ## Codex（CLI + IDE 扩展）
 
