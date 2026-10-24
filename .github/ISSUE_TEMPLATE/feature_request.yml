@@ -3,6 +3,12 @@ description: Suggest an idea or improvement
 title: "[Feature]: "
 labels: ["feature"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not post license keys, logs containing secrets, or private project data in this public issue.
+        For trial, license, purchase, or account questions, contact PLCWare privately via
+        [PLCWare support](https://plcware.io/en/support) or support@plcware.io.
   - type: textarea
     id: problem
     attributes:

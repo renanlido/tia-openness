@@ -2,9 +2,9 @@
 
 > 简体中文译文。英文原文：[SUPPORT.md](SUPPORT.md)。
 
-感谢你使用 **TIA Openness API**。以下是获取帮助的方式。
+感谢你使用 **PLCWare**，这是一款适用于 Siemens TIA Portal V21 的自动化 API。以下是获取帮助的方式。
 
-## 提交 issue 之前
+## 联系支持之前
 
 1. **查看[快速入门指南](docs/getting-started.zh.md)**以及
    **[MCP / 客户端配置（docs/INSTALL.zh.md）](docs/INSTALL.zh.md)**——大多数配置问题都能在其中找到答案。
@@ -19,10 +19,10 @@
 
 | 需求 | 渠道 |
 |---|---|
-| 🐛 **缺陷报告** | [新建 issue → Bug report](https://github.com/renanlido/tia-openness/issues/new/choose) |
-| 💡 **功能请求** | [新建 issue → Feature request](https://github.com/renanlido/tia-openness/issues/new/choose) |
-| 💬 **问题咨询 / 许可证申请** | [新建 issue → Question](https://github.com/renanlido/tia-openness/issues/new/choose) |
-| 🔒 **安全漏洞披露** | **请勿**提交公开 issue——见下文。 |
+| 🐛 **缺陷报告** | [提交公开缺陷报告](https://github.com/renanlido/tia-openness/issues/new/choose) |
+| 💡 **功能请求** | [提交公开功能请求](https://github.com/renanlido/tia-openness/issues/new/choose) |
+| 💬 **问题咨询 / 许可证申请** | [提交私密支持工单](https://plcware.io/zh/support)或发送邮件至 [support@plcware.io](mailto:support@plcware.io) |
+| 🔒 **安全漏洞披露** | **请勿**公开发布；请通过 [support@plcware.io](mailto:support@plcware.io) 私下报告。 |
 
 **优先支持**（通过电子邮件，并按等级提供响应时间目标）包含在付费许可证中，联系方式会随你的
 Activation License 一并提供。
@@ -39,13 +39,12 @@ Activation License 一并提供。
 
 ## 安全漏洞披露
 
-如果你认为发现了安全漏洞，请**私下**报告——请创建
-[GitHub security advisory](https://github.com/renanlido/tia-openness/security/advisories/new)，而不是公开
-issue，以便在披露之前完成修复。
+如果你认为发现了安全漏洞，请勿公开披露——请通过 [support@plcware.io](mailto:support@plcware.io)
+私下报告。
 
 ## 范围
 
-本仓库跟踪**应用 / API**（授权产品）。对于开源的客户端层：
+本仓库跟踪 **PLCWare 应用 / API**（授权产品）。对于开源客户端层：
 
 - **`tia` MCP**——issue 请提交到 [MCP 仓库](https://www.npmjs.com/package/@renanlido/tia-openness-mcp)。
 - **`tia-harness` 插件**——issue 请提交到 [renanlido/tia-harness](https://github.com/renanlido/tia-harness/issues)。

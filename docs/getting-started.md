@@ -1,6 +1,6 @@
 # Getting started
 
-This guide takes you from **download** to a **running, licensed API** in a few minutes. Everything
+This guide takes you from **download** to a **running, licensed PLCWare app** in a few minutes. Everything
 here is doable from the **tray GUI** — no command line required. The CLI equivalents are shown for
 automation.
 
@@ -33,7 +33,7 @@ From the [**Releases**](https://github.com/renanlido/tia-openness/releases/lates
 
 ## 3. Check the environment
 
-Open the tray app (shortcut **"TIA Openness API"**) → **API** tab → **Check environment**. It
+Open the PLCWare tray app (shortcut **"TIA Openness API"**) → **API** tab → **Check environment**. It
 verifies the Windows group, that the process is x64, and that TIA Portal V21 + PublicAPI are present.
 
 CLI equivalent:

@@ -15,8 +15,8 @@
 
 ## 前提（一次性，在装有 TIA 的主机上）
 
-在装有 TIA Portal V21 的 Windows 机器上启动 `serve` API——通过**托盘 GUI**
-（快捷方式 "TIA Openness API" → "API" 选项卡 → "Start API"）**或**命令行：
+在装有 TIA Portal V21 的 Windows 机器上启动 `serve` API——通过 **PLCWare 托盘 GUI**
+（快捷方式标签 "TIA Openness API" → "API" 选项卡 → "Start API"）**或**命令行：
 
 ```powershell
 TIAOpenness.exe serve 5000              # local

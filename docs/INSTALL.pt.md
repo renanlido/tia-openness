@@ -16,8 +16,8 @@ o pacote via `npx`. Só existe **uma** coisa a configurar: a variável **`TIA_AP
 
 ## Pré-requisito (uma vez, no host com TIA)
 
-Suba a API `serve` na máquina Windows que tem o TIA Portal V21 — pela **GUI de bandeja** (atalho
-"TIA Openness API" → aba "API" → "Iniciar API") **ou** por linha de comando:
+Suba a API `serve` na máquina Windows que tem o TIA Portal V21 — pela **GUI de bandeja do PLCWare**
+(atalho "TIA Openness API" → aba "API" → "Iniciar API") **ou** por linha de comando:
 
 ```powershell
 TIAOpenness.exe serve 5000              # local

@@ -6,9 +6,12 @@ contact_links:
   - name: 🔌 MCP / AI client setup
     url: https://github.com/renanlido/tia-openness/blob/main/docs/INSTALL.md
     about: Wire the tia MCP into Claude, Codex, Gemini, Cursor, VS Code, Windsurf.
-  - name: 🔒 Report a security vulnerability
-    url: https://github.com/renanlido/tia-openness/security/advisories/new
-    about: Please disclose security issues privately, not as a public issue.
+  - name: 💬 PLCWare support - questions, trials, licenses and purchases
+    url: https://plcware.io/en/support
+    about: Contact PLCWare privately for product questions, trial access, licensing, or purchases.
+  - name: 🔒 Report a security vulnerability privately
+    url: https://plcware.io/en/support
+    about: For private security reports, email support@plcware.io; do not post vulnerabilities publicly.
   - name: 🧩 tia-harness (plugin) issues
     url: https://github.com/renanlido/tia-harness/issues
     about: Issues about the Claude Code plugin / open client layer.
