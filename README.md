@@ -116,6 +116,8 @@ Other clients (Claude Desktop, Codex, Gemini CLI, Cursor, VS Code, Windsurf) and
 > on the `serve` machine). Without a licensed `serve` to point at, the MCP can only diagnose
 > connectivity (`tia_ping`).
 
+MCP client: MIT (see [LICENSE](LICENSE)). Desktop app: [EULA](EULA.md).
+
 For an end-to-end harness that turns a structured spec into a verified TIA project, install the
 [**tia-harness**](https://github.com/renanlido/tia-harness) Claude Code plugin.
 
