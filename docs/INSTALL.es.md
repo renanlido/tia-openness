@@ -5,13 +5,18 @@
 > **Fuente única.** Esta es la guía de instalación canónica. Los README apuntan aquí: no dupliques
 > los pasos en otro lugar (evita el _drift_). Actualiza **solo aquí**.
 
-El **MCP `tia`** es un paquete **npm** (`@renanlido/tia-openness-mcp`): un **cliente HTTP ligero** que habla
-con la **API `serve`** (la aplicación de Windows que controla TIA Portal). **No instalas nada**: el cliente
-ejecuta el paquete mediante `npx`. Solo hay **una** cosa que configurar: la variable **`TIA_API_BASE`**, que
-apunta al `serve`.
+El **MCP `tia`** es un paquete **npm** (`@renanlido/tia-openness-mcp`): un cliente HTTP ligero para la API `serve`
+(la aplicación de Windows que controla TIA Portal). Desde PLCWare 1.7.1 en Windows, una conexión nueva desde la pantalla
+**Conecta tus agentes de IA (Connect your AI agents)** usa el MCP `tia` incluido en la aplicación para Claude Code
+(plugin o configuración mediante archivo) y Codex (configuración mediante archivo); Claude Desktop usa la extensión
+incluida (`.mcpb`). Estas conexiones nuevas desde la pantalla no requieren Node.js, npm/`npx` ni acceso al registro npm
+del sistema. El plugin de CLI de Codex, la extensión de Gemini CLI, la configuración manual, las versiones anteriores
+de la aplicación y los hosts Mac/Linux/remotos siguen usando `npx` y requieren Node.js y acceso al registro. Una conexión
+de Claude Code creada antes de PLCWare 1.7.1 sigue usando `npx` hasta que la desconectes y vuelvas a conectarla desde
+la pantalla. Solo hay **una** cosa que configurar: la variable **`TIA_API_BASE`**, que apunta al `serve`.
 
 ```
-[ your AI editor/CLI ]  --(MCP/stdio)-->  [ tia MCP (npx) ]  --(HTTP)-->  [ serve (Windows+TIA) ]
+[ your AI editor/CLI ]  --(MCP/stdio)-->  [ tia MCP (incluido o con npx) ]  --(HTTP)-->  [ serve (Windows+TIA) ]
 ```
 
 ## Requisito previo (una vez, en el host con TIA)
@@ -34,10 +39,25 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # accepts connections from another m
 
 ---
 
-## ⚠️ Windows: usa `cmd /c npx`
+## Ruta de la aplicación en Windows (desde PLCWare 1.7.1)
 
-En **Windows**, varios clientes lanzan el proceso **sin shell**, y `npx` (que es `npx.cmd`) falla con
-`spawn npx ENOENT`. Donde ocurra, reemplaza:
+Desde PLCWare 1.7.1 en Windows, una conexión nueva desde la pantalla **Conecta tus agentes de IA (Connect your AI
+agents)** usa el MCP `tia` incluido en la aplicación para Claude Code (plugin o configuración mediante archivo) y Codex
+(configuración mediante archivo); Claude Desktop usa la extensión incluida (`.mcpb`). Estas conexiones nuevas desde la
+pantalla no requieren Node.js, npm/`npx` ni acceso al registro npm del sistema. El plugin de CLI de Codex, la extensión
+de Gemini CLI, la configuración manual, las versiones anteriores de la aplicación y los hosts Mac/Linux/remotos siguen
+usando `npx` y requieren Node.js y acceso al registro. Una conexión de Claude Code creada antes de PLCWare 1.7.1 sigue
+usando `npx` hasta que la desconectes y vuelvas a conectarla desde la pantalla.
+
+Para actualizar la extensión incluida de Claude Desktop después de actualizar PLCWare, desconéctala y vuelve a
+conectarla desde esa pantalla; luego acepta el aviso de actualización en Claude Desktop. Si no aparece ningún aviso o
+la extensión sigue desactualizada, desinstálala en Claude Desktop y vuelve a conectarla desde la pantalla.
+
+## Configuración manual o versiones anteriores de Windows: usa `cmd /c npx`
+
+En la configuración por línea de comandos/manual y en las versiones de PLCWare anteriores a 1.7.1, varios clientes
+de Windows inician el proceso **sin shell**, y `npx` (que es `npx.cmd`) puede fallar con `spawn npx ENOENT`.
+Cuando ocurra, reemplaza:
 
 ```jsonc
 "command": "npx", "args": ["-y", "@renanlido/tia-openness-mcp"]
@@ -96,7 +116,8 @@ Edita `claude_desktop_config.json` (Settings → Developer → **Edit Config** a
 }
 ```
 
-En **Windows** usa la forma `cmd /c` (arriba): es la causa n.º 1 de "el servidor no inicia". Reinicia la aplicación.
+Para una configuración manual mediante JSON en **Windows**, usa la forma `cmd /c` de arriba; es la causa n.º 1 de
+"el servidor no inicia". Reinicia la aplicación. La ruta incluida en la aplicación desde PLCWare 1.7.1 se describe arriba.
 
 ## Codex (CLI + extensión de IDE)
 

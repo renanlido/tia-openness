@@ -3,13 +3,17 @@
 > **Single source.** This is the canonical install guide. The READMEs point here — do not duplicate
 > the steps anywhere else (avoids drift). Update **only here**.
 
-The **`tia` MCP** is an **npm** package (`@renanlido/tia-openness-mcp`) — a **thin HTTP client** that talks
-to the **`serve` API** (the Windows app that drives TIA Portal). You **install nothing**: the client runs
-the package via `npx`. There is only **one** thing to configure: the **`TIA_API_BASE`** variable, pointing
-at the `serve`.
+The **`tia` MCP** is an **npm** package (`@renanlido/tia-openness-mcp`) — a thin HTTP client for the `serve` API
+(the Windows app that drives TIA Portal). From PLCWare 1.7.1 on Windows, a fresh connection through the
+**Connect your AI agents** screen uses the app-bundled `tia` MCP for Claude Code (plugin or file-config) and Codex
+(file-config); Claude Desktop uses the bundled extension (`.mcpb`). These screen connections need no system Node.js,
+npm/`npx`, or npm registry access. The Codex CLI plugin, Gemini CLI extension, manual setup, earlier app versions, and
+Mac/Linux/remote hosts still use `npx` and require Node.js and registry access. A Claude Code connection made before
+PLCWare 1.7.1 keeps using `npx` until it is disconnected and connected again from the screen.
+There is only **one** thing to configure: the **`TIA_API_BASE`** variable, pointing at the `serve`.
 
 ```
-[ your AI editor/CLI ]  --(MCP/stdio)-->  [ tia MCP (npx) ]  --(HTTP)-->  [ serve (Windows+TIA) ]
+[ your AI editor/CLI ]  --(MCP/stdio)-->  [ tia MCP (bundled or npx) ]  --(HTTP)-->  [ serve (Windows+TIA) ]
 ```
 
 ## Prerequisite (once, on the host with TIA)
@@ -31,10 +35,23 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # accepts connections from another m
 
 ---
 
-## ⚠️ Windows: use `cmd /c npx`
+## Windows app-managed route (from PLCWare 1.7.1)
 
-On **Windows**, several clients launch the process **without a shell**, and `npx` (which is `npx.cmd`) fails with
-`spawn npx ENOENT`. Wherever that happens, replace:
+From PLCWare 1.7.1 on Windows, a fresh connection through the **Connect your AI agents** screen uses the app-bundled
+`tia` MCP for Claude Code (plugin or file-config) and Codex (file-config); Claude Desktop uses the bundled extension
+(`.mcpb`). These screen connections need no system Node.js, npm/`npx`, or npm registry access. The Codex CLI plugin,
+Gemini CLI extension, manual setup, earlier app versions, and Mac/Linux/remote hosts still use `npx` and require Node.js
+and registry access. A Claude Code connection made before PLCWare 1.7.1 keeps using `npx` until it is disconnected and
+connected again from the screen.
+
+To update the bundled Claude Desktop extension after updating PLCWare, disconnect and reconnect it from the screen, then
+accept the update prompt in Claude Desktop. If no prompt appears or the extension is still stale, uninstall it in Claude
+Desktop and reconnect it from the screen.
+
+## Manual or earlier-version Windows setup: use `cmd /c npx`
+
+For command-line/manual setup and PLCWare versions before 1.7.1, several Windows clients launch processes without a shell,
+so `npx` (which is `npx.cmd`) can fail with `spawn npx ENOENT`. Wherever that happens, replace:
 
 ```jsonc
 "command": "npx", "args": ["-y", "@renanlido/tia-openness-mcp"]
@@ -93,7 +110,8 @@ Edit `claude_desktop_config.json` (Settings → Developer → **Edit Config** op
 }
 ```
 
-On **Windows** use the `cmd /c` form (above) — it is the #1 cause of "the server won't start". Restart the app.
+For a manual JSON-config setup on **Windows**, use the `cmd /c` form above; this is the #1 cause of "the server won't
+start". Restart the app. The bundled route from PLCWare 1.7.1 is described above.
 
 ## Codex (CLI + IDE extension)
 
