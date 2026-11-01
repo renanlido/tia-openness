@@ -121,6 +121,18 @@ MCP client: MIT (see [LICENSE](LICENSE)). Desktop app: [EULA](EULA.md).
 For an end-to-end harness that turns a structured spec into a verified TIA project, install the
 [**tia-harness**](https://github.com/renanlido/tia-harness) Claude Code plugin.
 
+### MCP Registry releases
+
+The `publish-mcp-registry` workflow publishes `io.github.renanlido/tia-openness` when this hub
+publishes an `mcp-vX.Y.Z` release. The release must already contain `server.json`; its server
+and package versions must match both the release tag and the exact version available on npm.
+The workflow verifies the pinned publisher's Sigstore bundle before authenticating through
+GitHub OIDC. No Registry token or new secret is required.
+
+The application releases (`app-v*`) are ignored. For a failed MCP publication, correct the
+release asset if necessary and rerun the failed workflow from Actions. Local validation:
+`node --test .github/scripts/verify-registry-manifest.test.mjs`.
+
 ---
 
 ## Guides

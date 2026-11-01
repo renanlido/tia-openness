@@ -1,0 +1,22 @@
+name: check-mcp-registry
+
+on:
+  pull_request:
+    paths:
+      - .github/scripts/verify-registry-manifest*
+      - .github/workflows/*mcp-registry.yml
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: node --test .github/scripts/verify-registry-manifest.test.mjs
