@@ -33,13 +33,13 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # accepts connections from another m
 
 ## Windows app-managed route (from PLCWare 1.7.1)
 
-Install **PLCWare 1.7.1** using `TIAOpenness-Setup-1.7.1.exe`, then open **Connect your AI agents** from the tray menu
-or the getting-started window. Install the agent itself first, preview the changes, then choose **Connect**.
+Install **PLCWare 1.7.1** using `TIAOpenness-Setup-1.7.1.exe`, then open the **Connect your AI agents** window via the
+tray menu's **Connect AI agents…** or the getting-started window. Install the agent first, preview, then choose **Connect**.
 These installer-managed connections need no system Node.js, npm/`npx`, Git, or npm registry access:
 
 | Agent | Connection and skills |
 |---|---|
-| Claude Code | Installs the shipped local plugin marketplace and plugin, with skills, helpers and the embedded `tia` launcher. An existing plugin keeps its configuration; to switch a pre-1.7.1 `npx` connection, use **Disconnect**, then **Connect**. |
+| Claude Code | Installs the shipped local plugin marketplace and plugin, with skills, helpers and the embedded `tia` launcher. An existing plugin keeps its configuration. To switch an old `npx` plugin, use **Disconnect** if PLCWare installed it; otherwise uninstall it in Claude Code first. Then **Connect** from PLCWare. |
 | Claude Desktop | Opens the bundled `.mcpb` only when Windows has a handler for it; complete installation in Desktop. Otherwise it writes the embedded runtime into the detected build's settings, including Store/MSIX. **Fully quit Desktop from the system tray before Connect writes settings; closing its window is not enough.** Reopen it afterwards and use **Refresh** in PLCWare to verify. |
 | Codex | Writes one embedded `tia` connection and installs the local plugin for skills, plus helper agents. Uses an available CLI, including the desktop app's bundled CLI; a separate CLI install is not required. If no usable CLI is available, it prepares a personal plugin marketplace: close/reopen Codex, then install `tia-harness` in **Plugins** using the displayed instructions. The plugin's duplicate MCP is disabled. |
 

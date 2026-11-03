@@ -35,13 +35,13 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # aceita conexões de outra máquina
 
 ## Rota gerenciada pelo app no Windows (a partir do PLCWare 1.7.1)
 
-Instale o **PLCWare 1.7.1** com `TIAOpenness-Setup-1.7.1.exe` e abra **Conectar seus agentes de IA** pelo menu da
-bandeja ou pela janela de primeiros passos. Instale o agente primeiro, confira as alterações e clique em **Conectar**.
+Instale o **PLCWare 1.7.1** com `TIAOpenness-Setup-1.7.1.exe` e abra a janela **Conectar seus agentes de IA** por
+**Conectar agentes de IA…** na bandeja ou pelos primeiros passos. Instale o agente, confira e clique em **Conectar**.
 Essas conexões gerenciadas pelo instalador não exigem Node.js, npm/`npx`, Git no sistema nem acesso ao registro npm:
 
 | Agente | Conexão e habilidades |
 |---|---|
-| Claude Code | Instala o catálogo local de plugins e o plugin incluídos, com habilidades, auxiliares e o inicializador `tia` embutido. Um plugin já instalado mantém sua configuração; para trocar uma conexão `npx` anterior à 1.7.1, use **Desconectar** e depois **Conectar**. |
+| Claude Code | Instala o catálogo local de plugins e o plugin incluídos, com habilidades, auxiliares e o inicializador `tia` embutido. Um plugin já instalado mantém sua configuração. Para trocar um plugin `npx` antigo, use **Desconectar** se o PLCWare o instalou; caso contrário, desinstale-o primeiro no Claude Code. Depois, **Conectar** pelo PLCWare. |
 | Claude Desktop | Abre o `.mcpb` incluído somente quando o Windows tem um aplicativo associado; conclua a instalação no Desktop. Caso contrário, grava o runtime embutido nas configurações da versão detectada, incluindo Store/MSIX. **Saia completamente do Desktop pela bandeja antes de Conectar gravar as configurações; fechar a janela não basta.** Reabra-o e use **Atualizar** no PLCWare para verificar. |
 | Codex | Grava uma única conexão `tia` embutida e instala o plugin local de habilidades, além dos agentes auxiliares. Usa uma CLI disponível, inclusive a incluída no app desktop; não exige instalar uma CLI separada. Sem uma CLI utilizável, prepara um catálogo pessoal de plugins: feche/reabra o Codex e instale `tia-harness` em **Plugins** seguindo as instruções exibidas. O MCP duplicado do plugin fica desativado. |
 

@@ -34,13 +34,13 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # accepts connections from another m
 
 ## Windows 应用内连接（从 PLCWare 1.7.1 起）
 
-使用 `TIAOpenness-Setup-1.7.1.exe` 安装 **PLCWare 1.7.1**，然后从托盘菜单或入门窗口打开
-**Connect your AI agents**。请先安装智能体本身，预览更改，再选择 **Connect**。
+使用 `TIAOpenness-Setup-1.7.1.exe` 安装 **PLCWare 1.7.1**，然后通过托盘菜单的 **Connect AI agents…**
+或入门窗口打开 **Connect your AI agents** 窗口。请先安装智能体本身，预览更改，再选择 **Connect**。
 这些由安装程序管理的连接不需要系统 Node.js、npm/`npx`、Git，也无需访问 npm registry：
 
 | 智能体 | 连接与技能 |
 |---|---|
-| Claude Code | 安装随附的本地插件市场和插件，包含技能、辅助智能体及内置 `tia` 启动器。已安装的插件会保留原配置；要切换 1.7.1 之前的 `npx` 连接，请先 **Disconnect**，再 **Connect**。 |
+| Claude Code | 安装随附的本地插件市场和插件，包含技能、辅助智能体及内置 `tia` 启动器。已安装的插件会保留原配置。要切换旧的 `npx` 插件，如果是 PLCWare 安装的，请先 **Disconnect**；否则先在 Claude Code 中卸载。然后从 PLCWare **Connect**。 |
 | Claude Desktop | 仅当 Windows 已为 `.mcpb` 关联处理程序时才打开随附的文件；请在 Desktop 中完成安装。否则将内置运行时写入检测到的版本的设置文件，包括 Store/MSIX。**在 Connect 写入设置前，必须从系统托盘完全退出 Desktop；仅关闭窗口不够。** 然后重新打开，并在 PLCWare 中用 **Refresh** 验证。 |
 | Codex | 写入唯一的内置 `tia` 连接，安装本地技能插件并提供辅助智能体。使用可用的 CLI，包括桌面应用自带的 CLI；无需单独安装 CLI。如果没有可用 CLI，则准备个人插件市场：关闭并重新打开 Codex，在 **Plugins** 中按显示的说明安装 `tia-harness`。插件中重复的 MCP 被禁用。 |
 
