@@ -95,9 +95,14 @@ hardware control. For licensing questions, [contact PLCWare support](https://plc
 
 ## Drive it from AI (MCP)
 
-The app is **non-opinionated** (endpoints pass parameters straight through to Openness), which makes
-it ideal to drive from an AI assistant. The **`tia` MCP server** is a thin HTTP client published on
-npm — point it at your running `serve` and you're done:
+The app is **non-opinionated** (endpoints pass parameters straight through to Openness), which makes it ideal to drive
+from an AI assistant. The **`tia` MCP server** is a thin HTTP client published on npm.
+The **PLCWare 1.7.1 Windows installer** bundles the MCP runtime for app-managed connections to Claude Code,
+Claude Desktop and Codex, including desktop-only Codex. These routes need no system Node.js/npm or Git.
+Desktop's `.mcpb`/settings fallback, the separate Desktop skills step and Codex plugin setup are documented in
+**[docs/INSTALL.md](docs/INSTALL.md)**. The public Codex CLI plugin, Gemini CLI extension, manual setup,
+older versions and Mac/Linux/remote clients without the Windows installer payload retain the npm/`npx` route.
+The commands below are **manual MCP-only alternatives**, not additions to an existing plugin connection.
 
 ```bash
 npx -y @renanlido/tia-openness-mcp

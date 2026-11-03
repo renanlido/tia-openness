@@ -6,7 +6,7 @@
 **系统托盘 GUI** 完成，无需命令行。文中同时给出对应的 CLI 命令，便于自动化。
 
 ```
-[ your AI editor / CLI ]  --(MCP)-->  [ tia MCP (npx) ]  --(HTTP)-->  [ serve (this app, Windows+TIA) ]
+[ your AI editor / CLI ]  --(MCP)-->  [ tia MCP（应用内置或 npx） ]  --(HTTP)-->  [ serve (this app, Windows+TIA) ]
 ```
 
 ## 1. 前提条件
@@ -14,25 +14,35 @@
 在已安装 **TIA Portal V21** 的机器上：
 
 - **Windows 10/11（x64）**。
-- **.NET Framework 4.8**（安装程序会检查，缺失时给出提示）。
+- **.NET Framework 4.8**（缺失时安装程序会停止）。
 - 已安装 **TIA Portal V21 及 Openness 组件**。应用从你本机的安装目录加载 Siemens 程序集，
   **不会**重新分发这些程序集。
 - 你的 Windows 用户必须属于本地组 **`Siemens TIA Openness`**（安装程序或 `setup` 会将你加入该组）。
 
-> **首次**连接时，TIA Portal 会弹出一次性的安全/信任对话框，你必须手动确认。这是正常现象。
+> 如果 TIA Portal 显示安全/信任对话框，请在该机器上手动确认。受信任的安装程序管理安装可以避免此对话框；
+> 便携副本仍可能需要确认。就绪检查的详细信息会显示允许列表状态。
 
 ## 2. 下载与安装
 
 在 [**Releases**](https://github.com/renanlido/tia-openness/releases/latest) 页面：
 
-- **一键安装（推荐）：** 下载 `TIAOpenness-Setup-<version>.exe` 并运行。它会复制应用，执行首次设置
-  （用户组、快捷方式、可选的 "start with Windows"），并打开 **Getting started** 界面。
-- **便携版：** 下载 `TIAOpenness-app-<version>.zip`，解压后运行 `TIAOpenness.exe setup`。
+- **安装程序（推荐）：** 下载 PLCWare 1.7.1 稳定版的 `TIAOpenness-Setup-1.7.1.exe`。
+  它会复制应用及随附的智能体文件，并配置原始 Windows 用户的环境。
+  如果用户组权限需要重新登录，最后一页会提供 **Restart now / Restart later**，**不会**立即打开入门窗口。
+  请先保存工作再重新启动。无需重启时，**View the getting-started steps** 在全新安装中默认选中，升级时默认不选中。
+- **便携版：** 下载 `TIAOpenness-app-v1.7.1.zip`，解压后运行 `TIAOpenness.exe setup`。
+  不需要系统 Node 的连接方式依赖安装程序所附文件；应用 ZIP 并不等价。
+
+入门窗口会检查环境并尝试自动启动 API；主要步骤包含许可证激活和智能体连接，技术诊断位于 **Details**。
+在要求重启后的下次登录时，仅当设置仍需处理才打开窗口；已完成设置则只显示简短的就绪通知。
+以后启动保持安静。可从托盘菜单或开始菜单的 **Next steps** 快捷方式重新打开检查清单。
 
 ## 3. 检查环境
 
-打开 PLCWare 托盘应用（快捷方式标签 **"TIA Openness API"**）→ **API** 选项卡 → **Check environment**。它会检查
-Windows 用户组、进程是否为 x64，以及 TIA Portal V21 + PublicAPI 是否存在。
+如需手动复查，打开 PLCWare 托盘应用（快捷方式标签 **"TIA Openness API"**）→ **API** → **Check environment**。
+它会检查 Windows 用户组、x64 进程以及 TIA Portal V21 + PublicAPI。
+如果账户已属于 `Siemens TIA Openness`，但当前登录令牌尚未更新，请注销并重新登录或重启；不要重复添加用户。
+如果尚未加入用户组，则需要以管理员权限进行设置。
 
 等效 CLI 命令：
 
@@ -51,7 +61,7 @@ Windows DPAPI 加密存储）。还没有许可证？请**[开始 30 天免费�
 
 ## 5. 启动 API
 
-在 GUI 中：**API** 选项卡 → **Start API**（默认端口 **5000**）。
+入门窗口会自动启动 API。如果尚未监听，请使用 **API** → **Start API**（默认端口 **5000**），并查看报告的错误。
 
 等效 CLI 命令：
 
@@ -82,7 +92,12 @@ TIAOpenness.exe setup-remote 5000 --allow 192.168.x.y   # allow only that source
 
 ## 6. 连接 AI 助手（可选）
 
-将 **`tia` MCP** 指向正在运行的 `serve`。以 **Claude Code** 为例：
+在由 PLCWare 1.7.1 安装程序管理的 Windows 上，打开 **Connect your AI agents**，预览并连接 Claude Code、
+Claude Desktop 或 Codex，无需系统 Node.js/npm 或 Git。请完成剩余手动步骤：Desktop 技能可能需要上传一个插件 ZIP，
+仅安装桌面应用的 Codex 可能需要在 **Plugins** 中安装一次。`.mcpb`/MSIX 备用方式、完全退出要求、
+技能、辅助智能体及仍使用 npm/`npx` 的方式，见 **[docs/INSTALL.zh.md](INSTALL.zh.md)**。
+
+以下是**仅配置 MCP 的手动替代方式**，不是应用管理插件的附加步骤；将 `tia` 指向正在运行的 `serve`：
 
 ```bash
 claude mcp add --transport stdio --env TIA_API_BASE=http://localhost:5000 --scope user tia -- npx -y @renanlido/tia-openness-mcp
@@ -98,8 +113,8 @@ Codex、Gemini CLI、Cursor、VS Code、Windsurf）以及 Windows 上 `cmd /c np
 - `activated:false` → 主机上的许可证缺失或无效。
 - 两者均为 `true` → 一切就绪。
 
-如需从规格说明到已验证项目的引导式工作流，请安装 Claude Code 插件
-[**tia-harness**](https://github.com/renanlido/tia-harness)。
+应用管理的 Claude Code 插件已包含 [**tia-harness**](https://github.com/renanlido/tia-harness)
+从规格说明到已验证项目的工作流；请勿再安装第二个 MCP。
 
 ## 故障排查
 
@@ -108,7 +123,7 @@ Codex、Gemini CLI、Cursor、VS Code、Windsurf）以及 Windows 上 `cmd /c np
 | 每次调用都返回 `403 license_required` | 主机上没有有效许可证，请先激活（步骤 4）。 |
 | `tia_ping` → `reachable:false` | `serve` 未运行、IP/端口错误，或被防火墙拦截。 |
 | API 无法在 `0.0.0.0` 上启动 | 尚未允许远程访问，请使用 **Allow remote access…**（步骤 5）。 |
-| "Check environment" 在用户组检查处失败 | 你不在 `Siemens TIA Openness` 组中：重新运行 `setup`，然后注销并重新登录。 |
-| TIA 信任对话框反复出现 | 在 TIA 所在的机器上手动确认一次（首次连接时属正常现象）。 |
+| "Check environment" 在用户组检查处失败 | 未加入：以管理员权限运行 `setup`。已加入但令牌未更新：注销并重新登录或重启，不要重复添加用户。 |
+| 出现 TIA 信任对话框 | 在 TIA 机器上手动确认；如果重复出现，请查看允许列表的就绪检查详情。 |
 
 更多帮助：**[SUPPORT.zh.md](../SUPPORT.zh.md)**。
