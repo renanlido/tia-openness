@@ -5,13 +5,9 @@
 > **单一来源。** 这是权威的安装指南。各 README 都指向这里——不要在其他地方重复这些步骤
 > （避免内容漂移，即 _drift_）。**只在这里**更新。
 
-**`tia` MCP** 是一个用于手动配置的 **npm** 包（`@renanlido/tia-openness-mcp`），是与 `serve` API
-（驱动 TIA Portal 的 Windows 应用）通信的轻量级 HTTP 客户端。从 PLCWare 1.7.1 起，Windows 上通过
-**连接你的 AI 智能体（Connect your AI agents）** 界面新建连接时，Claude Code（插件或文件配置）和 Codex（文件配置）
-使用应用内置的 `tia` MCP；Claude Desktop 使用随应用提供的扩展（`.mcpb`）。这些界面连接无需在系统安装
-Node.js、npm/`npx`，也无需访问 npm registry。Codex CLI 插件、Gemini CLI 扩展、手动配置、较早版本的应用以及
-Mac/Linux/远程主机仍使用 `npx`，并需要 Node.js 和 registry 访问权限。PLCWare 1.7.1 之前创建的 Claude Code
-连接会继续使用 `npx`，直到你在该界面断开并重新连接。只需配置**一项**：变量 **`TIA_API_BASE`**，指向 `serve`。
+**`tia` MCP**（`@renanlido/tia-openness-mcp`）是与 `serve` API（驱动 TIA Portal 的 Windows 应用）
+通信的轻量级 HTTP 客户端。PLCWare 1.7.1 Windows 安装程序包含下列应用管理连接所需的运行时。
+手动配置及其他基于 npm 的方式仍然可用。变量 **`TIA_API_BASE`** 将 MCP 指向你的 `serve`。
 
 ```
 [ your AI editor/CLI ]  --(MCP/stdio)-->  [ tia MCP（应用内置或 npx） ]  --(HTTP)-->  [ serve (Windows+TIA) ]
@@ -38,14 +34,30 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # accepts connections from another m
 
 ## Windows 应用内连接（从 PLCWare 1.7.1 起）
 
-从 PLCWare 1.7.1 起，Windows 上通过 **连接你的 AI 智能体（Connect your AI agents）** 界面新建连接时，Claude
-Code（插件或文件配置）和 Codex（文件配置）使用应用内置的 `tia` MCP；Claude Desktop 使用随应用提供的扩展
-（`.mcpb`）。这些界面连接无需在系统安装 Node.js、npm/`npx`，也无需访问 npm registry。Codex CLI 插件、Gemini
-CLI 扩展、手动配置、较早版本的应用以及 Mac/Linux/远程主机仍使用 `npx`，并需要 Node.js 和 registry 访问权限。
-PLCWare 1.7.1 之前创建的 Claude Code 连接会继续使用 `npx`，直到你在该界面断开并重新连接。
+使用 `TIAOpenness-Setup-1.7.1.exe` 安装 **PLCWare 1.7.1**，然后从托盘菜单或入门窗口打开
+**Connect your AI agents**。请先安装智能体本身，预览更改，再选择 **Connect**。
+这些由安装程序管理的连接不需要系统 Node.js、npm/`npx`、Git，也无需访问 npm registry：
 
-升级 PLCWare 后更新随附的 Claude Desktop 扩展：先在此界面断开并重新连接，然后在 Claude Desktop 中接受扩展
-更新提示。如果没有提示，或扩展仍未更新，请先在 Claude Desktop 中卸载该扩展，再从此界面重新连接。
+| 智能体 | 连接与技能 |
+|---|---|
+| Claude Code | 安装随附的本地插件市场和插件，包含技能、辅助智能体及内置 `tia` 启动器。已安装的插件会保留原配置；要切换 1.7.1 之前的 `npx` 连接，请先 **Disconnect**，再 **Connect**。 |
+| Claude Desktop | 仅当 Windows 已为 `.mcpb` 关联处理程序时才打开随附的文件；请在 Desktop 中完成安装。否则将内置运行时写入检测到的版本的设置文件，包括 Store/MSIX。**在 Connect 写入设置前，必须从系统托盘完全退出 Desktop；仅关闭窗口不够。** 然后重新打开，并在 PLCWare 中用 **Refresh** 验证。 |
+| Codex | 写入唯一的内置 `tia` 连接，安装本地技能插件并提供辅助智能体。使用可用的 CLI，包括桌面应用自带的 CLI；无需单独安装 CLI。如果没有可用 CLI，则准备个人插件市场：关闭并重新打开 Codex，在 **Plugins** 中按显示的说明安装 `tia-harness`。插件中重复的 MCP 被禁用。 |
+
+**Claude Desktop 技能与 MCP 连接器是两个步骤。** 如果已安装用户级 PLCWare 插件，就没有技能安装步骤。
+否则 Connect 会生成**一个插件 ZIP**，包含技能和智能体，但没有 MCP 连接器或 hooks。使用 **Open plugin folder**
+选中 ZIP，然后在 Desktop 中通过 **Customize → Plugins → Add → Upload plugin** 上传。
+无需逐个上传技能，也不需要 Git；智能体使用已有的 `tia` 连接。连接或断开 Desktop 不会安装或删除 Claude Code 插件。
+如果 Desktop 复用用户级插件，请保留 PLCWare 的 `tia` 连接器，不要同时启用插件自带的连接器。
+
+对于 `.mcpb` 连接，升级 PLCWare 后重新连接，并在 Desktop 中完成扩展更新。必要时在 Desktop 中卸载旧扩展后重新连接。
+对于设置文件方式，重新连接前必须完全退出 Desktop，然后重新打开并验证。请完成剩余手动步骤；
+仅点击 **Connect** 并不能验证这些步骤。
+
+**仍使用 npm/`npx` 的方式：** 独立安装的公共 Codex CLI 插件（不是应用管理的本地插件）、Gemini CLI 扩展、
+下方的手动示例、较早版本的应用，以及 Mac/Linux 或未安装 Windows 安装程序所附文件的远程主机上的 MCP 客户端。
+这些方式需要 Node.js 和 npm 包访问权限（首次使用或未缓存包时需要访问 registry）。
+Windows 内置方式并不保证智能体安装、登录或 AI 服务能离线运行。
 
 ## Windows 手动配置或旧版本：使用 `cmd /c npx`
 
@@ -65,6 +77,9 @@ PLCWare 1.7.1 之前创建的 Claude Code 连接会继续使用 `npx`，直到�
 在 **macOS/Linux** 上使用简单形式（直接用 `npx`）——**不要**加 `cmd /c`。
 
 ---
+
+以下客户端示例是**仅配置 MCP 的手动方式**，不是上述应用管理的插件安装方式。
+请勿在已有插件或扩展连接上再添加第二个 `tia` 条目。
 
 ## Claude Code
 
@@ -92,10 +107,12 @@ claude mcp add --scope user --env TIA_API_BASE=http://localhost:5000 tia -- npx 
 
 ## Claude Desktop
 
-编辑 `claude_desktop_config.json`（Settings → Developer → **Edit Config** 会打开该文件）：
+手动配置时，通过 Settings → Developer → **Edit Config** 打开 `claude_desktop_config.json`，
+然后**完全退出 Desktop 后再编辑**：
 
 - **macOS：** `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows：** `%APPDATA%\Claude\claude_desktop_config.json`
+- **Windows（.exe）：** `%APPDATA%\Claude\claude_desktop_config.json`
+- **Windows（Store/MSIX）：** `%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\claude_desktop_config.json`
 
 ```json
 {
@@ -109,8 +126,8 @@ claude mcp add --scope user --env TIA_API_BASE=http://localhost:5000 tia -- npx 
 }
 ```
 
-在 **Windows** 上进行手动 JSON 配置时，使用上面的 `cmd /c` 形式——这是"服务器无法启动"的头号原因。重启应用。
-PLCWare 1.7.1 起的应用内置连接方式见上文。
+在 **Windows** 上手动配置 JSON 时，使用上面的 `cmd /c` 形式。保存后重新打开 Desktop 并验证连接。
+由安装程序管理的方式见上文。
 
 ## Codex（CLI + IDE 扩展）
 
@@ -132,7 +149,8 @@ TIA_API_BASE = "http://localhost:5000"
 codex mcp add tia --env TIA_API_BASE=http://localhost:5000 -- npx -y @renanlido/tia-openness-mcp
 ```
 
-在会话中用 `/mcp` 验证。（在 Windows 上，将 `args` 中的 `npx` 替换为 `cmd /c npx`。）
+在会话中用 `/mcp` 验证。在 Windows 上，使用 `command = "cmd"` 和
+`args = ["/c", "npx", "-y", "@renanlido/tia-openness-mcp"]`。
 
 ## Gemini CLI
 
@@ -215,14 +233,14 @@ gemini mcp add -s user -e TIA_API_BASE=http://localhost:5000 tia npx -y @renanli
 | 客户端 | 文件 | 根键 | `type:"stdio"`？ | 添加用的 CLI |
 |---|---|---|---|---|
 | Claude Code | `.mcp.json`（项目）/ `~/.claude.json`（用户，通过 CLI） | `mcpServers` | 可选 | `claude mcp add … -- npx …` |
-| Claude Desktop | `claude_desktop_config.json`（mac `~/Library/Application Support/Claude/`，win `%APPDATA%\Claude\`） | `mcpServers` | 可选 | —（编辑 JSON） |
+| Claude Desktop | `claude_desktop_config.json`（通过 **Edit Config** 获取上述检测版本的路径） | `mcpServers` | 可选 | —（完全退出后编辑 JSON） |
 | Codex | `~/.codex/config.toml` | `[mcp_servers.tia]`（TOML） | — | `codex mcp add …` |
 | Gemini CLI | `~/.gemini/settings.json` | `mcpServers` | — | `gemini mcp add …` |
 | Cursor | `.cursor/mcp.json` / `~/.cursor/mcp.json` | `mcpServers` | — | —（JSON/UI） |
 | **VS Code** | `.vscode/mcp.json` | **`servers`** | **是** | `code --add-mcp "{…}"` |
 | Windsurf | `~/.codeium/windsurf/mcp_config.json` | `mcpServers` | — | —（JSON/UI） |
 
-**黄金法则：** (1) 在 **Windows** 上使用 `cmd /c npx`；(2) 在 **VS Code** 中，根键用 `servers` + `type:"stdio"`；
+**手动 npm 方式的规则：** (1) 在 **Windows** 上使用 `cmd /c npx`；(2) 在 **VS Code** 中，根键用 `servers` + `type:"stdio"`；
 (3) 设置 **`TIA_API_BASE`** 指向 `serve`；(4) 编辑文件后重启客户端。
 
 ## 远程访问（另一台机器 → serve 所在主机）

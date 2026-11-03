@@ -97,12 +97,12 @@ hardware control. For licensing questions, [contact PLCWare support](https://plc
 
 The app is **non-opinionated** (endpoints pass parameters straight through to Openness), which makes it ideal to drive
 from an AI assistant. The **`tia` MCP server** is a thin HTTP client published on npm.
-From PLCWare 1.7.1 on Windows, a fresh connection through the **Connect your AI agents** screen uses the app-bundled
-`tia` MCP for Claude Code (plugin or file-config) and Codex (file-config); Claude Desktop uses the bundled extension
-(`.mcpb`). These screen connections need no system Node.js, npm/`npx`, or npm registry access. The Codex CLI plugin,
-Gemini CLI extension, manual setup, earlier app versions, and Mac/Linux/remote hosts still use `npx` and require Node.js
-and registry access. A Claude Code connection made before PLCWare 1.7.1 keeps using `npx` until it is disconnected and
-connected again from that screen. The npm/`npx` command below is for the routes that require it.
+The **PLCWare 1.7.1 Windows installer** bundles the MCP runtime for app-managed connections to Claude Code,
+Claude Desktop and Codex, including desktop-only Codex. These routes need no system Node.js/npm or Git.
+Desktop's `.mcpb`/settings fallback, the separate Desktop skills step and Codex plugin setup are documented in
+**[docs/INSTALL.md](docs/INSTALL.md)**. The public Codex CLI plugin, Gemini CLI extension, manual setup,
+older versions and Mac/Linux/remote clients without the Windows installer payload retain the npm/`npx` route.
+The commands below are **manual MCP-only alternatives**, not additions to an existing plugin connection.
 
 ```bash
 npx -y @renanlido/tia-openness-mcp

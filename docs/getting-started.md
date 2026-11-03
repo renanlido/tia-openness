@@ -13,28 +13,38 @@ automation.
 On the machine that has **TIA Portal V21**:
 
 - **Windows 10/11 (x64)**.
-- **.NET Framework 4.8** (the installer checks and warns if missing).
+- **.NET Framework 4.8** (the installer stops if missing).
 - **TIA Portal V21 + the Openness component** installed. The app loads the Siemens assemblies from
   your local install — they are **not** redistributed.
 - Your Windows user must belong to the **`Siemens TIA Openness`** local group (the installer/`setup`
   adds you).
 
-> On the **first** connection, TIA Portal shows a one-time security/trust dialog you must confirm
-> manually. This is expected.
+> If TIA Portal shows a security/trust dialog, confirm it manually on that machine. A trusted installer-managed
+> installation can avoid it; portable copies may still require it. The readiness details report the allow-list state.
 
 ## 2. Download & install
 
 From the [**Releases**](https://github.com/renanlido/tia-openness/releases/latest) page:
 
-- **One-click (recommended):** download `TIAOpenness-Setup-<version>.exe` and run it. It copies the
-  app, runs first-time setup (group, shortcut, optional "start with Windows"), and opens the
-  **Getting started** screen.
-- **Portable:** download `TIAOpenness-app-<version>.zip`, unzip, then run `TIAOpenness.exe setup`.
+- **Installer (recommended):** download `TIAOpenness-Setup-1.7.1.exe` for PLCWare 1.7.1 stable.
+  It copies the app and bundled agent assets and configures the original Windows user's environment.
+  If group permissions require a new sign-in, the final page offers **Restart now / Restart later** and does **not**
+  launch getting started immediately. Save your work before restarting.
+  Without a pending restart, **View the getting-started steps** is preselected on fresh installs and unchecked on upgrades.
+- **Portable:** download `TIAOpenness-app-v1.7.1.zip`, unzip, then run `TIAOpenness.exe setup`.
+  The no-system-Node connection path requires the installer payload; the app ZIP is not equivalent.
+
+The getting-started window checks the environment and attempts to start the API automatically, with license activation
+and agent connection in the main steps and technical checks under **Details**. At the next sign-in after a requested
+restart, it opens only if setup still needs attention; a completed setup gets a short ready notification instead.
+Later launches stay quiet. Reopen the checklist from the tray menu or the Start-menu **Next steps** shortcut.
 
 ## 3. Check the environment
 
-Open the PLCWare tray app (shortcut **"TIA Openness API"**) → **API** tab → **Check environment**. It
-verifies the Windows group, that the process is x64, and that TIA Portal V21 + PublicAPI are present.
+For a manual recheck, open the PLCWare tray app (shortcut **"TIA Openness API"**) → **API** tab → **Check environment**.
+It verifies the Windows group, that the process is x64, and that TIA Portal V21 + PublicAPI are present.
+If the account is already in `Siemens TIA Openness` but its current sign-in token is stale, sign out/in or restart;
+do not repeat the add-user step. Missing membership needs elevated setup instead.
 
 CLI equivalent:
 
@@ -53,7 +63,8 @@ it is self-serve, includes the Pro scopes and needs no card.
 
 ## 5. Start the API
 
-In the GUI: **API** tab → **Start API** (default port **5000**).
+The getting-started window starts the API automatically. If it is not listening, use **API** → **Start API**
+(default port **5000**) and inspect any reported error.
 
 CLI equivalent:
 
@@ -84,14 +95,13 @@ TIAOpenness.exe setup-remote 5000 --allow 192.168.x.y   # allow only that source
 
 ## 6. Connect an AI assistant (optional)
 
-From PLCWare 1.7.1 on Windows, a fresh connection through the **Connect your AI agents** screen uses the app-bundled
-`tia` MCP for Claude Code (plugin or file-config) and Codex (file-config); Claude Desktop uses the bundled extension
-(`.mcpb`). These screen connections need no system Node.js, npm/`npx`, or npm registry access. The Codex CLI plugin,
-Gemini CLI extension, manual setup, earlier app versions, and Mac/Linux/remote hosts still use `npx` and require Node.js
-and registry access. A Claude Code connection made before PLCWare 1.7.1 keeps using `npx` until it is disconnected and
-connected again from the screen.
+On installer-managed Windows with PLCWare 1.7.1, open **Connect your AI agents**, preview and connect Claude Code,
+Claude Desktop or Codex without system Node.js/npm or Git. Follow the remaining manual steps: Desktop skills may need
+one plugin ZIP upload, and desktop-only Codex may need one **Plugins** installation.
+See **[docs/INSTALL.md](INSTALL.md)** for the `.mcpb`/MSIX fallback, full-quit requirement, skills and helper setup,
+and the routes that still use npm/`npx`.
 
-Point the **`tia` MCP** at your running `serve`. For a command-line setup of Claude Code:
+For a **manual MCP-only alternative**, not an addition to the app-managed plugin, point `tia` at your running `serve`:
 
 ```bash
 claude mcp add --transport stdio --env TIA_API_BASE=http://localhost:5000 --scope user tia -- npx -y @renanlido/tia-openness-mcp
@@ -107,8 +117,8 @@ The first tool to call is **`tia_ping`**:
 - `activated:false` → license missing or invalid on the host.
 - both `true` → you're ready.
 
-For a guided, spec-to-verified-project workflow, install the
-[**tia-harness**](https://github.com/renanlido/tia-harness) Claude Code plugin.
+The app-managed Claude Code plugin already includes the
+[**tia-harness**](https://github.com/renanlido/tia-harness) spec-to-verified-project workflow; do not install a second MCP.
 
 ## Troubleshooting
 
@@ -117,7 +127,7 @@ For a guided, spec-to-verified-project workflow, install the
 | `403 license_required` on every call | No valid license on the host — activate it (step 4). |
 | `tia_ping` → `reachable:false` | `serve` not running, wrong IP/port, or firewall blocking. |
 | API won't start on `0.0.0.0` | Remote access not allowed yet — use **Allow remote access…** (step 5). |
-| "Check environment" fails on the group | You're not in `Siemens TIA Openness` — re-run `setup`, then sign out/in. |
-| TIA trust dialog keeps appearing | Confirm it once manually on the TIA machine (expected on first connect). |
+| "Check environment" fails on the group | Missing membership: run elevated `setup`. Already added but token stale: sign out/in or restart, not another add-user command. |
+| TIA trust dialog appears | Confirm manually on the TIA machine; inspect allow-list readiness details if it recurs. |
 
 More help: **[SUPPORT.md](../SUPPORT.md)**.

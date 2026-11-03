@@ -15,30 +15,40 @@ ejecución y con licencia en pocos minutos. Todo lo que aparece aquí se puede h
 En la máquina que tiene **TIA Portal V21**:
 
 - **Windows 10/11 (x64)**.
-- **.NET Framework 4.8** (el instalador lo comprueba y avisa si falta).
+- **.NET Framework 4.8** (el instalador se detiene si falta).
 - **TIA Portal V21 + el componente Openness** instalados. La aplicación carga los assemblies de
   Siemens desde tu instalación local; **no** se redistribuyen.
 - Tu usuario de Windows debe pertenecer al grupo local **`Siemens TIA Openness`** (el
   instalador o `setup` te agrega).
 
-> En la **primera** conexión, TIA Portal muestra una única vez un cuadro de diálogo de
-> seguridad/confianza que debes confirmar manualmente. Es el comportamiento esperado.
+> Si TIA Portal muestra un diálogo de seguridad/confianza, confírmalo manualmente en esa máquina. Una instalación
+> de confianza gestionada por el instalador puede evitarlo; las copias portables aún pueden requerirlo. Los detalles de
+> preparación muestran el estado de la lista de permisos.
 
 ## 2. Descargar e instalar
 
 Desde la página de [**Releases**](https://github.com/renanlido/tia-openness/releases/latest):
 
-- **Un clic (recomendado):** descarga `TIAOpenness-Setup-<version>.exe` y ejecútalo. Copia la
-  aplicación, ejecuta la configuración inicial (grupo, acceso directo, "start with Windows"
-  opcional) y abre la pantalla **Getting started**.
-- **Portable:** descarga `TIAOpenness-app-<version>.zip`, descomprímelo y ejecuta
-  `TIAOpenness.exe setup`.
+- **Instalador (recomendado):** descarga `TIAOpenness-Setup-1.7.1.exe` para PLCWare 1.7.1 estable.
+  Copia la aplicación y los archivos de agentes incluidos y configura el entorno del usuario original de Windows.
+  Si los permisos del grupo requieren un nuevo inicio de sesión, la página final ofrece **Restart now / Restart later**
+  y **no** abre los primeros pasos inmediatamente. Guarda tu trabajo antes de reiniciar.
+  Sin reinicio pendiente, **View the getting-started steps** está marcado en instalaciones nuevas y desmarcado en actualizaciones.
+- **Portable:** descarga `TIAOpenness-app-v1.7.1.zip`, descomprímelo y ejecuta `TIAOpenness.exe setup`.
+  La conexión sin Node del sistema requiere los archivos del instalador; el ZIP de la aplicación no es equivalente.
+
+La ventana de primeros pasos comprueba el entorno e intenta iniciar la API automáticamente; la activación de licencia
+y la conexión de agentes están en los pasos principales y los diagnósticos técnicos en **Details**. En el siguiente
+inicio de sesión tras el reinicio solicitado, solo se abre si la configuración aún necesita atención; si está completa,
+muestra una breve notificación de preparación. Los lanzamientos posteriores son silenciosos. Reabre la lista desde el
+menú de la bandeja o el acceso directo **Next steps** del menú Inicio.
 
 ## 3. Comprobar el entorno
 
-Abre la aplicación de la bandeja de PLCWare (acceso directo **"TIA Openness API"**) → pestaña **API** →
-**Check environment**. Verifica el grupo de Windows, que el proceso sea x64 y que TIA Portal V21 +
-PublicAPI estén presentes.
+Para una comprobación manual, abre PLCWare en la bandeja (acceso directo **"TIA Openness API"**) → **API** →
+**Check environment**. Verifica el grupo de Windows, el proceso x64 y la presencia de TIA Portal V21 + PublicAPI.
+Si la cuenta ya pertenece a `Siemens TIA Openness` pero el token de sesión está desactualizado, cierra/inicia sesión
+o reinicia; no repitas la adición del usuario. Si falta la pertenencia al grupo, ejecuta la configuración elevada.
 
 Equivalente en CLI:
 
@@ -57,7 +67,8 @@ es de autoservicio, incluye los permisos (scopes) de Pro y no pide tarjeta.
 
 ## 5. Iniciar la API
 
-En la GUI: pestaña **API** → **Start API** (puerto predeterminado **5000**).
+La ventana de primeros pasos inicia la API automáticamente. Si no escucha, usa **API** → **Start API**
+(puerto predeterminado **5000**) y revisa el error indicado.
 
 Equivalente en CLI:
 
@@ -89,16 +100,13 @@ TIAOpenness.exe setup-remote 5000 --allow 192.168.x.y   # allow only that source
 
 ## 6. Conectar un asistente de IA (opcional)
 
-Desde PLCWare 1.7.1 en Windows, una conexión nueva desde la pantalla **Conecta tus agentes de IA (Connect your AI
-agents)** usa el MCP `tia` incluido en la aplicación para Claude Code (plugin o configuración mediante archivo) y Codex
-(configuración mediante archivo); Claude Desktop usa la extensión incluida (`.mcpb`). Estas conexiones nuevas desde la
-pantalla no requieren Node.js, npm/`npx` ni acceso al registro npm del sistema. El plugin de CLI de Codex, la extensión
-de Gemini CLI, la configuración manual, las versiones anteriores de la aplicación y los hosts Mac/Linux/remotos siguen
-usando `npx` y requieren Node.js y acceso al registro. Una conexión de Claude Code creada antes de PLCWare 1.7.1 sigue
-usando `npx` hasta que la desconectes y vuelvas a conectarla desde la pantalla. Consulta
-**[docs/INSTALL.es.md](INSTALL.es.md)** para ver los detalles.
+En Windows gestionado por el instalador de PLCWare 1.7.1, abre **Connect your AI agents**, revisa y conecta Claude Code,
+Claude Desktop o Codex sin Node.js/npm ni Git del sistema. Completa los pasos manuales pendientes: las habilidades de
+Desktop pueden requerir subir un ZIP de plugin, y Codex solo con la aplicación desktop puede necesitar una instalación
+en **Plugins**. Consulta **[docs/INSTALL.es.md](INSTALL.es.md)** para la ruta `.mcpb`/MSIX, la salida completa obligatoria,
+las habilidades, los auxiliares y las rutas que aún usan npm/`npx`.
 
-Apunta el **MCP `tia`** a tu `serve` en ejecución. Para configurar Claude Code desde la línea de comandos:
+Como **alternativa manual solo del MCP**, no como adición al plugin gestionado por la aplicación, apunta `tia` al `serve` en marcha:
 
 ```bash
 claude mcp add --transport stdio --env TIA_API_BASE=http://localhost:5000 --scope user tia -- npx -y @renanlido/tia-openness-mcp
@@ -114,8 +122,8 @@ La primera tool que debes llamar es **`tia_ping`**:
 - `activated:false` → licencia ausente o no válida en el host.
 - ambos `true` → todo listo.
 
-Para un flujo guiado, de la especificación al proyecto verificado, instala el plugin
-[**tia-harness**](https://github.com/renanlido/tia-harness) de Claude Code.
+El plugin de Claude Code gestionado por la aplicación ya incluye el flujo de especificación a proyecto verificado de
+[**tia-harness**](https://github.com/renanlido/tia-harness); no instales un segundo MCP.
 
 ## Solución de problemas
 
@@ -124,7 +132,7 @@ Para un flujo guiado, de la especificación al proyecto verificado, instala el p
 | `403 license_required` en cada llamada | No hay una licencia válida en el host: actívala (paso 4). |
 | `tia_ping` → `reachable:false` | `serve` no está en ejecución, IP/puerto incorrectos o el firewall bloquea. |
 | La API no inicia en `0.0.0.0` | El acceso remoto aún no está permitido: usa **Allow remote access…** (paso 5). |
-| "Check environment" falla en el grupo | No perteneces a `Siemens TIA Openness`: vuelve a ejecutar `setup` y luego cierra e inicia sesión. |
-| El diálogo de confianza de TIA sigue apareciendo | Confírmalo una vez, manualmente, en la máquina de TIA (es lo esperado en la primera conexión). |
+| "Check environment" falla en el grupo | Sin pertenencia: ejecuta `setup` elevado. Ya añadido pero token desactualizado: cierra/inicia sesión o reinicia, sin repetir la adición. |
+| Aparece el diálogo de confianza de TIA | Confirma manualmente en la máquina de TIA; si se repite, revisa los detalles de preparación de la lista de permisos. |
 
 Más ayuda: **[SUPPORT.es.md](../SUPPORT.es.md)**.

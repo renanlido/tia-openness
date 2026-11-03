@@ -5,15 +5,10 @@
 > **Fuente única.** Esta es la guía de instalación canónica. Los README apuntan aquí: no dupliques
 > los pasos en otro lugar (evita el _drift_). Actualiza **solo aquí**.
 
-El **MCP `tia`** es un paquete **npm** (`@renanlido/tia-openness-mcp`): un cliente HTTP ligero para la API `serve`
-(la aplicación de Windows que controla TIA Portal). Desde PLCWare 1.7.1 en Windows, una conexión nueva desde la pantalla
-**Conecta tus agentes de IA (Connect your AI agents)** usa el MCP `tia` incluido en la aplicación para Claude Code
-(plugin o configuración mediante archivo) y Codex (configuración mediante archivo); Claude Desktop usa la extensión
-incluida (`.mcpb`). Estas conexiones nuevas desde la pantalla no requieren Node.js, npm/`npx` ni acceso al registro npm
-del sistema. El plugin de CLI de Codex, la extensión de Gemini CLI, la configuración manual, las versiones anteriores
-de la aplicación y los hosts Mac/Linux/remotos siguen usando `npx` y requieren Node.js y acceso al registro. Una conexión
-de Claude Code creada antes de PLCWare 1.7.1 sigue usando `npx` hasta que la desconectes y vuelvas a conectarla desde
-la pantalla. Solo hay **una** cosa que configurar: la variable **`TIA_API_BASE`**, que apunta al `serve`.
+El **MCP `tia`** (`@renanlido/tia-openness-mcp`) es un cliente HTTP ligero para la API `serve`
+(la aplicación de Windows que controla TIA Portal). El instalador Windows de PLCWare 1.7.1 incluye el runtime para las
+conexiones gestionadas por la aplicación que se describen abajo. Las rutas manuales y otras basadas en npm siguen disponibles.
+La variable **`TIA_API_BASE`** apunta el MCP a tu `serve`.
 
 ```
 [ your AI editor/CLI ]  --(MCP/stdio)-->  [ tia MCP (incluido o con npx) ]  --(HTTP)-->  [ serve (Windows+TIA) ]
@@ -41,17 +36,33 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # accepts connections from another m
 
 ## Ruta de la aplicación en Windows (desde PLCWare 1.7.1)
 
-Desde PLCWare 1.7.1 en Windows, una conexión nueva desde la pantalla **Conecta tus agentes de IA (Connect your AI
-agents)** usa el MCP `tia` incluido en la aplicación para Claude Code (plugin o configuración mediante archivo) y Codex
-(configuración mediante archivo); Claude Desktop usa la extensión incluida (`.mcpb`). Estas conexiones nuevas desde la
-pantalla no requieren Node.js, npm/`npx` ni acceso al registro npm del sistema. El plugin de CLI de Codex, la extensión
-de Gemini CLI, la configuración manual, las versiones anteriores de la aplicación y los hosts Mac/Linux/remotos siguen
-usando `npx` y requieren Node.js y acceso al registro. Una conexión de Claude Code creada antes de PLCWare 1.7.1 sigue
-usando `npx` hasta que la desconectes y vuelvas a conectarla desde la pantalla.
+Instala **PLCWare 1.7.1** con `TIAOpenness-Setup-1.7.1.exe` y abre **Connect your AI agents** desde el menú de la
+bandeja o la ventana de primeros pasos. Instala primero el agente, revisa los cambios y elige **Connect**.
+Estas conexiones gestionadas por el instalador no necesitan Node.js, npm/`npx`, Git del sistema ni acceso al registro npm:
 
-Para actualizar la extensión incluida de Claude Desktop después de actualizar PLCWare, desconéctala y vuelve a
-conectarla desde esa pantalla; luego acepta el aviso de actualización en Claude Desktop. Si no aparece ningún aviso o
-la extensión sigue desactualizada, desinstálala en Claude Desktop y vuelve a conectarla desde la pantalla.
+| Agente | Conexión y habilidades |
+|---|---|
+| Claude Code | Instala el catálogo local de plugins y el plugin incluidos, con habilidades, auxiliares y el lanzador `tia` integrado. Un plugin ya instalado conserva su configuración; para cambiar una conexión `npx` anterior a 1.7.1, usa **Disconnect** y después **Connect**. |
+| Claude Desktop | Abre el `.mcpb` incluido solo si Windows tiene una aplicación asociada; completa la instalación en Desktop. Si no, escribe el runtime integrado en la configuración de la versión detectada, incluida Store/MSIX. **Sal completamente de Desktop desde la bandeja antes de que Connect escriba la configuración; cerrar la ventana no basta.** Vuelve a abrirlo y usa **Refresh** en PLCWare para verificar. |
+| Codex | Escribe una sola conexión `tia` integrada e instala el plugin local de habilidades, además de los agentes auxiliares. Usa una CLI disponible, incluida la del propio desktop; no requiere instalar una CLI aparte. Si no hay una CLI utilizable, prepara un catálogo personal de plugins: cierra/reabre Codex e instala `tia-harness` en **Plugins** siguiendo las instrucciones mostradas. El MCP duplicado del plugin queda desactivado. |
+
+**Las habilidades de Claude Desktop son un paso separado del conector MCP.** Si el plugin de PLCWare de ámbito de usuario
+ya está instalado, no hay paso de habilidades. De lo contrario, Connect prepara **un único ZIP de plugin**, con
+habilidades y agentes pero sin conector MCP ni hooks. Usa **Open plugin folder** para seleccionar el ZIP y súbelo en
+Desktop: **Customize → Plugins → Add → Upload plugin**. No requiere subir cada habilidad ni Git;
+los agentes usan la conexión `tia` existente. Conectar o desconectar Desktop no instala ni elimina el plugin de Claude Code.
+Si Desktop reutiliza el plugin de usuario, conserva el conector `tia` de PLCWare; no actives también el conector del plugin.
+
+Para una conexión `.mcpb`, reconecta tras actualizar PLCWare y completa la actualización de la extensión en Desktop.
+Si hace falta, desinstala la extensión antigua en Desktop y reconecta. En la ruta de archivo de configuración, sal
+completamente de Desktop antes de reconectar; luego ábrelo y verifica. Completa los pasos manuales pendientes;
+**Connect** por sí solo no los verifica.
+
+**Rutas que aún usan npm/`npx`:** el plugin público de Codex CLI instalado de forma independiente (no el plugin local
+gestionado por la aplicación), la extensión de Gemini CLI, los ejemplos manuales de abajo, versiones anteriores de la
+aplicación y clientes MCP en Mac/Linux o un host remoto sin los archivos del instalador Windows. Requieren Node.js
+y acceso al paquete npm (acceso al registro en el primer uso o si el paquete no está en caché). La ruta Windows
+integrada no garantiza que la instalación del agente, el inicio de sesión o el servicio de IA funcionen sin conexión.
 
 ## Configuración manual o versiones anteriores de Windows: usa `cmd /c npx`
 
@@ -72,6 +83,9 @@ por:
 En **macOS/Linux** usa la forma simple (`npx` directamente): **no** pongas `cmd /c` allí.
 
 ---
+
+Los ejemplos por cliente de abajo son de **configuración manual solo del MCP**, no de la instalación de plugins desde
+la aplicación descrita arriba. No añadas otra entrada `tia` sobre una conexión existente por plugin o extensión.
 
 ## Claude Code
 
@@ -99,10 +113,12 @@ Comprueba: `claude mcp list` (debe listar `tia`) · en una sesión, `/mcp`.
 
 ## Claude Desktop
 
-Edita `claude_desktop_config.json` (Settings → Developer → **Edit Config** abre el archivo):
+Para la configuración manual, abre `claude_desktop_config.json` desde Settings → Developer → **Edit Config**,
+después **sal completamente de Desktop antes de editar**:
 
 - **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+- **Windows (.exe):** `%APPDATA%\Claude\claude_desktop_config.json`
+- **Windows (Store/MSIX):** `%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\claude_desktop_config.json`
 
 ```json
 {
@@ -116,8 +132,8 @@ Edita `claude_desktop_config.json` (Settings → Developer → **Edit Config** a
 }
 ```
 
-Para una configuración manual mediante JSON en **Windows**, usa la forma `cmd /c` de arriba; es la causa n.º 1 de
-"el servidor no inicia". Reinicia la aplicación. La ruta incluida en la aplicación desde PLCWare 1.7.1 se describe arriba.
+Para la configuración manual por JSON en **Windows**, usa la forma `cmd /c` de arriba. Reabre Desktop después de guardar
+y verifica la conexión. La ruta gestionada por el instalador se describe arriba.
 
 ## Codex (CLI + extensión de IDE)
 
@@ -139,7 +155,8 @@ O mediante la CLI:
 codex mcp add tia --env TIA_API_BASE=http://localhost:5000 -- npx -y @renanlido/tia-openness-mcp
 ```
 
-Comprueba en una sesión con `/mcp`. (En Windows, reemplaza `npx` por `cmd /c npx` en `args`.)
+Comprueba en una sesión con `/mcp`. En Windows, usa `command = "cmd"` y
+`args = ["/c", "npx", "-y", "@renanlido/tia-openness-mcp"]`.
 
 ## Gemini CLI
 
@@ -222,14 +239,14 @@ Archivo `~/.codeium/windsurf/mcp_config.json` (sin ámbito de proyecto), formato
 | Cliente | Archivo | Clave raíz | ¿`type:"stdio"`? | CLI para añadir |
 |---|---|---|---|---|
 | Claude Code | `.mcp.json` (proyecto) / `~/.claude.json` (usuario, mediante la CLI) | `mcpServers` | opcional | `claude mcp add … -- npx …` |
-| Claude Desktop | `claude_desktop_config.json` (mac `~/Library/Application Support/Claude/`, win `%APPDATA%\Claude\`) | `mcpServers` | opcional | — (editar el JSON) |
+| Claude Desktop | `claude_desktop_config.json` (usa **Edit Config** para la ruta de la versión detectada arriba) | `mcpServers` | opcional | — (editar JSON tras salir completamente) |
 | Codex | `~/.codex/config.toml` | `[mcp_servers.tia]` (TOML) | — | `codex mcp add …` |
 | Gemini CLI | `~/.gemini/settings.json` | `mcpServers` | — | `gemini mcp add …` |
 | Cursor | `.cursor/mcp.json` / `~/.cursor/mcp.json` | `mcpServers` | — | — (JSON/UI) |
 | **VS Code** | `.vscode/mcp.json` | **`servers`** | **sí** | `code --add-mcp "{…}"` |
 | Windsurf | `~/.codeium/windsurf/mcp_config.json` | `mcpServers` | — | — (JSON/UI) |
 
-**Reglas de oro:** (1) en **Windows**, `cmd /c npx`; (2) en **VS Code**, clave raíz `servers` + `type:"stdio"`;
+**Reglas de la ruta npm manual:** (1) en **Windows**, `cmd /c npx`; (2) en **VS Code**, clave raíz `servers` + `type:"stdio"`;
 (3) define **`TIA_API_BASE`** apuntando al `serve`; (4) reinicia el cliente después de editar el archivo.
 
 ## Acceso remoto (otra máquina → el host del serve)
