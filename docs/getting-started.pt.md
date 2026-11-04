@@ -2,9 +2,9 @@
 
 > Tradução em português. Original em inglês: [getting-started.md](getting-started.md).
 
-Este guia leva você do download a um app PLCWare em execução e com licença, em poucos minutos. Tudo
-o que está aqui pode ser feito pela **GUI de bandeja** — sem linha de comando. Os equivalentes em
-CLI são mostrados para automação.
+Este guia leva você do download ao app PLCWare Windows em execução e ativado pela GUI de bandeja.
+Para conectar os agentes, execute `npx plcware-setup` no terminal do computador deles (passo 6).
+Os equivalentes em CLI e as rotas manuais avançadas continuam disponíveis.
 
 ```
 [ your AI editor / CLI ]  --(MCP)-->  [ tia MCP (incluído ou npx) ]  --(HTTP)-->  [ serve (this app, Windows+TIA) ]
@@ -98,6 +98,29 @@ TIAOpenness.exe setup-remote 5000 --allow 192.168.x.y   # allow only that source
 > **não** autentica clientes individuais — controle o acesso com firewall / VPN.
 
 ## 6. Conectar um assistente de IA (opcional)
+
+Instale o **PLCWare (app Windows)** na máquina com TIA Portal, ative-o e inicie a API. No computador dos agentes
+(Windows, macOS ou Linux), instale Node.js `^20.12.0 || >=21.7.0` (LTS atual recomendado) e execute:
+
+```sh
+npx plcware-setup
+```
+
+Sem argumentos, no terminal, selecione os agentes detectados, os componentes compatíveis de cada agente e as habilidades.
+Claude Code, Codex e Gemini CLI recebem o plugin/extensão oficial **renanlido/tia-harness**; os demais recebem somente
+os componentes MCP, habilidades e subagentes selecionados e compatíveis. É um único harness, não uma segunda cópia.
+Ao selecionar MCP, informe o endereço da API (`http://localhost:5000` já vem preenchido; use o endereço do host/VM Windows
+para clientes remotos) e o modo completo/somente leitura. Confira a prévia e confirme uma vez. Instalar só habilidades
+não exige perguntas da API. O setup não pede chave de ativação: ative o app Windows. A confiança na fonte continua sendo sua decisão.
+
+Sem terminal ou em CI, o comando sem argumentos mostra a ajuda. Reinicie o agente, confira o MCP e peça `tia_ping`.
+`npx plcware-setup plan` mostra a prévia sem gravar; `npx plcware-setup uninstall --yes` remove somente alterações
+registradas como próprias. Plugins instalados por outra origem ficam intactos. Use uma origem de instalação por agente.
+
+## Avançado: conexões manuais e gerenciadas pelo app
+
+As rotas por agente abaixo continuam disponíveis para configuração avançada; não duplique a conexão `tia`.
+
 
 No Windows gerenciado pelo instalador do PLCWare 1.7.1, abra **Conectar seus agentes de IA**, confira e conecte Claude Code,
 Claude Desktop ou Codex sem Node.js/npm nem Git no sistema. Cumpra as etapas manuais restantes: habilidades do Desktop

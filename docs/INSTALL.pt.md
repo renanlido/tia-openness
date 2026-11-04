@@ -33,6 +33,30 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # aceita conexões de outra máquina
 
 ---
 
+## Conectar agentes com a instalação guiada
+
+Instale o **PLCWare (app Windows)** na máquina com TIA Portal, ative-o e inicie a API. No computador dos agentes
+(Windows, macOS ou Linux), instale Node.js `^20.12.0 || >=21.7.0` (LTS atual recomendado) e execute:
+
+```sh
+npx plcware-setup
+```
+
+Sem argumentos, no terminal, selecione os agentes detectados, os componentes compatíveis de cada agente e as habilidades.
+Claude Code, Codex e Gemini CLI recebem o plugin/extensão oficial **renanlido/tia-harness**; os demais recebem somente
+os componentes MCP, habilidades e subagentes selecionados e compatíveis. É um único harness, não uma segunda cópia.
+Ao selecionar MCP, informe o endereço da API (`http://localhost:5000` já vem preenchido; use o endereço do host/VM Windows
+para clientes remotos) e o modo completo/somente leitura. Confira a prévia e confirme uma vez. Instalar só habilidades
+não exige perguntas da API. O setup não pede chave de ativação: ative o app Windows. A confiança na fonte continua sendo sua decisão.
+
+Sem terminal ou em CI, o comando sem argumentos mostra a ajuda. Reinicie o agente, confira o MCP e peça `tia_ping`.
+`npx plcware-setup plan` mostra a prévia sem gravar; `npx plcware-setup uninstall --yes` remove somente alterações
+registradas como próprias. Plugins instalados por outra origem ficam intactos. Use uma origem de instalação por agente.
+
+## Avançado: conexões manuais e gerenciadas pelo app
+
+As rotas por agente abaixo continuam disponíveis para configuração avançada; não duplique a conexão `tia`.
+
 ## Rota gerenciada pelo app no Windows (a partir do PLCWare 1.7.1)
 
 Instale o **PLCWare 1.7.1** com `TIAOpenness-Setup-1.7.1.exe` e abra a janela **Conectar seus agentes de IA** por

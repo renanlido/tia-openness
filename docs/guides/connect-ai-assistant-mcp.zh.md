@@ -14,11 +14,34 @@ Openness 工作的 Windows 程序。MCP 随 Windows 安装程序提供，也可�
 
 - 一台装有 **TIA Portal V21** 和 **PLCWare 应用**（`serve`）的 Windows 机器，且 `serve` 已在运行并已激活许可证。在托盘应用中，**License** 选项卡：粘贴你的密钥并保存；
   **API** 选项卡：**Start API**（默认端口 5000）。在命令行中：`TIAOpenness.exe serve 5000`。
-- 只有下方 npm/`npx` 路线才需要在运行 AI 客户端的机器上安装 **Node.js**（20 或更高版本）。
+- 下方 npm/`npx` 路线需要在运行 AI 客户端的机器上安装 **Node.js**（引导安装要求 `^20.12.0 || >=21.7.0`）。
   受支持的 Windows 安装程序路线不需要单独安装 Node.js 或 npm。
 - 一项设置：`TIA_API_BASE`，即 `serve` 的地址。MCP **不发送任何密钥**：激活应用的是主机上的许可证。
 
-## Windows：优先从 PLCWare 应用连接
+## 使用引导安装连接智能体
+
+在安装了 TIA Portal 的主机上安装 **PLCWare（Windows 应用）**，激活许可证并启动 API。在运行智能体的电脑
+（Windows、macOS 或 Linux）上安装 Node.js `^20.12.0 || >=21.7.0`（建议使用当前 LTS），然后运行：
+
+```sh
+npx plcware-setup
+```
+
+无需参数。在终端中选择检测到的智能体、每个智能体支持的组件及要安装的技能。Claude Code、Codex 和 Gemini CLI
+通过各自的原生 CLI 安装官方 **renanlido/tia-harness** 插件/扩展；其他智能体仅安装所选且受支持的 MCP、技能和子智能体。
+这是同一套 harness，不是第二份独立实现。选择 MCP 时，填写 API 地址（预填 `http://localhost:5000`；远程客户端请填写
+Windows 主机/虚拟机地址），再选择完整或只读模式。审阅预览后确认一次。仅安装技能时会跳过 API 问题。
+安装工具不会索取 PLCWare 激活密钥；请在 Windows 应用中激活。原生来源信任仍必须由你决定。
+
+没有终端或在 CI 中，无参数命令只显示帮助。重启智能体，检查 MCP 连接，并让它调用 `tia_ping`。
+`npx plcware-setup plan` 仅预览、不写入；`npx plcware-setup uninstall --yes` 仅撤销记录为自己所有的更改。
+通过其他方式安装的插件保持不变。每个智能体只使用一个安装管理来源。
+
+## 高级：手动及应用管理连接
+
+下方按智能体列出的方式仍可用于高级配置；请勿重复添加 `tia` 连接。
+
+## Windows：从 PLCWare 应用连接
 
 如果客户端在同一台 Windows 机器上，请使用 `TIAOpenness-Setup-1.8.0.exe` 安装 **PLCWare 1.8.0**。
 通过托盘菜单的 **Connect AI agents…** 或入门窗口打开 **Connect your AI agents**。

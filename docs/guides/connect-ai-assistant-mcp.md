@@ -14,12 +14,36 @@ It applies to **TIA Portal V21**.
 - A Windows machine with **TIA Portal V21** and the **PLCWare app** (`serve`) running with an activated license. In the
   tray app, **License** tab: paste your key and save; **API** tab: **Start API** (default port 5000). From a command line:
   `TIAOpenness.exe serve 5000`.
-- **Node.js** (version 20 or later) only for the npm/`npx` routes below, on the machine that runs your AI client.
+- **Node.js** (`^20.12.0 || >=21.7.0` for guided setup) for the npm/`npx` routes below, on the machine that runs your AI client.
   The supported Windows installer route needs no separately installed Node.js or npm.
 - One setting, `TIA_API_BASE`, the address of `serve`. The MCP sends **no key**: what activates the app is the license on
   the host.
 
-## Windows: connect from the PLCWare app first
+## Connect agents with guided setup
+
+Install **PLCWare (Windows app)** on the TIA Portal host, activate it and start its API. On the computer running your
+agents (Windows, macOS or Linux), install Node.js `^20.12.0 || >=21.7.0` (current LTS recommended), then run:
+
+```sh
+npx plcware-setup
+```
+
+No arguments are needed. In a terminal, choose detected agents, each agent's supported components, and the skills to
+install. Plugin hosts (Claude Code, Codex and Gemini CLI) receive the official **renanlido/tia-harness** plugin/extension;
+other agents receive only their selected supported MCP, skills and subagents. This is one harness, not a second copy.
+When MCP is selected, enter the API address (`http://localhost:5000` is prefilled; use the Windows host/VM address for
+remote clients) and full/read-only mode. Review the preview and confirm once. Skills-only selections skip API questions.
+The setup never asks for a PLCWare activation key; activate the Windows app instead. Native source trust remains yours.
+
+Without a terminal or in CI, the bare command prints help. Restart the agent, inspect its MCP connection and ask it to
+call `tia_ping`. `npx plcware-setup plan` previews without writing; `npx plcware-setup uninstall --yes` removes only
+recorded owned changes. Existing independently installed plugins stay untouched. Keep one installation owner per agent.
+
+## Advanced: manual and app-managed connections
+
+The per-agent routes below remain available for advanced configuration; do not add a duplicate `tia` connection.
+
+## Windows: connect from the PLCWare app 
 
 For clients on the same Windows machine, install **PLCWare 1.8.0** with `TIAOpenness-Setup-1.8.0.exe`. Open
 **Connect your AI agents** from the tray menu's **Connect AI agents…** or the getting-started window.
