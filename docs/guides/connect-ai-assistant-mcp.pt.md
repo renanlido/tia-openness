@@ -28,10 +28,10 @@ Para clientes na mesma máquina Windows, instale o **PLCWare 1.8.0** com `TIAOpe
 
 1. Instale primeiro o seu cliente: **Claude Code, Claude Desktop, Codex, Cursor ou VS Code**. O suporte a Cursor e
    VS Code chegou na 1.8.0; esses dois recebem somente ferramentas MCP, não habilidades ou assistentes.
-2. Selecione o cliente, confira as mudanças propostas e clique em **Conectar**. Essas rotas usam o runtime MCP
-   incluído no instalador (ou o `.mcpb` incluído para o Desktop), sem Node.js, npm ou `npx` do sistema.
-3. Conclua as etapas manuais indicadas e confira a conexão abaixo. **Saia completamente do Claude Desktop antes de
-   gravar as configurações; fechar a janela não basta.** Abra-o novamente depois.
+2. Selecione o cliente e confira as mudanças propostas. **Saia completamente do Claude Desktop antes de clicar em
+   Conectar se houver gravação das configurações; fechar a janela não basta.** Depois clique em **Conectar**.
+   Essas rotas usam o runtime MCP incluído no instalador (ou o `.mcpb` incluído para o Desktop), sem Node.js, npm ou `npx` do sistema.
+3. Abra o Desktop novamente depois, conclua as etapas manuais indicadas e confira a conexão abaixo.
 
 Após atualizar o app, o PLCWare oferece **Atualizar conexões / Reparar** na próxima abertura normal para conexões
 registradas que precisam de atenção. Confira e aprove as mudanças; o instalador não reescreve as configurações dos
@@ -43,7 +43,8 @@ cliente. Isso não garante funcionamento offline da instalação do cliente, do 
 
 ## Configuração manual: rotas npm/npx
 
-Use os passos existentes abaixo para **Mac/Linux, clientes remotos, configuração manual ou versões anteriores do app**.
+Use os passos existentes abaixo para **Mac/Linux, clientes remotos ou configuração manual**, e para versões do app
+**anteriores à 1.7.1** (**anteriores à 1.8.0 para Cursor e VS Code**).
 A **extensão Gemini CLI** e o **plugin público do Codex CLI instalado separadamente** também continuam usando npm/`npx`;
 o plugin público do Codex não é o plugin local gerenciado pelo app. Essas rotas precisam de Node.js e acesso aos pacotes
 npm (acesso ao registro no primeiro uso ou quando o pacote não está no cache). Os formatos e detalhes de plugins/extensões

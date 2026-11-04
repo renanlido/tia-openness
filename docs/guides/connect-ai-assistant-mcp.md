@@ -26,10 +26,10 @@ For clients on the same Windows machine, install **PLCWare 1.8.0** with `TIAOpen
 
 1. Install your client first: **Claude Code, Claude Desktop, Codex, Cursor or VS Code**. Cursor and VS Code support
    was added in 1.8.0; these two receive MCP tools only, not skills or helpers.
-2. Select the client, review the proposed changes and choose **Connect**. These routes use the MCP runtime embedded in
-   the installer (or the bundled `.mcpb` for Desktop), without system Node.js, npm or `npx`.
-3. Complete any manual steps shown, then check the connection below. **Fully quit Claude Desktop before settings are
-   written; closing its window is not enough.** Reopen it afterwards.
+2. Select the client and review the proposed changes. **Fully quit Claude Desktop before choosing Connect if settings
+   will be written; closing its window is not enough.** Then choose **Connect**. These routes use the MCP runtime
+   embedded in the installer (or the bundled `.mcpb` for Desktop), without system Node.js, npm or `npx`.
+3. Reopen Desktop afterwards, complete any manual steps shown, then check the connection below.
 
 After app updates, PLCWare offers **Update connections / Repair** on the next normal launch for recorded connections
 that need attention. Review and approve the changes; the installer does not rewrite client settings automatically.
@@ -41,7 +41,8 @@ This is not an offline guarantee for the client's own installation, sign-in or A
 
 ## Manual setup: npm/npx routes
 
-Use the existing steps below for **Mac/Linux, remote clients, manual setup or earlier app versions**.
+Use the existing steps below for **Mac/Linux, remote clients or manual setup**, and for app versions **before 1.7.1**
+(**before 1.8.0 for Cursor and VS Code**).
 The **Gemini CLI extension** and the **independently installed public Codex CLI plugin** also still use npm/`npx`;
 the public Codex plugin is not the app-managed local plugin. These routes need Node.js and npm package access
 (registry access on first use or when the package is not cached). Formats and plugin/extension details are in the

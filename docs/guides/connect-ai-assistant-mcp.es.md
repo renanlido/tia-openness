@@ -28,10 +28,10 @@ Para clientes en la misma máquina Windows, instala **PLCWare 1.8.0** con `TIAOp
 
 1. Instala primero tu cliente: **Claude Code, Claude Desktop, Codex, Cursor o VS Code**. La compatibilidad con Cursor y
    VS Code llegó en la 1.8.0; estos dos reciben solo herramientas MCP, no habilidades ni ayudantes.
-2. Selecciona el cliente, revisa los cambios propuestos y elige **Connect**. Estas rutas usan el runtime MCP incluido en
-   el instalador (o el `.mcpb` incluido para Desktop), sin Node.js, npm ni `npx` del sistema.
-3. Completa los pasos manuales indicados y comprueba la conexión abajo. **Sal completamente de Claude Desktop antes de
-   escribir la configuración; cerrar la ventana no basta.** Vuelve a abrirlo después.
+2. Selecciona el cliente y revisa los cambios propuestos. **Sal completamente de Claude Desktop antes de elegir
+   Connect si se va a escribir la configuración; cerrar la ventana no basta.** Después elige **Connect**.
+   Estas rutas usan el runtime MCP incluido en el instalador (o el `.mcpb` incluido para Desktop), sin Node.js, npm ni `npx` del sistema.
+3. Vuelve a abrir Desktop después, completa los pasos manuales indicados y comprueba la conexión abajo.
 
 Tras actualizar la app, PLCWare ofrece **Update connections / Repair** en el siguiente inicio normal para las conexiones
 registradas que necesitan atención. Revisa y aprueba los cambios; el instalador no reescribe la configuración de los
@@ -43,7 +43,8 @@ cliente. Esto no garantiza el funcionamiento sin conexión de la instalación de
 
 ## Configuración manual: rutas npm/npx
 
-Usa los pasos existentes de abajo para **Mac/Linux, clientes remotos, configuración manual o versiones anteriores de la app**.
+Usa los pasos existentes de abajo para **Mac/Linux, clientes remotos o configuración manual**, y para versiones de la app
+**anteriores a la 1.7.1** (**anteriores a la 1.8.0 para Cursor y VS Code**).
 La **extensión de Gemini CLI** y el **plugin público de Codex CLI instalado por separado** también siguen usando npm/`npx`;
 el plugin público de Codex no es el plugin local gestionado por la app. Estas rutas necesitan Node.js y acceso a paquetes
 npm (acceso al registro en el primer uso o cuando el paquete no está en caché). Los formatos y detalles de plugins/extensiones

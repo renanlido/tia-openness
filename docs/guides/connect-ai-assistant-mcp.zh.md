@@ -25,9 +25,9 @@ Openness 工作的 Windows 程序。MCP 随 Windows 安装程序提供，也可�
 
 1. 先安装客户端：**Claude Code、Claude Desktop、Codex、Cursor 或 VS Code**。Cursor 和 VS Code 支持在 1.8.0 中加入；
    这两个客户端只获得 MCP 工具，不安装技能或辅助代理。
-2. 选择客户端，预览拟进行的更改，再选择 **Connect**。这些路线使用安装程序内置的 MCP 运行时
-   （Desktop 也可使用随附的 `.mcpb`），不需要系统的 Node.js、npm 或 `npx`。
-3. 完成提示中的手动步骤，再按下方说明检查连接。**写入配置前请完全退出 Claude Desktop；仅关闭窗口不够。** 之后再重新打开。
+2. 选择客户端并预览拟进行的更改。**写入配置前请完全退出 Claude Desktop，再选择 Connect；仅关闭窗口不够。**
+   然后选择 **Connect**。这些路线使用安装程序内置的 MCP 运行时（Desktop 也可使用随附的 `.mcpb`），不需要系统的 Node.js、npm 或 `npx`。
+3. 之后重新打开 Desktop，完成提示中的手动步骤，再按下方说明检查连接。
 
 应用更新后，PLCWare 会在下次正常启动时，为需要处理的已记录连接提供 **Update connections / Repair**。
 请先审阅并批准更改；安装程序不会自动重写客户端配置。完成剩余手动步骤。
@@ -38,7 +38,7 @@ Openness 工作的 Windows 程序。MCP 随 Windows 安装程序提供，也可�
 
 ## 手动配置：npm/npx 路线
 
-**Mac/Linux、远程客户端、手动配置或旧版应用**仍使用下方的现有步骤。
+**Mac/Linux、远程客户端、手动配置**以及 **1.7.1 之前的应用版本**（**Cursor 和 VS Code 为 1.8.0 之前的版本**）仍使用下方的现有步骤。
 **Gemini CLI 扩展**和**独立安装的 Codex CLI 公共插件**也仍使用 npm/`npx`；
 Codex 公共插件不同于应用管理的本地插件。这些路线需要 Node.js 和 npm 包访问权限
 （首次使用或包未缓存时需要访问 npm 软件包仓库）。具体格式和插件/扩展说明见[安装手册](../INSTALL.zh.md)。
