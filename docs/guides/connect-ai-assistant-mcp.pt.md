@@ -2,12 +2,13 @@
 
 > Tradução em português. Original em inglês: [connect-ai-assistant-mcp.md](connect-ai-assistant-mcp.md).
 
-Um assistente de IA pode ler e editar um projeto do TIA Portal V21 por MCP. O servidor MCP `tia` é um pequeno pacote npm
-que conversa com o app `serve` do PLCWare, o programa Windows que faz o trabalho com o Openness. O assistente prepara o
-trabalho; uma pessoa aprova tudo o que chega a um CLP real. Este guia conecta os dois. Vale para o **TIA Portal V21**.
+Um assistente de IA pode ler e editar um projeto do TIA Portal V21 por MCP. O servidor MCP `tia` conversa com o app
+`serve` do PLCWare, o programa Windows que faz o trabalho com o Openness. Ele vem no instalador Windows ou roda
+separadamente por `npx`. O assistente prepara o trabalho; uma pessoa aprova tudo o que chega a um CLP real. Este guia
+conecta os dois. Vale para o **TIA Portal V21**.
 
 ```
-[ seu cliente de IA ]  --(MCP/stdio)-->  [ MCP tia (npx) ]  --(HTTP)-->  [ serve (Windows + TIA Portal V21) ]
+[ seu cliente de IA ]  --(MCP/stdio)-->  [ MCP tia (incluído ou npx) ]  --(HTTP)-->  [ serve (Windows + TIA Portal V21) ]
 ```
 
 ## O que você precisa
@@ -15,10 +16,38 @@ trabalho; uma pessoa aprova tudo o que chega a um CLP real. Este guia conecta os
 - Uma máquina Windows com o **TIA Portal V21** e o **app PLCWare** (`serve`) rodando com uma licença ativada. No app de
   bandeja, aba **License**: cole a sua chave e salve; aba **API**: **Start API** (porta padrão 5000). Pela linha de
   comando: `TIAOpenness.exe serve 5000`.
-- **Node.js** (versão 20 ou posterior) na máquina que roda o seu cliente de IA. O MCP roda por `npx`, então não há mais
-  nada para instalar.
+- **Node.js** (versão 20 ou posterior) somente para as rotas npm/`npx` abaixo, na máquina que roda o seu cliente de IA.
+  A rota compatível pelo instalador Windows não precisa de Node.js ou npm instalados separadamente.
 - Uma configuração, `TIA_API_BASE`, o endereço do `serve`. O MCP **não envia chave**: o que ativa o app é a licença do
   host.
+
+## Windows: conecte primeiro pelo app PLCWare
+
+Para clientes na mesma máquina Windows, instale o **PLCWare 1.8.0** com `TIAOpenness-Setup-1.8.0.exe`. Abra
+**Conectar seus agentes de IA** por **Conectar agentes de IA…** na bandeja ou pela janela de primeiros passos.
+
+1. Instale primeiro o seu cliente: **Claude Code, Claude Desktop, Codex, Cursor ou VS Code**. O suporte a Cursor e
+   VS Code chegou na 1.8.0; esses dois recebem somente ferramentas MCP, não habilidades ou assistentes.
+2. Selecione o cliente, confira as mudanças propostas e clique em **Conectar**. Essas rotas usam o runtime MCP
+   incluído no instalador (ou o `.mcpb` incluído para o Desktop), sem Node.js, npm ou `npx` do sistema.
+3. Conclua as etapas manuais indicadas e confira a conexão abaixo. **Saia completamente do Claude Desktop antes de
+   gravar as configurações; fechar a janela não basta.** Abra-o novamente depois.
+
+Após atualizar o app, o PLCWare oferece **Atualizar conexões / Reparar** na próxima abertura normal para conexões
+registradas que precisam de atenção. Confira e aprove as mudanças; o instalador não reescreve as configurações dos
+clientes automaticamente. Siga as etapas manuais restantes. Veja no [Manual de instalação](../INSTALL.pt.md) os
+detalhes por cliente, as rotas por pacote/configuração e as habilidades separadas do Desktop, e a migração de uma conexão `npx` existente.
+
+Não adicione a configuração manual abaixo sobre uma conexão gerenciada pelo app: mantenha só uma conexão `tia` por
+cliente. Isso não garante funcionamento offline da instalação do cliente, do login ou do serviço de IA.
+
+## Configuração manual: rotas npm/npx
+
+Use os passos existentes abaixo para **Mac/Linux, clientes remotos, configuração manual ou versões anteriores do app**.
+A **extensão Gemini CLI** e o **plugin público do Codex CLI instalado separadamente** também continuam usando npm/`npx`;
+o plugin público do Codex não é o plugin local gerenciado pelo app. Essas rotas precisam de Node.js e acesso aos pacotes
+npm (acesso ao registro no primeiro uso ou quando o pacote não está no cache). Os formatos e detalhes de plugins/extensões
+estão no [Manual de instalação](../INSTALL.pt.md).
 
 ## Claude Code
 
@@ -34,10 +63,12 @@ Coloque o nome do servidor (`tia`) primeiro. O `-e` aceita vários valores, e o 
 
 ## Claude Desktop
 
-Edite o `claude_desktop_config.json`. No Claude Desktop, **Settings > Developer > Edit Config** abre o arquivo:
+Para configuração manual, abra `claude_desktop_config.json` por **Settings > Developer > Edit Config** e depois
+**saia completamente do Desktop antes de editar**:
 
 - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+- Windows (.exe): `%APPDATA%\Claude\claude_desktop_config.json`
+- Windows (Store/MSIX): `%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\claude_desktop_config.json`
 
 ```json
 {
@@ -51,8 +82,8 @@ Edite o `claude_desktop_config.json`. No Claude Desktop, **Settings > Developer 
 }
 ```
 
-Reinicie o app. No Windows, comece com o `npx` simples, como acima. Se o cliente avisar que o servidor falhou ao
-iniciar, use a forma com `cmd /c`, que só existe no Windows:
+Abra o app novamente após salvar. Para configuração manual no Windows, use a forma com `cmd /c` (somente Windows)
+se o `npx` simples não iniciar:
 
 ```json
 "command": "cmd", "args": ["/c", "npx", "-y", "@renanlido/tia-openness-mcp"]
@@ -62,9 +93,9 @@ Mantenha uma única entrada `tia`: dois servidores falariam com o mesmo `serve`,
 
 ## Outros clientes
 
-Codex, Gemini CLI, Cursor, VS Code e Windsurf usam o mesmo comando, `npx -y @renanlido/tia-openness-mcp`, e a mesma
-variável `TIA_API_BASE`; só muda o lugar onde cada cliente guarda a configuração. O formato exato de cada um está no
-[Manual de instalação](../INSTALL.pt.md).
+Para configuração manual, Codex, Gemini CLI, Cursor, VS Code e Windsurf usam o mesmo comando,
+`npx -y @renanlido/tia-openness-mcp`, e a mesma variável `TIA_API_BASE`; só muda o formato da configuração.
+Veja o [Manual de instalação](../INSTALL.pt.md). Para Codex, Cursor e VS Code gerenciados pelo app no Windows, use a rota pelo instalador acima.
 
 ## Quando o seu cliente de IA está em outra máquina
 
@@ -141,9 +172,9 @@ chega a ser listada. Como `tia_start` e `tia_connect` não são ferramentas de l
 projeto nesse modo: o projeto já precisa estar aberto no `serve`.
 
 Isso protege contra o assistente, não contra uma pessoa: vive no MCP, e os escopos da licença no `serve` continuam sendo a
-autoridade. Uma versão do MCP anterior ao modo ignora a variável e registra todas as ferramentas, então confira
-`npx -y @renanlido/tia-openness-mcp --version` (a opção existe desde a 1.9.2) e confirme no seu cliente que uma
-ferramenta de escrita, como `tia_compile`, não aparece.
+autoridade. Uma versão do MCP anterior ao modo ignora a variável e registra todas as ferramentas. Na rota manual por
+`npx`, confira `npx -y @renanlido/tia-openness-mcp --version` (a opção existe desde a 1.9.2). Em todos os casos, confirme
+no seu cliente que uma ferramenta de escrita, como `tia_compile`, não aparece.
 
 ## Qual plano faz o quê
 
