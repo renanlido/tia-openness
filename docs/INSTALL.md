@@ -31,6 +31,30 @@ TIAOpenness.exe serve 5000 --host 0.0.0.0   # accepts connections from another m
 
 ---
 
+## Connect agents with guided setup
+
+Install **PLCWare (Windows app)** on the TIA Portal host, activate it and start its API. On the computer running your
+agents (Windows, macOS or Linux), install Node.js `^20.12.0 || >=21.7.0` (current LTS recommended), then run:
+
+```sh
+npx plcware-setup
+```
+
+No arguments are needed. In a terminal, choose detected agents, each agent's supported components, and the skills to
+install. Plugin hosts (Claude Code, Codex and Gemini CLI) receive the official **renanlido/tia-harness** plugin/extension;
+other agents receive only their selected supported MCP, skills and subagents. This is one harness, not a second copy.
+When MCP is selected, enter the API address (`http://localhost:5000` is prefilled; use the Windows host/VM address for
+remote clients) and full/read-only mode. Review the preview and confirm once. Skills-only selections skip API questions.
+The setup never asks for a PLCWare activation key; activate the Windows app instead. Native source trust remains yours.
+
+Without a terminal or in CI, the bare command prints help. Restart the agent, inspect its MCP connection and ask it to
+call `tia_ping`. `npx plcware-setup plan` previews without writing; `npx plcware-setup uninstall --yes` removes only
+recorded owned changes. Existing independently installed plugins stay untouched. Keep one installation owner per agent.
+
+## Advanced: manual and app-managed connections
+
+The per-agent routes below remain available for advanced configuration; do not add a duplicate `tia` connection.
+
 ## Windows app-managed route (from PLCWare 1.7.1)
 
 Install **PLCWare 1.7.1** using `TIAOpenness-Setup-1.7.1.exe`, then open the **Connect your AI agents** window via the

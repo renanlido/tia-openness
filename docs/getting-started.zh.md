@@ -2,8 +2,8 @@
 
 > 简体中文译文。英文原文：[getting-started.md](getting-started.md)。
 
-本指南带你在几分钟内完成下载，并运行已授权的 PLCWare 应用。这里的所有操作都可以通过
-**系统托盘 GUI** 完成，无需命令行。文中同时给出对应的 CLI 命令，便于自动化。
+本指南通过托盘 GUI 完成 PLCWare Windows 应用的下载、启动和许可证激活。
+连接智能体时，请在其运行电脑的终端中执行 `npx plcware-setup`（步骤 6）。CLI 对应命令及高级手动连接方式仍然可用。
 
 ```
 [ your AI editor / CLI ]  --(MCP)-->  [ tia MCP（应用内置或 npx） ]  --(HTTP)-->  [ serve (this app, Windows+TIA) ]
@@ -91,6 +91,28 @@ TIAOpenness.exe setup-remote 5000 --allow 192.168.x.y   # allow only that source
 > 请通过防火墙 / VPN 控制访问。
 
 ## 6. 连接 AI 助手（可选）
+
+在安装了 TIA Portal 的主机上安装 **PLCWare（Windows 应用）**，激活许可证并启动 API。在运行智能体的电脑
+（Windows、macOS 或 Linux）上安装 Node.js `^20.12.0 || >=21.7.0`（建议使用当前 LTS），然后运行：
+
+```sh
+npx plcware-setup
+```
+
+无需参数。在终端中选择检测到的智能体、每个智能体支持的组件及要安装的技能。Claude Code、Codex 和 Gemini CLI
+通过各自的原生 CLI 安装官方 **renanlido/tia-harness** 插件/扩展；其他智能体仅安装所选且受支持的 MCP、技能和子智能体。
+这是同一套 harness，不是第二份独立实现。选择 MCP 时，填写 API 地址（预填 `http://localhost:5000`；远程客户端请填写
+Windows 主机/虚拟机地址），再选择完整或只读模式。审阅预览后确认一次。仅安装技能时会跳过 API 问题。
+安装工具不会索取 PLCWare 激活密钥；请在 Windows 应用中激活。原生来源信任仍必须由你决定。
+
+没有终端或在 CI 中，无参数命令只显示帮助。重启智能体，检查 MCP 连接，并让它调用 `tia_ping`。
+`npx plcware-setup plan` 仅预览、不写入；`npx plcware-setup uninstall --yes` 仅撤销记录为自己所有的更改。
+通过其他方式安装的插件保持不变。每个智能体只使用一个安装管理来源。
+
+## 高级：手动及应用管理连接
+
+下方按智能体列出的方式仍可用于高级配置；请勿重复添加 `tia` 连接。
+
 
 在由 PLCWare 1.7.1 安装程序管理的 Windows 上，打开 **Connect your AI agents**，预览并连接 Claude Code、
 Claude Desktop 或 Codex，无需系统 Node.js/npm 或 Git。请完成剩余手动步骤：Desktop 技能可能需要上传一个插件 ZIP，
