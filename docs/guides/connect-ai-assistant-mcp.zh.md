@@ -2,19 +2,46 @@
 
 > 简体中文译文。英文原文：[connect-ai-assistant-mcp.md](connect-ai-assistant-mcp.md)。
 
-AI 助手可以通过 MCP 读取和编辑 TIA Portal V21 项目。`tia` MCP 服务器是一个小型 npm 包，它与 PLCWare 的 `serve` 应用通信，而 `serve` 是负责实际
-Openness 工作的 Windows 程序。助手负责准备工作，凡是会触及真实 PLC 的操作，都由人来批准。本指南把两者连接起来。适用于 **TIA Portal V21**。
+AI 助手可以通过 MCP 读取和编辑 TIA Portal V21 项目。`tia` MCP 服务器与 PLCWare 的 `serve` 应用通信，而 `serve` 是负责实际
+Openness 工作的 Windows 程序。MCP 随 Windows 安装程序提供，也可通过 `npx` 单独运行。助手负责准备工作，凡是会触及真实 PLC 的操作，
+都由人来批准。本指南把两者连接起来。适用于 **TIA Portal V21**。
 
 ```
-[ 你的 AI 客户端 ]  --(MCP/stdio)-->  [ tia MCP (npx) ]  --(HTTP)-->  [ serve（Windows + TIA Portal V21）]
+[ 你的 AI 客户端 ]  --(MCP/stdio)-->  [ tia MCP（内置或 npx）]  --(HTTP)-->  [ serve（Windows + TIA Portal V21）]
 ```
 
 ## 你需要什么
 
 - 一台装有 **TIA Portal V21** 和 **PLCWare 应用**（`serve`）的 Windows 机器，且 `serve` 已在运行并已激活许可证。在托盘应用中，**License** 选项卡：粘贴你的密钥并保存；
   **API** 选项卡：**Start API**（默认端口 5000）。在命令行中：`TIAOpenness.exe serve 5000`。
-- 运行你的 AI 客户端的那台机器上要有 **Node.js**（20 或更高版本）。MCP 通过 `npx` 运行，所以无需再安装其他东西。
+- 只有下方 npm/`npx` 路线才需要在运行 AI 客户端的机器上安装 **Node.js**（20 或更高版本）。
+  受支持的 Windows 安装程序路线不需要单独安装 Node.js 或 npm。
 - 一项设置：`TIA_API_BASE`，即 `serve` 的地址。MCP **不发送任何密钥**：激活应用的是主机上的许可证。
+
+## Windows：优先从 PLCWare 应用连接
+
+如果客户端在同一台 Windows 机器上，请使用 `TIAOpenness-Setup-1.8.0.exe` 安装 **PLCWare 1.8.0**。
+通过托盘菜单的 **Connect AI agents…** 或入门窗口打开 **Connect your AI agents**。
+
+1. 先安装客户端：**Claude Code、Claude Desktop、Codex、Cursor 或 VS Code**。Cursor 和 VS Code 支持在 1.8.0 中加入；
+   这两个客户端只获得 MCP 工具，不安装技能或辅助代理。
+2. 选择客户端并预览拟进行的更改。**写入配置前请完全退出 Claude Desktop，再选择 Connect；仅关闭窗口不够。**
+   然后选择 **Connect**。这些路线使用安装程序内置的 MCP 运行时（Desktop 也可使用随附的 `.mcpb`），不需要系统的 Node.js、npm 或 `npx`。
+3. 之后重新打开 Desktop，完成提示中的手动步骤，再按下方说明检查连接。
+
+应用更新后，PLCWare 会在下次正常启动时，为需要处理的已记录连接提供 **Update connections / Repair**。
+请先审阅并批准更改；安装程序不会自动重写客户端配置。完成剩余手动步骤。
+各客户端的具体说明、Desktop 的扩展包/配置文件路线及独立技能步骤、已有 `npx` 连接的迁移方法，见[安装手册](../INSTALL.zh.md)。
+
+不要在应用管理的连接之上再添加下方的手动配置：每个客户端只保留一个 `tia` 连接。
+这只免除了连接配置对 npm 的依赖，并不代表客户端安装、登录或 AI 服务本身不需要联网。
+
+## 手动配置：npm/npx 路线
+
+**Mac/Linux、远程客户端、手动配置**以及 **1.7.1 之前的应用版本**（**Cursor 和 VS Code 为 1.8.0 之前的版本**）仍使用下方的现有步骤。
+**Gemini CLI 扩展**和**独立安装的 Codex CLI 公共插件**也仍使用 npm/`npx`；
+Codex 公共插件不同于应用管理的本地插件。这些路线需要 Node.js 和 npm 包访问权限
+（首次使用或包未缓存时需要访问 npm 软件包仓库）。具体格式和插件/扩展说明见[安装手册](../INSTALL.zh.md)。
 
 ## Claude Code
 
@@ -29,10 +56,11 @@ claude mcp add tia --scope user -e TIA_API_BASE=http://localhost:5000 -- npx -y 
 
 ## Claude Desktop
 
-编辑 `claude_desktop_config.json`。在 Claude Desktop 中，**Settings > Developer > Edit Config** 会打开该文件：
+手动配置时，通过 **Settings > Developer > Edit Config** 打开 `claude_desktop_config.json`，然后**完全退出 Desktop 后再编辑**：
 
 - macOS：`~/Library/Application Support/Claude/claude_desktop_config.json`
-- Windows：`%APPDATA%\Claude\claude_desktop_config.json`
+- Windows（.exe）：`%APPDATA%\Claude\claude_desktop_config.json`
+- Windows（Store/MSIX）：`%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\claude_desktop_config.json`
 
 ```json
 {
@@ -46,7 +74,7 @@ claude mcp add tia --scope user -e TIA_API_BASE=http://localhost:5000 -- npx -y 
 }
 ```
 
-重启应用。在 Windows 上，先按上面的方式直接使用 `npx`。如果客户端提示服务器启动失败，再改用 `cmd /c` 形式（仅 Windows 上才有）：
+保存后重新打开应用。在 Windows 上手动配置时，如果直接使用 `npx` 无法启动，请改用 `cmd /c` 形式（仅限 Windows）：
 
 ```json
 "command": "cmd", "args": ["/c", "npx", "-y", "@renanlido/tia-openness-mcp"]
@@ -56,8 +84,9 @@ claude mcp add tia --scope user -e TIA_API_BASE=http://localhost:5000 -- npx -y 
 
 ## 其他客户端
 
-Codex、Gemini CLI、Cursor、VS Code 和 Windsurf 使用同样的命令 `npx -y @renanlido/tia-openness-mcp` 和同样的 `TIA_API_BASE` 变量；
-不同之处只在于各客户端保存配置的位置。每个客户端的具体格式见[安装手册](../INSTALL.zh.md)。
+手动配置时，Codex、Gemini CLI、Cursor、VS Code 和 Windsurf 使用同样的命令 `npx -y @renanlido/tia-openness-mcp`
+和同样的 `TIA_API_BASE` 变量；不同之处在于配置格式。详见[安装手册](../INSTALL.zh.md)。
+在 Windows 上使用应用管理的 Codex、Cursor 和 VS Code 连接时，请改用上方的安装程序路线。
 
 ## 当你的 AI 客户端在另一台机器上
 
@@ -121,8 +150,9 @@ claude mcp add tia --scope user -e TIA_API_BASE=http://<虚拟机IP>:5000 -- npx
 这样 MCP 只会注册读取类工具：任何会修改项目或触及控制器的工具都不会被列出。由于 `tia_start` 和 `tia_connect` 不是读取类工具，助手在此模式下无法打开项目：项目必须已经在
 `serve` 中打开。
 
-它防范的是助手，而不是人：它存在于 MCP 中，真正起决定作用的仍是 `serve` 上的许可证权限范围。早于该模式的 MCP 版本会忽略这个变量并注册所有工具，所以请检查
-`npx -y @renanlido/tia-openness-mcp --version`（该选项从 1.9.2 开始提供），并在你的客户端里确认 `tia_compile` 之类的写入类工具没有出现。
+它防范的是助手，而不是人：它存在于 MCP 中，真正起决定作用的仍是 `serve` 上的许可证权限范围。早于该模式的 MCP 版本会忽略这个变量并注册所有工具。
+对于手动 `npx` 路线，请检查 `npx -y @renanlido/tia-openness-mcp --version`（该选项从 1.9.2 开始提供）。
+无论使用哪条路线，都请在客户端里确认 `tia_compile` 之类的写入类工具没有出现。
 
 ## 哪个套餐能做什么
 
