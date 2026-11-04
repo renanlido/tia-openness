@@ -14,7 +14,7 @@ Openness 工作的 Windows 程序。MCP 随 Windows 安装程序提供，也可�
 
 - 一台装有 **TIA Portal V21** 和 **PLCWare 应用**（`serve`）的 Windows 机器，且 `serve` 已在运行并已激活许可证。在托盘应用中，**License** 选项卡：粘贴你的密钥并保存；
   **API** 选项卡：**Start API**（默认端口 5000）。在命令行中：`TIAOpenness.exe serve 5000`。
-- 只有下方 npm/`npx` 路线才需要在运行 AI 客户端的机器上安装 **Node.js**（20 或更高版本）。
+- 下方 npm/`npx` 路线需要在运行 AI 客户端的机器上安装 **Node.js**（引导安装要求 `^20.12.0 || >=21.7.0`）。
   受支持的 Windows 安装程序路线不需要单独安装 Node.js 或 npm。
 - 一项设置：`TIA_API_BASE`，即 `serve` 的地址。MCP **不发送任何密钥**：激活应用的是主机上的许可证。
 

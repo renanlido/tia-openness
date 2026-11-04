@@ -14,7 +14,7 @@ It applies to **TIA Portal V21**.
 - A Windows machine with **TIA Portal V21** and the **PLCWare app** (`serve`) running with an activated license. In the
   tray app, **License** tab: paste your key and save; **API** tab: **Start API** (default port 5000). From a command line:
   `TIAOpenness.exe serve 5000`.
-- **Node.js** (version 20 or later) only for the npm/`npx` routes below, on the machine that runs your AI client.
+- **Node.js** (`^20.12.0 || >=21.7.0` for guided setup) for the npm/`npx` routes below, on the machine that runs your AI client.
   The supported Windows installer route needs no separately installed Node.js or npm.
 - One setting, `TIA_API_BASE`, the address of `serve`. The MCP sends **no key**: what activates the app is the license on
   the host.

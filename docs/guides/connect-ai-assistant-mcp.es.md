@@ -16,7 +16,7 @@ Esta guía conecta ambos. Es válida para **TIA Portal V21**.
 - Una máquina Windows con **TIA Portal V21** y la **app PLCWare** (`serve`) en ejecución con una licencia activada. En
   la app de la bandeja, pestaña **License**: pega tu clave y guarda; pestaña **API**: **Start API** (puerto por defecto
   5000). Desde la línea de comandos: `TIAOpenness.exe serve 5000`.
-- **Node.js** (versión 20 o posterior) solo para las rutas npm/`npx` de abajo, en la máquina que ejecuta tu cliente de IA.
+- **Node.js** (`^20.12.0 || >=21.7.0` para la instalación guiada) para las rutas npm/`npx` de abajo, en la máquina que ejecuta tu cliente de IA.
   La ruta compatible del instalador de Windows no necesita Node.js ni npm instalados por separado.
 - Un ajuste, `TIA_API_BASE`, la dirección de `serve`. El MCP **no envía ninguna clave**: lo que activa la app es la
   licencia del host.
