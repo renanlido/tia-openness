@@ -26,13 +26,22 @@ On the machine that has **TIA Portal V21**:
 
 From the [**Releases**](https://github.com/renanlido/tia-openness/releases/latest) page:
 
-- **Installer (recommended):** download `TIAOpenness-Setup-1.7.1.exe` for PLCWare 1.7.1 stable.
+- **Installer (recommended):** download `TIAOpenness-Setup-<version>.exe` from the latest stable release.
   It copies the app and bundled agent assets and configures the original Windows user's environment.
   If group permissions require a new sign-in, the final page offers **Restart now / Restart later** and does **not**
   launch getting started immediately. Save your work before restarting.
   Without a pending restart, **View the getting-started steps** is preselected on fresh installs and unchecked on upgrades.
-- **Portable:** download `TIAOpenness-app-v1.7.1.zip`, unzip, then run `TIAOpenness.exe setup`.
+- **Portable:** download `TIAOpenness-app-v<version>.zip`, unzip, then run `TIAOpenness.exe setup`.
   The no-system-Node connection path requires the installer payload; the app ZIP is not equivalent.
+
+> **Windows may warn about the installer.** The installer is not code-signed yet, so Edge may say the file "isn't commonly
+> downloaded" and Windows SmartScreen may show **Unknown publisher** or **Windows protected your PC**. Download it only from
+> the Releases page above. In Edge, choose **⋯** → **Keep**; if Edge asks to confirm, choose **Show more** → **Keep anyway**
+> (some versions show **See more** first, or put **Keep anyway** under the **Delete ▾** menu). Before you open the file,
+> compare its SHA-256 with the **SHA-256** column of the release notes; letter case does not matter. Use the path and name
+> Edge saved it under, for example `Get-FileHash "$env:USERPROFILE\Downloads\TIAOpenness-Setup-<version>.exe" -Algorithm SHA256`. If it does not match,
+> delete the file. If it matches and SmartScreen stops it, choose **More info** → **Run anyway**. If your organization's
+> policy hides these options, ask your IT team.
 
 The getting-started window checks the environment and attempts to start the API automatically, with license activation
 and agent connection in the main steps and technical checks under **Details**. At the next sign-in after a requested

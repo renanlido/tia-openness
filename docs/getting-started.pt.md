@@ -28,13 +28,23 @@ Na máquina que tem o **TIA Portal V21**:
 
 Na página [**Releases**](https://github.com/renanlido/tia-openness/releases/latest):
 
-- **Instalador (recomendado):** baixe `TIAOpenness-Setup-1.7.1.exe` para o PLCWare 1.7.1 stable.
+- **Instalador (recomendado):** baixe `TIAOpenness-Setup-<versão>.exe` da última versão estável.
   Ele copia o app e os arquivos de agentes incluídos e configura o ambiente do usuário original do Windows.
   Se as permissões do grupo exigirem um novo login, a página final oferece **Reiniciar agora / Reiniciar depois** e
   **não** abre os primeiros passos imediatamente. Salve seu trabalho antes de reiniciar.
   Sem reinício pendente, **Ver os primeiros passos** vem marcado em instalações novas e desmarcado nas atualizações.
-- **Portátil:** baixe `TIAOpenness-app-v1.7.1.zip`, descompacte e execute `TIAOpenness.exe setup`.
+- **Portátil:** baixe `TIAOpenness-app-v<versão>.zip`, descompacte e execute `TIAOpenness.exe setup`.
   A conexão sem Node no sistema exige os arquivos do instalador; o ZIP do app não é equivalente.
+
+> **O Windows pode avisar sobre o instalador.** O instalador ainda não tem assinatura de código, então o Edge pode dizer que
+> o arquivo "normalmente não é baixado" e o SmartScreen do Windows pode mostrar **Fornecedor: Desconhecido** ou **O Windows
+> protegeu o computador**. Baixe-o só pela página de Releases acima. No Edge, escolha **⋯** → **Manter**; se o Edge pedir
+> confirmação, escolha **Mostrar mais** → **Manter assim mesmo** (algumas versões mostram **Ver mais** antes, ou põem
+> **Manter assim mesmo** no menu **Excluir ▾**). Antes de abrir, compare o SHA-256 do arquivo com a coluna **SHA-256** das
+> notas da versão; maiúsculas e minúsculas não importam. Use o caminho e o nome com que o Edge salvou o arquivo, por
+> exemplo `Get-FileHash "$env:USERPROFILE\Downloads\TIAOpenness-Setup-<versão>.exe" -Algorithm SHA256`. Se for diferente, apague o
+> arquivo. Se for igual e o SmartScreen bloquear, escolha **Mais informações** → **Executar assim mesmo**. Se a política da
+> sua empresa esconder essas opções, fale com a equipe de TI.
 
 A janela de primeiros passos verifica o ambiente e tenta iniciar a API automaticamente, com ativação de licença e
 conexão de agentes nas etapas principais e verificações técnicas em **Detalhes**. No próximo login após o reinício

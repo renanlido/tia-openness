@@ -29,13 +29,23 @@ En la máquina que tiene **TIA Portal V21**:
 
 Desde la página de [**Releases**](https://github.com/renanlido/tia-openness/releases/latest):
 
-- **Instalador (recomendado):** descarga `TIAOpenness-Setup-1.7.1.exe` para PLCWare 1.7.1 estable.
+- **Instalador (recomendado):** descarga `TIAOpenness-Setup-<versión>.exe` de la última versión estable.
   Copia la aplicación y los archivos de agentes incluidos y configura el entorno del usuario original de Windows.
   Si los permisos del grupo requieren un nuevo inicio de sesión, la página final ofrece **Restart now / Restart later**
   y **no** abre los primeros pasos inmediatamente. Guarda tu trabajo antes de reiniciar.
   Sin reinicio pendiente, **View the getting-started steps** está marcado en instalaciones nuevas y desmarcado en actualizaciones.
-- **Portable:** descarga `TIAOpenness-app-v1.7.1.zip`, descomprímelo y ejecuta `TIAOpenness.exe setup`.
+- **Portable:** descarga `TIAOpenness-app-v<versión>.zip`, descomprímelo y ejecuta `TIAOpenness.exe setup`.
   La conexión sin Node del sistema requiere los archivos del instalador; el ZIP de la aplicación no es equivalente.
+
+> **Windows puede advertir sobre el instalador.** El instalador aún no tiene firma de código, así que Edge puede advertir que
+> el archivo no se descarga con frecuencia y SmartScreen de Windows puede mostrar **Editor desconocido** o **Windows protegió
+> su PC**. Descárgalo solo desde la página de Releases de arriba. En Edge, elige **⋯** → **Conservar**; si Edge pide
+> confirmación, elige **Mostrar más** → **Conservar de todas formas** (algunas versiones lo ponen en el menú **Eliminar ▾**).
+> Antes de abrirlo, compara su SHA-256 con la columna **SHA-256** de las notas de la versión; mayúsculas y minúsculas no
+> importan. Usa la ruta y el nombre con que Edge lo guardó, por ejemplo
+> `Get-FileHash "$env:USERPROFILE\Downloads\TIAOpenness-Setup-<versión>.exe" -Algorithm SHA256`. Si no coincide, elimina el
+> archivo. Si coincide y SmartScreen lo detiene, elige **Más información** → **Ejecutar de todas formas**. Si la directiva de
+> tu organización oculta estas opciones, consulta a tu equipo de TI.
 
 La ventana de primeros pasos comprueba el entorno e intenta iniciar la API automáticamente; la activación de licencia
 y la conexión de agentes están en los pasos principales y los diagnósticos técnicos en **Details**. En el siguiente

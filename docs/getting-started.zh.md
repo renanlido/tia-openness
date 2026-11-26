@@ -26,12 +26,19 @@
 
 在 [**Releases**](https://github.com/renanlido/tia-openness/releases/latest) 页面：
 
-- **安装程序（推荐）：** 下载 PLCWare 1.7.1 稳定版的 `TIAOpenness-Setup-1.7.1.exe`。
+- **安装程序（推荐）：** 从最新稳定版下载 `TIAOpenness-Setup-<版本>.exe`。
   它会复制应用及随附的智能体文件，并配置原始 Windows 用户的环境。
   如果用户组权限需要重新登录，最后一页会提供 **Restart now / Restart later**，**不会**立即打开入门窗口。
   请先保存工作再重新启动。无需重启时，**View the getting-started steps** 在全新安装中默认选中，升级时默认不选中。
-- **便携版：** 下载 `TIAOpenness-app-v1.7.1.zip`，解压后运行 `TIAOpenness.exe setup`。
+- **便携版：** 下载 `TIAOpenness-app-v<版本>.zip`，解压后运行 `TIAOpenness.exe setup`。
   不需要系统 Node 的连接方式依赖安装程序所附文件；应用 ZIP 并不等价。
+
+> **Windows 可能对安装程序发出警告。** 安装程序目前尚未进行代码签名，因此 Edge 可能提示该文件不常被下载，Windows SmartScreen
+> 可能提示发布者未知或显示 **Windows 已保护你的电脑**。请只从上面的 Releases 页面下载。在 Edge 中选择 **⋯** → **保留**；
+> 若 Edge 要求确认，选择 **显示更多** → **仍然保留**（有些版本把它放在 **删除 ▾** 菜单中）。打开之前，请将文件的 SHA-256
+> 与发行说明中 **SHA-256** 列的值比对，不区分大小写。请使用 Edge 实际保存的路径和文件名，例如
+> `Get-FileHash "$env:USERPROFILE\Downloads\TIAOpenness-Setup-<版本>.exe" -Algorithm SHA256`。不一致时请删除该文件。
+> 一致且被 SmartScreen 拦截时，选择 **更多信息** → **仍要运行**。如果组织策略隐藏了这些选项，请联系 IT 部门。
 
 入门窗口会检查环境并尝试自动启动 API；主要步骤包含许可证激活和智能体连接，技术诊断位于 **Details**。
 在要求重启后的下次登录时，仅当设置仍需处理才打开窗口；已完成设置则只显示简短的就绪通知。
