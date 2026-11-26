@@ -38,10 +38,11 @@ Na página [**Releases**](https://github.com/renanlido/tia-openness/releases/lat
 
 > **O Windows pode avisar sobre o instalador.** O instalador ainda não tem assinatura de código, então o Edge pode dizer que
 > o arquivo "normalmente não é baixado" e o SmartScreen do Windows pode mostrar **Fornecedor: Desconhecido** ou **O Windows
-> protegeu o computador**. Baixe-o só pela página de Releases acima. No Edge, escolha **⋯** (ou **Ver mais**) → **Manter**;
-> se o Edge pedir confirmação, escolha **Manter assim mesmo** (algumas versões o põem no menu **Excluir ▾**). Antes de
-> abrir, compare o SHA-256 dele com a coluna **SHA-256** das notas da versão; maiúsculas e minúsculas não importam:
-> `Get-FileHash "$env:USERPROFILE\Downloads\TIAOpenness-Setup-<versão>.exe" -Algorithm SHA256`. Se for diferente, apague o
+> protegeu o computador**. Baixe-o só pela página de Releases acima. No Edge, escolha **⋯** → **Manter**; se o Edge pedir
+> confirmação, escolha **Mostrar mais** → **Manter assim mesmo** (algumas versões mostram **Ver mais** antes, ou põem
+> **Manter assim mesmo** no menu **Excluir ▾**). Antes de abrir, compare o SHA-256 do arquivo com a coluna **SHA-256** das
+> notas da versão; maiúsculas e minúsculas não importam. Use o caminho e o nome com que o Edge salvou o arquivo, por
+> exemplo `Get-FileHash "$env:USERPROFILE\Downloads\TIAOpenness-Setup-<versão>.exe" -Algorithm SHA256`. Se for diferente, apague o
 > arquivo. Se for igual e o SmartScreen bloquear, escolha **Mais informações** → **Executar assim mesmo**. Se a política da
 > sua empresa esconder essas opções, fale com a equipe de TI.
 

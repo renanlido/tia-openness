@@ -36,10 +36,10 @@ From the [**Releases**](https://github.com/renanlido/tia-openness/releases/lates
 
 > **Windows may warn about the installer.** The installer is not code-signed yet, so Edge may say the file "isn't commonly
 > downloaded" and Windows SmartScreen may show **Unknown publisher** or **Windows protected your PC**. Download it only from
-> the Releases page above. In Edge, choose **⋯** (or **Show more**) → **Keep**; if Edge then asks you to confirm, choose
-> **Keep anyway** (some versions put it under the **Delete ▾** menu). Before you open it, compare its SHA-256 with the **SHA-256** column of the
-> release notes; letter case does not matter:
-> `Get-FileHash "$env:USERPROFILE\Downloads\TIAOpenness-Setup-<version>.exe" -Algorithm SHA256`. If it does not match,
+> the Releases page above. In Edge, choose **⋯** → **Keep**; if Edge asks to confirm, choose **Show more** → **Keep anyway**
+> (some versions show **See more** first, or put **Keep anyway** under the **Delete ▾** menu). Before you open the file,
+> compare its SHA-256 with the **SHA-256** column of the release notes; letter case does not matter. Use the path and name
+> Edge saved it under, for example `Get-FileHash "$env:USERPROFILE\Downloads\TIAOpenness-Setup-<version>.exe" -Algorithm SHA256`. If it does not match,
 > delete the file. If it matches and SmartScreen stops it, choose **More info** → **Run anyway**. If your organization's
 > policy hides these options, ask your IT team.
 
