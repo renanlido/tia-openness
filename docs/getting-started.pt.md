@@ -28,13 +28,20 @@ Na máquina que tem o **TIA Portal V21**:
 
 Na página [**Releases**](https://github.com/renanlido/tia-openness/releases/latest):
 
-- **Instalador (recomendado):** baixe `TIAOpenness-Setup-1.7.1.exe` para o PLCWare 1.7.1 stable.
+- **Instalador (recomendado):** baixe `TIAOpenness-Setup-<versão>.exe` da última versão estável.
   Ele copia o app e os arquivos de agentes incluídos e configura o ambiente do usuário original do Windows.
   Se as permissões do grupo exigirem um novo login, a página final oferece **Reiniciar agora / Reiniciar depois** e
   **não** abre os primeiros passos imediatamente. Salve seu trabalho antes de reiniciar.
   Sem reinício pendente, **Ver os primeiros passos** vem marcado em instalações novas e desmarcado nas atualizações.
-- **Portátil:** baixe `TIAOpenness-app-v1.7.1.zip`, descompacte e execute `TIAOpenness.exe setup`.
+- **Portátil:** baixe `TIAOpenness-app-v<versão>.zip`, descompacte e execute `TIAOpenness.exe setup`.
   A conexão sem Node no sistema exige os arquivos do instalador; o ZIP do app não é equivalente.
+
+> **Avisos do Windows sobre o instalador.** O instalador ainda não tem assinatura de código. O Edge pode dizer que o
+> arquivo "normalmente não é baixado", e o SmartScreen do Windows pode mostrar **Fornecedor: Desconhecido** ou **O Windows
+> protegeu o computador**. Antes de manter ou executar, compare o SHA-256 dele com a coluna **SHA-256** das notas da versão:
+> `Get-FileHash .\TIAOpenness-Setup-<versão>.exe -Algorithm SHA256`. Se for igual, mantenha no Edge (**⋯** → **Manter** →
+> **Manter assim mesmo**) e, se o SmartScreen bloquear, escolha **Mais informações** → **Executar assim mesmo**. Se for
+> diferente, apague o arquivo.
 
 A janela de primeiros passos verifica o ambiente e tenta iniciar a API automaticamente, com ativação de licença e
 conexão de agentes nas etapas principais e verificações técnicas em **Detalhes**. No próximo login após o reinício
