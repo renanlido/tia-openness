@@ -33,10 +33,12 @@
 - **便携版：** 下载 `TIAOpenness-app-v<版本>.zip`，解压后运行 `TIAOpenness.exe setup`。
   不需要系统 Node 的连接方式依赖安装程序所附文件；应用 ZIP 并不等价。
 
-> **Windows 对安装程序的警告。** 安装程序目前尚未进行代码签名。Edge 可能提示该文件"不常被下载"，Windows SmartScreen
-> 可能显示**未知发布者**或 **Windows 已保护你的电脑**。保留或运行之前，请将文件的 SHA-256 与发行说明中 **SHA-256**
-> 列的值比对：`Get-FileHash .\TIAOpenness-Setup-<版本>.exe -Algorithm SHA256`。一致时，在 Edge 中保留（**⋯** → **保留**
-> → **仍然保留**）；若被 SmartScreen 拦截，选择**更多信息** → **仍要运行**。不一致时请删除该文件。
+> **Windows 可能对安装程序发出警告。** 安装程序目前尚未进行代码签名，因此 Edge 可能提示该文件不常被下载，Windows SmartScreen
+> 可能提示发布者未知或显示 **Windows 已保护你的电脑**。请只从上面的 Releases 页面下载。在 Edge 中选择 **⋯**（或 **显示更多**）→
+> **保留**；若 Edge 要求确认，选择 **仍然保留**（有些版本把它放在 **删除 ▾** 菜单中）。打开之前，请将文件的 SHA-256 与
+> 发行说明中 **SHA-256** 列的值比对，不区分大小写：
+> `Get-FileHash "$env:USERPROFILE\Downloads\TIAOpenness-Setup-<版本>.exe" -Algorithm SHA256`。不一致时请删除该文件。
+> 一致且被 SmartScreen 拦截时，选择 **更多信息** → **仍要运行**。如果组织策略隐藏了这些选项，请联系 IT 部门。
 
 入门窗口会检查环境并尝试自动启动 API；主要步骤包含许可证激活和智能体连接，技术诊断位于 **Details**。
 在要求重启后的下次登录时，仅当设置仍需处理才打开窗口；已完成设置则只显示简短的就绪通知。

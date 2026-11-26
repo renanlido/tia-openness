@@ -36,12 +36,14 @@ Na página [**Releases**](https://github.com/renanlido/tia-openness/releases/lat
 - **Portátil:** baixe `TIAOpenness-app-v<versão>.zip`, descompacte e execute `TIAOpenness.exe setup`.
   A conexão sem Node no sistema exige os arquivos do instalador; o ZIP do app não é equivalente.
 
-> **Avisos do Windows sobre o instalador.** O instalador ainda não tem assinatura de código. O Edge pode dizer que o
-> arquivo "normalmente não é baixado", e o SmartScreen do Windows pode mostrar **Fornecedor: Desconhecido** ou **O Windows
-> protegeu o computador**. Antes de manter ou executar, compare o SHA-256 dele com a coluna **SHA-256** das notas da versão:
-> `Get-FileHash .\TIAOpenness-Setup-<versão>.exe -Algorithm SHA256`. Se for igual, mantenha no Edge (**⋯** → **Manter** →
-> **Manter assim mesmo**) e, se o SmartScreen bloquear, escolha **Mais informações** → **Executar assim mesmo**. Se for
-> diferente, apague o arquivo.
+> **O Windows pode avisar sobre o instalador.** O instalador ainda não tem assinatura de código, então o Edge pode dizer que
+> o arquivo "normalmente não é baixado" e o SmartScreen do Windows pode mostrar **Fornecedor: Desconhecido** ou **O Windows
+> protegeu o computador**. Baixe-o só pela página de Releases acima. No Edge, escolha **⋯** (ou **Ver mais**) → **Manter**;
+> se o Edge pedir confirmação, escolha **Manter assim mesmo** (algumas versões o põem no menu **Excluir ▾**). Antes de
+> abrir, compare o SHA-256 dele com a coluna **SHA-256** das notas da versão; maiúsculas e minúsculas não importam:
+> `Get-FileHash "$env:USERPROFILE\Downloads\TIAOpenness-Setup-<versão>.exe" -Algorithm SHA256`. Se for diferente, apague o
+> arquivo. Se for igual e o SmartScreen bloquear, escolha **Mais informações** → **Executar assim mesmo**. Se a política da
+> sua empresa esconder essas opções, fale com a equipe de TI.
 
 A janela de primeiros passos verifica o ambiente e tenta iniciar a API automaticamente, com ativação de licença e
 conexão de agentes nas etapas principais e verificações técnicas em **Detalhes**. No próximo login após o reinício

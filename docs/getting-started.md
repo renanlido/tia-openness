@@ -34,11 +34,14 @@ From the [**Releases**](https://github.com/renanlido/tia-openness/releases/lates
 - **Portable:** download `TIAOpenness-app-v<version>.zip`, unzip, then run `TIAOpenness.exe setup`.
   The no-system-Node connection path requires the installer payload; the app ZIP is not equivalent.
 
-> **Windows warnings about the installer.** The installer is not code-signed yet. Edge may say the file "isn't commonly
-> downloaded", and Windows SmartScreen may show **Unknown publisher** or **Windows protected your PC**. Before you keep or
-> run it, compare its SHA-256 with the **SHA-256** column of the release notes:
-> `Get-FileHash .\TIAOpenness-Setup-<version>.exe -Algorithm SHA256`. If it matches, keep it in Edge (**⋯** → **Keep** →
-> **Keep anyway**) and, if SmartScreen stops it, choose **More info** → **Run anyway**. If it does not match, delete the file.
+> **Windows may warn about the installer.** The installer is not code-signed yet, so Edge may say the file "isn't commonly
+> downloaded" and Windows SmartScreen may show **Unknown publisher** or **Windows protected your PC**. Download it only from
+> the Releases page above. In Edge, choose **⋯** (or **Show more**) → **Keep**; if Edge then asks you to confirm, choose
+> **Keep anyway** (some versions put it under the **Delete ▾** menu). Before you open it, compare its SHA-256 with the **SHA-256** column of the
+> release notes; letter case does not matter:
+> `Get-FileHash "$env:USERPROFILE\Downloads\TIAOpenness-Setup-<version>.exe" -Algorithm SHA256`. If it does not match,
+> delete the file. If it matches and SmartScreen stops it, choose **More info** → **Run anyway**. If your organization's
+> policy hides these options, ask your IT team.
 
 The getting-started window checks the environment and attempts to start the API automatically, with license activation
 and agent connection in the main steps and technical checks under **Details**. At the next sign-in after a requested

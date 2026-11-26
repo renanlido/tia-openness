@@ -37,12 +37,14 @@ Desde la página de [**Releases**](https://github.com/renanlido/tia-openness/rel
 - **Portable:** descarga `TIAOpenness-app-v<versión>.zip`, descomprímelo y ejecuta `TIAOpenness.exe setup`.
   La conexión sin Node del sistema requiere los archivos del instalador; el ZIP de la aplicación no es equivalente.
 
-> **Avisos de Windows sobre el instalador.** El instalador aún no tiene firma de código. Edge puede decir que el archivo
-> "no se descarga habitualmente", y SmartScreen de Windows puede mostrar **Editor desconocido** o **Windows protegió su
-> PC**. Antes de conservarlo o ejecutarlo, compara su SHA-256 con la columna **SHA-256** de las notas de la versión:
-> `Get-FileHash .\TIAOpenness-Setup-<versión>.exe -Algorithm SHA256`. Si coincide, consérvalo en Edge (**⋯** → **Conservar**
-> → **Conservar de todos modos**) y, si SmartScreen lo detiene, elige **Más información** → **Ejecutar de todas formas**.
-> Si no coincide, elimina el archivo.
+> **Windows puede advertir sobre el instalador.** El instalador aún no tiene firma de código, así que Edge puede advertir que
+> el archivo no se descarga con frecuencia y SmartScreen de Windows puede mostrar **Editor desconocido** o **Windows protegió
+> su PC**. Descárgalo solo desde la página de Releases de arriba. En Edge, elige **⋯** (o **Mostrar más**) → **Conservar**;
+> si Edge pide confirmación, elige **Conservar de todas formas** (algunas versiones lo ponen en el menú **Eliminar ▾**). Antes de abrirlo, compara su
+> SHA-256 con la columna **SHA-256** de las notas de la versión; mayúsculas y minúsculas no importan:
+> `Get-FileHash "$env:USERPROFILE\Downloads\TIAOpenness-Setup-<versión>.exe" -Algorithm SHA256`. Si no coincide, elimina el
+> archivo. Si coincide y SmartScreen lo detiene, elige **Más información** → **Ejecutar de todas formas**. Si la directiva de
+> tu organización oculta estas opciones, consulta a tu equipo de TI.
 
 La ventana de primeros pasos comprueba el entorno e intenta iniciar la API automáticamente; la activación de licencia
 y la conexión de agentes están en los pasos principales y los diagnósticos técnicos en **Details**. En el siguiente
